@@ -290,23 +290,55 @@ NEON MAGs assigned to the *Gammaproteobacteria* class were found in all ecosyste
 
 
 ![**Figure 13:**](/cloud/project/images/Plots/Gamma/Gammaproteobacteria_Temp_pH_NLCD_Ecosub.png)
-Members of *Gammaproteobacteria* were found in a variety of ecosystem conditions. The soil pH of all *Gammaproteobacterial* samples was largely neutral to mildly acidic with lowest pH around 4 (Fig. 4). Overall, the vegetation class of sedge and grassland herbaceous and contained the least amount of family groups in *Gammproteobacteria* (Fig. 13). This is not too surprising for sedge herbaceous as this vegetation class is only found in one Alaskan NEON site (Sup. Fig. 1). However, grassland herbaceous vegetation is present in 5 out of the 13 sample sites (Sup. Fig 2). Interestingly, despite being the *Gammaproteobacteria* order with the most MAGs and existing in a variety of vegetation classes, soil pH and temperatures, no members of the *Steroidobacterales* order were found in tropical forest or desert ecosystems sampled in this study(Fig. 13). These ecosystem subtypes correspond to NEON sites in Puerto Rico and Arizona, USA, respectively (Sup.Fig 2).    
+Members of *Gammaproteobacteria* were found in a variety of ecosystem conditions. The soil pH of all *Gammaproteobacteria* samples was largely neutral to mildly acidic with lowest pH around 4 (Fig. 4). Overall, the vegetation class of sedge and grassland herbaceous and contained the least amount of family groups in *Gammproteobacteria* (Fig. 13). This is not too surprising for sedge herbaceous as this vegetation class is only found in one Alaskan NEON site (Sup. Fig. 1). However, grassland herbaceous vegetation is present in 5 out of the 13 sample sites (Sup. Fig 2). Interestingly, despite being the *Gammaproteobacteria* order with the most MAGs and existing in a variety of vegetation classes, soil pH and temperatures, no members of the *Steroidobacterales* order were found in tropical forest or desert ecosystems sampled in this study(Fig. 13). These ecosystem subtypes correspond to NEON sites in Puerto Rico and Arizona, USA, respectively (Sup.Fig 2).    
 
-![**Figure 1:**](/cloud/project/images/Plots/Gamma/Gammaproteobacteria_Sample_Elevation_vs_Family.png)
+## Figure 14:*Steroidobacterale Steroidobacteraceae*
+	
+```{r,fig.height=10, fig.width=6}
+NEON_MAGs_metagenomes_chemistry_Steroidobacterales <-NEON_MAGs_metagenomes_chemistry_Steroidobacterales  %>%
+  mutate(`Genome Size (Kbp)`=as.integer(`Total Number of Bases`/1000))
 
-## Figure 14:Steroidobacterales 
-```{r,fig.height=8, fig.width=6}
+NEON_MAGs_metagenomes_chemistry_Steroidobacterales  %>%
+  ggplot(aes(x=Genus, y=`Ecosystem Subtype`))+geom_point(show.legend=FALSE)+labs(title="Genus Distribution", x="Genus", y="Ecosystem Subtype")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))+
+  
+  ggplot(data=NEON_MAGs_metagenomes_chemistry_Steroidobacterales,aes(x=Genus, `Site ID.x`))+geom_point(show.legend=FALSE)+labs(title="Genus Distribution", x="Genus", y="Site ID")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))+
+  
+  ggplot(data=NEON_MAGs_metagenomes_chemistry_Steroidobacterales, aes(x=`Genus`,y=`Genome Size (Kbp)`))+geom_boxplot(show.legend = FALSE)+scale_y_continuous(limits=c(0,15000), breaks=c(2500,5000,7500,10000,12500,15000))+theme_classic()+labs(title="Genome Size Distribution", x="Genus", y="Genome Size (Kbp)")+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))+
+  ggplot(data=NEON_MAGs_metagenomes_chemistry_Steroidobacterales,aes(x=Genus))+geom_bar(show.legend=FALSE)+labs(title="Genus Distribution", x="Genus", y="n")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+  
+```
+
+## Figure 15: *Steroidobacteraceae* BOG-1198
+```{r,fig.height=8, fig.width=8}
 NEON_MAGs_metagenomes_chemistry_Bog <-NEON_MAGs_metagenomes_chemistry_Steroidobacterales  %>%
   filter(str_detect(Genus,"Bog-1198"))
 
-NEON_MAGs_metagenomes_chemistry_Steroidobacterales  %>%
-  mutate(`Genome Size (Kbp)`=as.integer(`Total Number of Bases`/1000)) %>%
-  ggplot(aes(x=`Genus`,y=`Genome Size (Kbp)`))+geom_boxplot(show.legend = FALSE)+scale_y_continuous(limits=c(0,15000), breaks=c(2500,5000,7500,10000,12500,15000))+theme_classic()+labs(title="Genome Size Distribution", x="Genus", y="Genome Size (Kbp)")+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))+
+NEON_MAGs_metagenomes_chemistry_Bog %>%         
+         ggplot(aes(x=`Ecosystem Subtype`))+geom_bar(show.legend=FALSE)+labs(title="Ecosystem Subtype Distribution", x="Ecosystem Subtype", y="n")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))+
   
-  ggplot(data=NEON_MAGs_metagenomes_chemistry_Steroidobacterales,aes(x=Genus))+geom_bar(show.legend=FALSE)+labs(title="Genus Distribution", x="Genus", y="n")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
-
+  ggplot(data=NEON_MAGs_metagenomes_chemistry_Bog, aes(x=`Site.x`))+geom_bar(show.legend=FALSE)+labs(title="Site Distribution", x="Site", y="n")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
 ```
-## Figure 15 Genus BOG-11198
+
+Members in the order *Steriobacterales* were further examined to see if their high population is correlated with genome size or sample location. Only the *Steroidobacteraceae* family was found under the order. This family contain 7 genera with the genus BOG-1198 accounting for 30 of the 50 of *Steriobacterales* MAGs (figs. 10,14). Once again the distribution of genome size appears correlated to the total MAG counts for each genera in the *Steroidobacteraceae* family, with the higher populations corresponding to larger deviation in genome size. Given that BOG-1198 accounted for a majority of *Steriobacterales* MAGs, the genus was further examined. Members of this genus were found in several ecosystem subtypes and sample sites located in the northern United States. The majority Individual Assemblies of *Steroidobacteraceae* BOG-1198 MAGs were found at one of the three Alaskan sample sites (Figure 16).Note that all combined assembly MAGs were given the shrubland ecosystem subtype. A third of all BOG-1198 MAGs were coassembled.    
+
+
+## Figure 16: *Burkholderiales*
+	
+```{r,fig.height=10, fig.width=8}
+NEON_MAGs_metagenomes_chemistry_Burkholderiales <-NEON_MAGs_metagenomes_chemistry_Burkholderiales  %>%
+  mutate(`Genome Size (Kbp)`=as.integer(`Total Number of Bases`/1000))
+
+NEON_MAGs_metagenomes_chemistry_Burkholderiales  %>%
+  ggplot(aes(x=Genus, y=`Ecosystem Subtype`))+geom_point(show.legend=FALSE)+labs(title="Genus Distribution", x="Genus", y="Ecosystem Subtype")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))+
+  
+  ggplot(data=NEON_MAGs_metagenomes_chemistry_Burkholderiales,aes(x=Genus, `Site ID.x`))+geom_point(show.legend=FALSE)+labs(title="Genus Distribution", x="Genus", y="Site ID")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))+
+  
+  ggplot(data=NEON_MAGs_metagenomes_chemistry_Burkholderiales, aes(x=`Genus`,y=`Genome Size (Kbp)`))+geom_boxplot(show.legend = FALSE)+scale_y_continuous(limits=c(0,15000), breaks=c(2500,5000,7500,10000,12500,15000))+theme_classic()+labs(title="Genome Size Distribution", x="Genus", y="Genome Size (Kbp)")+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))+
+  ggplot(data=NEON_MAGs_metagenomes_chemistry_Burkholderiales,aes(x=Genus))+geom_bar(show.legend=FALSE)+labs(title="Genus Distribution", x="Genus", y="n")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+  
+```
+
+## Figure 17: *Steroidobacteraceae* BOG-1198
 ```{r,fig.height=8, fig.width=8}
 NEON_MAGs_metagenomes_chemistry_Steroidobacterales  %>%
   filter(str_detect(Genus,"Bog-1198")) %>%
@@ -315,14 +347,10 @@ ggplot(aes(x=`Ecosystem Subtype`))+geom_bar(show.legend=FALSE)+labs(title="Ecosy
   ggplot(data=NEON_MAGs_metagenomes_chemistry_Bog, aes(x=`Site.x`))+geom_bar(show.legend=FALSE)+labs(title="Site Distribution", x="Site", y="n")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
 ```
 
+Members of the order *Burkholderiales* were also examined further to determine if their broader diversity at the family level corresponded to the variety of ecosystems they were found in.
 
 
-
-Members in the order *Steriobacterales* were further examined to see if their high population is correlated with genome size or sample location.  
-
-
-
-
+![**Figure 1:**](/cloud/project/images/Plots/Gamma/Gammaproteobacteria_Sample_Elevation_vs_Family.png)
 
 
 ![**Figure 1:**](/cloud/project/images/Plots/Gamma/Gammaproteobacteria_Sample_Elevation_vs_Family.png)

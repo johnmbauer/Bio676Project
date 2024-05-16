@@ -324,17 +324,17 @@ Members in the order *Steriobacterales* were further examined to see if their hi
 
 ## Figure 16: *Burkholderiales*
 	
-```{r,fig.height=10, fig.width=8}
+```{r,fig.height=10, fig.width=10}
 NEON_MAGs_metagenomes_chemistry_Burkholderiales <-NEON_MAGs_metagenomes_chemistry_Burkholderiales  %>%
   mutate(`Genome Size (Kbp)`=as.integer(`Total Number of Bases`/1000))
 
 NEON_MAGs_metagenomes_chemistry_Burkholderiales  %>%
-  ggplot(aes(x=Genus, y=`Ecosystem Subtype`))+geom_point(show.legend=FALSE)+labs(title="Genus Distribution", x="Genus", y="Ecosystem Subtype")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))+
+  ggplot(aes(x=Genus, y=`Ecosystem Subtype`,color=`Family`))+geom_point(show.legend=FALSE)+labs(title="Genus Distribution", x="Genus", y="Ecosystem Subtype")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))+
   
-  ggplot(data=NEON_MAGs_metagenomes_chemistry_Burkholderiales,aes(x=Genus, `Site ID.x`))+geom_point(show.legend=FALSE)+labs(title="Genus Distribution", x="Genus", y="Site ID")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))+
+  ggplot(data=NEON_MAGs_metagenomes_chemistry_Burkholderiales,aes(x=Genus,y= `Site.x`,color=`Family`))+geom_point()+labs(title="Genus Distribution", x="Genus", y="Site ID")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))+
   
-  ggplot(data=NEON_MAGs_metagenomes_chemistry_Burkholderiales, aes(x=`Genus`,y=`Genome Size (Kbp)`))+geom_boxplot(show.legend = FALSE)+scale_y_continuous(limits=c(0,15000), breaks=c(2500,5000,7500,10000,12500,15000))+theme_classic()+labs(title="Genome Size Distribution", x="Genus", y="Genome Size (Kbp)")+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))+
-  ggplot(data=NEON_MAGs_metagenomes_chemistry_Burkholderiales,aes(x=Genus))+geom_bar(show.legend=FALSE)+labs(title="Genus Distribution", x="Genus", y="n")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+  ggplot(data=NEON_MAGs_metagenomes_chemistry_Burkholderiales, aes(x=`Genus`,y=`Genome Size (Kbp)`,color=`Family`))+geom_boxplot(show.legend = FALSE)+scale_y_continuous(limits=c(0,15000), breaks=c(2500,5000,7500,10000,12500,15000))+theme_classic()+labs(title="Genome Size Distribution", x="Genus", y="Genome Size (Kbp)")+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))+
+  ggplot(data=NEON_MAGs_metagenomes_chemistry_Burkholderiales,aes(x=Genus,fill=`Family`))+geom_bar()+labs(title="Genus Distribution", x="Genus", y="n")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
   
 ```
 
@@ -347,7 +347,48 @@ ggplot(aes(x=`Ecosystem Subtype`))+geom_bar(show.legend=FALSE)+labs(title="Ecosy
   ggplot(data=NEON_MAGs_metagenomes_chemistry_Bog, aes(x=`Site.x`))+geom_bar(show.legend=FALSE)+labs(title="Site Distribution", x="Site", y="n")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
 ```
 
-Members of the order *Burkholderiales* were also examined further to determine if their broader diversity at the family level corresponded to the variety of ecosystems they were found in.
+Members of the order *Burkholderiales* were also examined further at the genus level to determine if their broader diversity corresponded to the variety of ecosystems they were found in. The *Burkholderiaceae families*    *Burkholderiales herbaspirillum*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ![**Figure 1:**](/cloud/project/images/Plots/Gamma/Gammaproteobacteria_Sample_Elevation_vs_Family.png)
@@ -439,6 +480,13 @@ redo this because points are overlapping
 
 
 # Discussion:
+
+
+## Gammaproteobacteria
+Several notable genera in *Burkholderiales* were found in this study, Caballeronia, paraburkholderia (known nitrogen fixators and endosymbotes), trinickia Novel associated with phytopathogen from journal club
+
+
+## Toolik
 
 # Code
 ## Lab 8

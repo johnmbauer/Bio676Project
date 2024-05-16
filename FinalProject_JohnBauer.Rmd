@@ -1,0 +1,232 @@
+---
+title: "FinalProject_JohnBauer"
+author: "John Bauer"
+date: "2024-05-15"
+bibliography: references.bib
+output: 
+  html_document:
+    toc: true
+    toc_depth: 4
+    Theme: yeti
+    Highlight: haddock
+    code_folding: hide
+---
+```{r}
+library(knitr)
+library(tidyverse)
+```
+
+
+
+# Abstract
+
+# Introduction:
+
+  Carbon emissions from industrial activity has led to numerous changes to the global climate that threaten the ecosystems humanity depends on for industrial agriculture. Rising temperatures has caused the melting of glaciers and permafrost releasing bacterial species that have been dormant for millennium (source). Additionally, The higher green house gas atmospheric content has lead to the acidification of both ocean and ground water (source). The changing climate has also lead to species migration. With the recent passing of the 1.5 Celsius average global temperature milestone set by ORG, it is imperative that society adapt to our changing world. 
+
+  In the face of climate and antibiotic challenges, plants have developed symbotic relationships with bacteria. PLANT BACTERIA BIOCONTROL EX. PLANT NITROGEN RELATION. Thus, it has been proposed that humanity's crops could be better insulated to ecological changes by exploiting these relationships. While several beneficial bacterial species have identified, the vast majority of the bacterial kingdom remains sequenced. Additionally, with their ability to rapidly evolve in the face of ecological challenges, new species with more robust tolerances to climate change influences will only grow with time. Thus, soil bacterium represent a vast untapped resource of climate change resistant proteins, biocontrol agents, and nitrogen fixators. Data collection effort by organizations like the National Ecological Observatory Network, provide a valuable genomic resource for phylogenetic analyses to determine the identities potential beneficial bacteria as well as monitoring the population changes caused by a changing climate.
+
+![**Figure 1:** Phylogenetic Tree of all MAGs collected in GOLD Study ID Gs0161344 by the National Ecological Observatory Network.](/cloud/project/images/Plots/Gamma/NEON_MAGs_Phylum_Highlight_with_Label_Circular_Tree.png)
+
+  This study's genomic data set was collected from soil samples by the National Ecological Observatory Network (NEON) from locations across the United States in GOLD Study ID  Gs0161344. There were INSERT total MAGs with PERCENT been novel species of bacteria. To make analyses more feasible, this report will only comment on two data subsets, MAGs belonging to the class Gammaproteobacteria, and MAGs belonging found at Toolik Field Station, Alaska USA. 
+
+
+![**Figure 2:** Uprooted maximum-likelyhood phylogentic tree of gammaproteobactria based on 120 concatenated single copy proteins sequences from 780 reference genomes [@liao_reclassification_2020]. Figure adapted from Figure 2 of Liao et al.](liaoFig2.png)
+
+  The class Gammaproteobacteria, under the phylum Pseudomondata, is made up of around 381 genera that thrive in marine, terrestial, and eukaryotic host ecosystems [@liao_reclassification_2020]. Historically, this class has be defined phylogenetically by 16s rRNA sequence homology [@williams_proposal_2013]. Some notable members of this class include *Escherichia coli*, *Vibrio fischeri*, and *Pseudomonas aeruginosa*. INSERT SOIL EXAMPLES. This class has great diversity of morphologies with rod, cocci, spirilla, and filaments all represented [@williams_phylogeny_2010]. Additionally, species in class display a variety of trophisms including chemoautotrophs and photoautotrophs [@gao_phylogenomics_2009].
+
+![**Figure 3:** Toolik Field Station, Alaska USA [@noauthor_photo_nodate]](/cloud/project/Toolik_Field_Station.png)
+
+  Located 400 miles north from Fairbanks, Alaska at the foot of the Brooks mountain range, biodiversity at Toolik Field Station is heavily influenced by its harsh winters where temperatures can reach -50⁰F. It is home to a variety of fauna including caribou, loons, voles, and polar bears. Located above the northern tree line, the vegetation in the tundra here mainly consists of birch, willow, sedges and grass. The site contains a large range of soil conditions, including layers of permafrost, created by glacial action [@NEON_collection_2023].   
+
+  This study examines the genomic content and environmental conditions of bacteria found at the Toolik Field station to help establish a reference population for future comparisons of bacterial population changes.  
+
+# Methods:
+
+## Data Processing:
+Microbial samples analyzed in this study were collected from soil samples taken from NEON observation sites across the United States and sequenced via high throughput Illumina sequencing. Sequence results were then processed and annotated by the DOE JGI Metagenome Workflow for its inclusion in the Integrated Microbial Genomes and Microbiomes (IGM/M) Database and Joint Genomic Institute 's Genomes Online Database (JGI GOLD). Briefly this workflow consists of the following steps: (1) Assembly of contigs and read alignment to assembled contigs. Contigs are additionally processed for quality control. (2) Feature prediction of coding and non-coding genes, as well as CRISPR sequences. (3) Functional annotation, in which predicted features are assigned identifiers based on sequence similarity. (4) Taxonomic annotation in which contig-level phylogenetic assignments are made based on functional annotations. (5) Binning by high- and medium-quality genome bins. Bins are additionally screened for contamination. A detailed explanation of the workflow can be found in Clum et al., *ASM mSystems*, 2021.
+
+## Figure Preparation: 
+The figures of this study were formatted with the following packages in R: 
+tidyverse,knitr, ggtree, TDbook #A Companion Package for the Book "Data Integration, Manipulation and Visualization of Phylogenetic Trees" by Guangchuang Yu (2022, ISBN:9781032233574).
+, ggimage, rphylopic, treeio, tidytree, ape, TreeTools, phytools, ggnewscale, ggtreeExtra, ggstar, DT (GGTREE SOURCES)
+
+# Results:
+## NEON Study 6 graphs
+
+
+
+![**Figure 1:**](/cloud/project/images/Plots/Gamma/NEON_MAGS_Gammaproteobacteria_Highlight_with_Label_Circular_Tree.png)
+![**Figure 1:**](/cloud/project/images/Plots/Lab9/Overall_MAG_Count_per_Phylum.png)
+
+
+![**Figure 1:**](/cloud/project/images/Plots/Gamma/NEON_MAGS_Gammaproteobacteria_with_Ecosystem_Subtype_System_Rectangular_Tree.png)
+^fix data pt shapes, also make this all mags if possible
+
+
+
+![**Figure 1:**](/cloud/project/images/Plots/Lab9/Total_Novel_Bacteria_per_Site.png)
+The vast majority of bacteria found in this study were determined to be novel species with PERCENT being unable to place phylogenetically at the genus level.
+
+![**Figure 1:**](/cloud/project/images/Plots/Lab9/Novel_Genera_per_Phylum.png)
+
+![**Figure 1:** Genome Count vs Genome size for all Bacterial NEON MAGs in GOLD Study ID Gs0161344](/cloud/project/images/Plots/Lab9/Gene_Count_vs_Estimated_Mag_Genome_Size.png)
+^change this so its not estimated
+
+Terrestrial bacteria are known to have large genomes encoding thousands genes. This is due in larger part to the diverse environment they are exposed to. Their larger genomes allow for the expression of multiple metabolic phenotypes that allow them to adapt to their environment. This trend was reflected in the NEON samples analyzed in this stud with the minimum and maximum genomes being INSERT and INSERT respectively. There was a linear relationship between gene count and genome for all NEON samples, with a rough 1000 bp per gene ratio.
+
+
+## Gammaproteobacteria 13/20 graphs
+
+![**Figure 1:**](/cloud/project/images/Plots/Gamma/NEON_MAGS_Gammaproteobacteria_with_Ecosystem_Subtype_and_Total_Number_of_Bases_Label_Circular_Tree.png)
+
+
+
+![**Figure 1:**](/cloud/project/images/Plots/Gamma/Gammaproteobacteria_Sample_Elevation_vs_Family.png)
+
+![**Figure 1:**](/cloud/project/images/Plots/Gamma/Gammaproteobacteria_Sample_Lattitude_vs_Family.png)
+
+![**Figure 1:**](/cloud/project/images/Plots/Gamma/Gammaproteobacteria_Sample_Longitude_vs_Family.png)
+
+
+
+![**Figure 1:**](/cloud/project/images/Plots/Gamma/Gammaproteobacteria_Sample_Soil_Temperature_vs_pH_in_Water.png)
+redo this because points are overlapping
+
+
+![**Figure 1:**](/cloud/project/images/Plots/Gamma/Gammaproteobacteria_with_Ecosystem_Subtype_Total_Number_of_Bases_and_Assembly_type_Outside_Layer_Label.png)
+
+
+
+
+
+![**Figure 1:**](/cloud/project/images/Plots/Gamma/NEON_MAGS_Gammaproteobacteria_triplot_with_ Gene_and_GC_Content.png)
+
+
+
+
+
+
+
+![**Figure 1:**](/cloud/project/images/Plots/Gamma/NEON_MAGS_Gammaproteobacteria_with_Order_Label_Circular_Tree.png)
+
+
+
+<!-- ![**Figure 1:**](/cloud/project/images/Plots/Gamma/) -->
+
+<!-- ![**Figure 1:**](/cloud/project/images/Plots/Gamma/) -->
+
+<!-- ![**Figure 1:**](/cloud/project/images/Plots/Gamma/) -->
+
+<!-- ![**Figure 1:**](/cloud/project/images/Plots/Gamma/) -->
+
+<!-- ![**Figure 1:**](/cloud/project/images/Plots/Gamma/) -->
+
+<!-- ![**Figure 1:**](/cloud/project/images/Plots/Gamma/) -->
+
+<!-- ![**Figure 1:**](/cloud/project/images/Plots/Gamma/) -->
+
+## Toolik 0/20 graphs
+
+![**Figure 1:**](/cloud/project/images/Plots/Toolik/Toolik_Sample_Soil_Temperature_vs_pH_in_Water.png)
+
+![**Figure 1:**](/cloud/project/images/Plots/Toolik/Toolik_Sample_Elevation_vs_Family.png)
+
+![**Figure 1:**](/cloud/project/images/Plots/Toolik/Toolik_Sample_Longitude_vs_Family.png)
+![**Figure 1:**](/cloud/project/images/Plots/Toolik/Toolik_Sample_Lattitude_vs_Family.png)
+
+
+![**Figure 1:**](/cloud/project/images/Plots/Toolik/Toolik_Rectangular_Tree.png)
+
+
+
+![**Figure 1:**](/cloud/project/images/Plots/Toolik/Toolik_Circular_Tree.png)
+
+![**Figure 1:**](/cloud/project/images/Plots/Toolik/NEON_MAGS_Toolik_Circular_Tree_with_Phylum_color.png)
+
+
+
+![**Figure 1:**](/cloud/project/images/Plots/Toolik/Toolik_Gammaproteobacteria_Highlight_with_Label_Circular_Tree.png)
+
+![**Figure 1:**](/cloud/project/images/Plots/Toolik/Toolik_Phylum_Highlight_with_Label_Circular_Tree.png)
+
+
+![**Figure 1:**](/cloud/project/images/Plots/Toolik/Toolik_MAGS__with_Order_Label_Circular_Tree.png)
+
+![**Figure 1:**](/cloud/project/images/Plots/Toolik/Toolik_MAGS_with_Order_and_Assembly_Label_Circular_Tree.png)
+
+
+
+![**Figure 1:**](/cloud/project/images/Plots/Toolik/Toolik_MAGS_with_Ecosystem_Subtype_System_Rectangular_Tree.png)
+
+![**Figure 1:**](/cloud/project/images/Plots/Toolik/Toolik_MAGS_with_Ecosystem_Subtype_and_Total_Number_of_Bases_Label_Circular_Tree.png)
+
+
+
+![**Figure 1:**](/cloud/project/images/Plots/Toolik/Toolik_MAGS_triplot_with_ Gene_and_GC_Content.png)
+
+
+
+# Discussion:
+
+# Code
+## Lab 8
+## Lab 9
+## Lab 10
+## Lab 12
+## Lab 14 
+## Lab 15
+## Lab 16
+## Gammaproteobacteria
+## Toolik
+
+# Supplemental Figures:
+
+![**Figure 1:**](/cloud/project/images/Plots/Gamma/NEON_MAGS_Gammaproteobacteria_Highlight_Circular_Tree.png)
+
+![**Figure 1:**](/cloud/project/images/Plots/Lab9/Overall_MAG_Count_per_Class.png)
+
+
+![**Figure 1:**](/cloud/project/images/Plots/Lab9/Overall_MAG_Count_per_Subplot.png)
+
+![**Figure 1:**](/cloud/project/images/Plots/Lab9/Total_Number_of_Mags_per_Phylum_at_Each_Site_facet.png)
+![**Figure 1:**](/cloud/project/images/Plots/Lab9/Total_Number_of_Mags_per_Phylum_at_Each_Site_facet.png)
+
+
+![**Figure 1:**](/cloud/project/images/Plots/Lab9/Scaffold_Count_vs_MAG_Completeness.png)
+
+![**Figure 1:**](/cloud/project/images/Plots/Toolik/Toolik_Gammaproteobacteria_Label_Circular_Tree.png)
+
+![**Figure 1:**](/cloud/project/images/Plots/Toolik/Toolik_MAGS_Gammaproteobacteria_Minimized_Circular_Tree.png)
+
+![**Figure 1:**](/cloud/project/images/Plots/Lab9/Novel_Bacteria_MAG_Quality.png)
+
+![**Figure 1:**](/cloud/project/images/Plots/Gamma/Gammaproteobacteria_Sample_Soil_Bin_Completeness_vs_Bin_Contamination_Total_Population_Comparison.png)
+![**Figure 1:**](/cloud/project/images/Plots/Toolik/Toolik_Sample_Soil_Bin_Completeness_vs_Bin_Contamination_Total_Population_Comparison.png)
+![**Figure 1:**](/cloud/project/images/Plots/Toolik/Toolik_Sample_Soil_Bin_Completeness_vs_Bin_Contamination.png)
+
+![**Figure 1:**](/cloud/project/images/Plots/Gamma/NEON_MAGS_Gammaproteobacteria_triplot_with_Bin_Completeness_and_Bin_Contamination_Bin_Quality.png)
+
+![**Figure 1:**](/cloud/project/images/Plots/Toolik/Toolik_MAGS_triplot_with_Bin_Completeness_and_Bin_Contamination.png)
+
+![**Figure 1:**](/cloud/project/images/Plots/Toolik/Toolik_MAGS_with_Bin_Completeness_Label_Rectangular_Tree.png)
+
+![**Figure 1:**](/cloud/project/images/Plots/Toolik/Toolik_Gammaproteobacteria_Highlight_Circular_Tree.png)
+
+# References:
+GGtree
+Yu G (2022). Data Integration, Manipulation and Visualization of Phylogenetic Treess, 1st edition edition. Chapman and Hall/CRC. doi:10.1201/9781003279242, https://www.amazon.com/Integration-Manipulation-Visualization-Phylogenetic-Computational-ebook/dp/B0B5NLZR1Z/.
+
+Xu S, Li L, Luo X, Chen M, Tang W, Zhan L, Dai Z, Tommy T. Lam, Guan Y, Yu G (2022). “Ggtree: A serialized data object for visualization of a phylogenetic tree and annotation data.” iMeta, 1(4), e56. doi:10.1002/imt2.56, https://onlinelibrary.wiley.com/doi/full/10.1002/imt2.56.
+
+Yu G (2020). “Using ggtree to Visualize Data on Tree-Like Structures.” Current Protocols in Bioinformatics, 69(1), e96. doi:10.1002/cpbi.96, https://currentprotocols.onlinelibrary.wiley.com/doi/abs/10.1002/cpbi.96.
+
+Yu G, Lam TT, Zhu H, Guan Y (2018). “Two methods for mapping and visualizing associated data on phylogeny using ggtree.” Molecular Biology and Evolution, 35, 3041-3043. doi:10.1093/molbev/msy194, https://academic.oup.com/mbe/article/35/12/3041/5142656.
+
+Yu G, Smith D, Zhu H, Guan Y, Lam TT (2017). “ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data.” Methods in Ecology and Evolution, 8, 28-36. doi:10.1111/2041-210X.12628, http://onlinelibrary.wiley.com/doi/10.1111/2041-210X.12628/abstract.
+
+
+gold Please cite:
+Supratim Mukherjee, Dimitri Stamatis, Cindy Tianqing Li, Galina Ovchinnikova, Jon Bertsch, Jagadish Chandrabose Sundaramurthi, Mahathi Kandimalla, Paul A. Nicolopoulos, Alessandro Favognano, I-Min A. Chen , Nikos C. Kyrpides and T.B.K. Reddy. Twenty-five years of Genomes OnLine Database (GOLD): data updates and new features in v.9. Nucl. Acids Res. (2022) doi: doi.org/10.1093/nar/gkac974
+
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8269246/

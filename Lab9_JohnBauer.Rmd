@@ -353,8 +353,8 @@ ggsave(
 What is the relationship between MAGs genome size and the number of genes? Color by Phylum.
 ```{r, fig.width = 8, fig.height = 8}
 NEON_MAGs_bact_ind %>%
-            mutate(`Estimated Genome Size (Kbp)`=as.integer(`Total Number of Bases`/(`Bin Completeness`/100)/1000)) %>%
-            ggplot(aes(x=`Gene Count`, y=`Estimated Genome Size (Kbp)`, color=Phylum))+geom_point()+labs(title="Gene Count vs Estimated Mag Genome Size", x="Gene", y="Estimated Genome Size (Kbp)")+theme_classic()
+            mutate(`Genome Size (Kbp)`=as.integer(`Total Number of Bases`/1000)) %>%
+            ggplot(aes(x=`Gene Count`, y=`Genome Size (Kbp)`, color=Phylum))+geom_point()+labs(title="Gene Count vs Estimated Mag Genome Size", x="Gene", y="Estimated Genome Size (Kbp)")+theme_classic()
 
 ggsave(
   "Gene_Count_vs_Estimated_Mag_Genome_Size.png",
@@ -370,6 +370,7 @@ ggsave(
   bg = NULL,
   create.dir = FALSE,
 )
+
 ```
 
 ## Exercise #9

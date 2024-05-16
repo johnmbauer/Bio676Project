@@ -26,17 +26,59 @@ library(tidyverse)
 
   In the face of climate and antibiotic challenges, plants have developed symbiotic relationships with bacteria. PLANT BACTERIA BIOCONTROL EX. PLANT NITROGEN RELATION. Thus, it has been proposed that humanity's crops could be better insulated to ecological changes by exploiting these relationships. While several beneficial bacterial species have identified, the vast majority of the bacterial kingdom remains sequenced. Additionally, with their ability to rapidly evolve in the face of ecological challenges, new species with more robust tolerances to climate change influences will only grow with time. Thus, soil bacterium represent a vast untapped resource of climate change resistant proteins, biocontrol agents, and nitrogen fixators. Data collection effort by organizations like the National Ecological Observatory Network, provide a valuable genomic resource for phylogenetic analyses to determine the identities potential beneficial bacteria as well as monitoring the population changes caused by a changing climate.
 
-![**Figure 1:** Phylogenetic Tree of all MAGs collected in GOLD Study ID Gs0161344 by the National Ecological Observatory Network.](/cloud/project/images/Plots/Gamma/NEON_MAGs_Phylum_Highlight_with_Label_Circular_Tree.png)
 
+
+
+
+
+
+
+
+
+
+![**Figure 1:** Phylogenetic Tree of all MAGs collected in GOLD Study ID Gs0161344 by the National Ecological Observatory Network with bacterial phyla labels](/cloud/project/images/Plots/Gamma/NEON_MAGs_Phylum_Highlight_with_Label_Circular_Tree.png)
+
+ 
+ 
+
+ 
+ 
+ 
   This study's genomic data set was collected from soil samples by the National Ecological Observatory Network (NEON) from locations across the United States in GOLD Study ID  Gs0161344. There were INSERT total MAGs with PERCENT been novel species of bacteria. To make analyses more feasible, this report will only comment on two data subsets, MAGs belonging to the class Gammaproteobacteria, and MAGs belonging found at Toolik Field Station, Alaska USA. 
+
+
+
+
+
+
+
+
+
 
 
 
 ![**Figure 2:** Uprooted maximum-likelyhood phylogentic tree of gammaproteobactria based on 120 concatenated single copy proteins sequences from 780 reference genomes [@liao_reclassification_2020]. Figure adapted from Figure 2 of Liao et al.](/cloud/project/liaoFig2(1).png)
 
+
+
+
+
   The class Gammaproteobacteria, under the phylum Pseudomondata, is made up of around 381 genera that thrive in marine, terrestial, and eukaryotic host ecosystems [@liao_reclassification_2020]. Historically, this class has be defined phylogenetically by 16s rRNA sequence homology [@williams_proposal_2013]. Some notable members of this class include *Escherichia coli*, *Vibrio fischeri*, and *Pseudomonas aeruginosa*. INSERT SOIL EXAMPLES. This class has great diversity of morphologies with rod, cocci, spirilla, and filaments all represented [@williams_phylogeny_2010]. Additionally, species in class display a variety of trophisms including chemoautotrophs and photoautotrophs [@gao_phylogenomics_2009].
 
+
+
+
+
+
+
+
 ![**Figure 3:** Toolik Field Station, Alaska USA [@noauthor_photo_nodate]](/cloud/project/Toolik_Field_Station.png)
+
+
+
+
+
+
 
   Located 400 miles north from Fairbanks, Alaska at the foot of the Brooks mountain range, biodiversity at Toolik Field Station is heavily influenced by its harsh winters where temperatures can reach -50⁰F. It is home to a variety of fauna including caribou, loons, voles, and polar bears. Located above the northern tree line, the vegetation in the tundra here mainly consists of birch, willow, sedges and grass. The site contains a large range of soil conditions, including layers of permafrost, created by glacial action [@NEON_collection_2023].   
 
@@ -57,29 +99,32 @@ tidyverse,knitr, ggtree, TDbook #A Companion Package for the Book "Data Integrat
 
 
 
-![**Figure 1:**](/cloud/project/images/Plots/Gamma/NEON_MAGS_Gammaproteobacteria_Highlight_with_Label_Circular_Tree.png)
-![**Figure 1:**](/cloud/project/images/Plots/Lab9/Overall_MAG_Count_per_Phylum.png)
+![**Figure 4:** Phylogenetic treee of all MAGs collected in GOLD Study ID Gs0161344 by the National Ecological Observatory Network with the Gammaproteobacteria class of Psedomondata highlighted in blue](/cloud/project/images/Plots/Gamma/NEON_MAGS_Gammaproteobacteria_Highlight_with_Label_Circular_Tree.png)
+![**Figure 5:** Phylogenetic tree of all MAGs belonging to the class Gammaproteobacteria with Site location and Ecosystem subtype markers. ](/cloud/project/images/Plots/Gamma/NEON_MAGS_Gammaproteobacteria_with_Ecosystem_Subtype_System_Rectangular_Tree.png)
 
-
-![**Figure 1:**](/cloud/project/images/Plots/Gamma/NEON_MAGS_Gammaproteobacteria_with_Ecosystem_Subtype_System_Rectangular_Tree.png)
 ^fix data pt shapes, also make this all mags if possible
 
 
 
-![**Figure 1:**](/cloud/project/images/Plots/Lab9/Total_Novel_Bacteria_per_Site.png)
+![**Figure 6:** Overall NEON Site Distribution of MAGs organized by phyla](/cloud/project/images/Plots/Lab9/Overall_MAG_Count_per_Phylum.png)
+
+
+![**Figure 7:** Novel Bacteria MAG NEON Site Distribution. Novel Bacteria were determined from MAGs constructed from individual assemblies. Novel indicates the MAGs could not be placed in an existing group at the species, genus or family level](/cloud/project/images/Plots/Lab9/Total_Novel_Bacteria_per_Site.png)
 The vast majority of bacteria found in this study were determined to be novel species with PERCENT being unable to place phylogenetically at the genus level.
 
-![**Figure 1:**](/cloud/project/images/Plots/Lab9/Novel_Genera_per_Phylum.png)
+![**Figure 8:** Novel Bacteria Distribution by Phyla. Novel Bacteria were determined from MAGs constructed from individual assemblies. Novel indicates the MAGs could not be placed in an existing group at the species, genus or family level](/cloud/project/images/Plots/Lab9/Novel_Genera_per_Phylum.png)
 
-![**Figure 1:** Genome Count vs Genome size for all Bacterial NEON MAGs in GOLD Study ID Gs0161344](/cloud/project/images/Plots/Lab9/Gene_Count_vs_Estimated_Mag_Genome_Size.png)
-^change this so its not estimated
+![**Figure 9:** Genome Count vs Genome size for all Bacterial NEON MAGs in GOLD Study ID Gs0161344. Bacterial MAGs were selected from individual assemblies.](/cloud/project/images/Plots/Gamma/Gene_Count_vs_Estimated_Mag_Genome_Size_with_phyla.png)
 
-Terrestrial bacteria are known to have large genomes encoding thousands genes. This is due in larger part to the diverse environment they are exposed to. Their larger genomes allow for the expression of multiple metabolic phenotypes that allow them to adapt to their environment. This trend was reflected in the NEON samples analyzed in this stud with the minimum and maximum genomes being INSERT and INSERT respectively. There was a linear relationship between gene count and genome for all NEON samples, with a rough 1000 bp per gene ratio.
+
+Terrestrial bacteria are known to have large genomes encoding thousands genes. This is due in larger part to the diverse environment they are exposed to. Their larger genomes allow for the expression of multiple metabolic phenotypes that allow them to adapt to environmental challenges. NEON samples analyzed in this study had a broad spread of genome sizes with the minimum genome and maximum genomes sizes being 753 from the phylum Chloroflexota and 12,584 Kbp from the phylum Actinomycetota, respectively. There was a linear relationship between gene count and genome for all NEON samples, with a rough 1,000 bp per gene ratio.
 
 
 ## Gammaproteobacteria 13/20 graphs
 
-![**Figure 1:**](/cloud/project/images/Plots/Gamma/NEON_MAGS_Gammaproteobacteria_with_Ecosystem_Subtype_and_Total_Number_of_Bases_Label_Circular_Tree.png)
+![**Figure 10:**](/cloud/project/images/Plots/Gamma/NEON_MAGS_Gammaproteobacteria_with_Ecosystem_Subtype_and_Total_Number_of_Bases_Label_Circular_Tree.png)
+![**Figure 1:**](/cloud/project/images/Plots/Gamma/Gammaproteobacteria_Temp_pH_NLCD_Ecosub.png)
+
 
 
 
@@ -91,7 +136,7 @@ Terrestrial bacteria are known to have large genomes encoding thousands genes. T
 
 
 
-![**Figure 1:**](/cloud/project/images/Plots/Gamma/Gammaproteobacteria_Sample_Soil_Temperature_vs_pH_in_Water.png)
+
 redo this because points are overlapping
 
 
@@ -178,6 +223,8 @@ redo this because points are overlapping
 ## Lab 14 
 ## Lab 15
 ## Lab 16
+
+
 ## Gammaproteobacteria
 ## Toolik
 

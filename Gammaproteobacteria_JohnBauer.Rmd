@@ -64,7 +64,10 @@ NEON_MAGs <- read_csv("data/NEON/GOLD_Study_ID_Gs0161344_NEON_2024_4_21.csv") %>
   # separate the Sample Name into Site ID and plot info
   separate(`Sample Name`, c("Site ID","subplot.layer.date"), "_", remove = FALSE,) %>% 
   # separate the plot info into 3 columns
-  separate(`subplot.layer.date`, c("Subplot", "Layer", "Date"), "-") 
+  separate(`subplot.layer.date`, c("Subplot", "Layer", "Date"), "-")
+
+
+
 ```
 ## NEON_metagenomes + NEON_chemistry for gamma and toolik, Tree_bac 
 ```{r, message=FALSE, warning=FALSE}
@@ -98,9 +101,15 @@ NEON_MAGs_metagenomes_chemistry <- NEON_MAGs %>%
 tree_arc <- read.tree("data/NEON/gtdbtk.ar53.decorated.tree")
 tree_bac <- read.tree("data/NEON/gtdbtk.bac120.decorated.tree")
 
+NEON_MAGs_metagenomes_chemistry_Ind<- NEON_MAGs_metagenomes_chemistry %>% 
+  filter(`Assembly Type`=="Individual")
+
 #Gammaproteobacteria
 NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria <- NEON_MAGs_metagenomes_chemistry %>%
   filter(str_detect(`Class`,"Gammaproteobacteria"))
+NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria_Ind <- NEON_MAGs_metagenomes_chemistry_Ind %>%
+  filter(str_detect(`Class`,"Gammaproteobacteria"))
+
 
 #Novel
 NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria_Novel <- NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria %>%
@@ -111,6 +120,9 @@ NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria_Novel <- NEON_MAGs_metagenom
 #Toolik
 NEON_MAGs_metagenomes_chemistry_TOOL<- NEON_MAGs_metagenomes_chemistry %>% 
   filter(`Site ID.x` == "TOOL")
+NEON_MAGs_metagenomes_chemistry_TOOL_Ind<- NEON_MAGs_metagenomes_chemistry_Ind %>% 
+  filter(`Site ID.x` == "TOOL")
+
 TOOL_MAGs_label <- NEON_MAGs_metagenomes_chemistry_TOOL$label
 tree_bac_TOOL_MAGs <-drop.tip(tree_bac,tree_bac$tip.label[-match(TOOL_MAGs_label, tree_bac$tip.label)])
 
@@ -183,7 +195,38 @@ tree_Gammaproteobacteria <- Subtree(tree_bac_node_Gammaproteobacteria, 3048)
 
 # Graphs
 
-## Xanthomonadales Sample Soil Temperature vs pH in Water - commented out
+```{r, fig.height=12, fig.width=12}
+NEON_MAGs_metagenomes_chemistry_Bacteria <-NEON_MAGs_metagenomes_chemistry %>%
+  filter(Domain=="Bacteria") %>% 
+  mutate(`Genome Size (Kbp)`=as.integer(`Total Number of Bases`/1000)) 
+ 
+datatable(NEON_MAGs_metagenomes_chemistry_Bacteria %>%
+            select(Phylum,Class,Order,Family, Genus,Species,`Gene Count`, `Genome Size (Kbp)`))
+           
+NEON_MAGs_metagenomes_chemistry_Bacteria %>%
+  ggplot(aes(x=`Gene Count`, y=`Genome Size (Kbp)`, color=`Phylum`))+geom_point()+labs(title="Gene Count vs Genome Size", x="Gene Count", y="Genome Size (Kbp)")+scale_y_continuous(limits=c(0,15000), breaks=c(2500,5000,7500,10000,12500,15000))+scale_x_continuous(limits=c(0,15000), breaks=c(2500,5000,7500,10000,12500,15000))+theme_classic()
+ 
+
+ggsave(
+  "Gene_Count_vs_Estimated_Mag_Genome_Size_with_phyla.png",
+  plot = last_plot(),
+  device = NULL,
+  path = "/cloud/project/images/Plots/Gamma",
+  scale = 1,
+  width = NA,
+  height = NA,
+  units = c("in", "cm", "mm", "px"),
+  dpi = 300,
+  limitsize = TRUE,
+  bg = NULL,
+  create.dir = FALSE,
+)
+
+```
+
+
+
+## Gammaproteobacteria Sample Soil Temperature vs pH in Water 
 ```{r, fig.width=12, fig.height=12}
 NEON_MAGs_metagenomes_chemistry_Xanthomonadales <- NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria %>%
   filter(str_detect(`Order`,"Xanthomonadales"))
@@ -195,14 +238,14 @@ NEON_MAGs_metagenomes_chemistry_Steroidobacterales <- NEON_MAGs_metagenomes_chem
 NEON_MAGs_metagenomes_chemistry_Topthree <- NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria %>%
   filter(str_detect(`Order`,"Steroidobacterales") | str_detect(`Order`,"Burkholderiales") | str_detect(`Order`,"Xanthomonadales"))
 
-NEON_MAGs_metagenomes_chemistry_Topthree %>%
-     ggplot(aes(y=`soilTemp`,x=`Family`, color=`Order`, shape=`Order`), size=1)+geom_point(show.legend=FALSE)+scale_y_continuous(limits=c(0,50)) +labs(title="Soil Temperature", y="Soil Temperature", x="Family")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))+
+NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria %>%
+     ggplot(aes(y=`soilTemp`,x=`Family`, color=`Order`), size=1)+geom_point(show.legend=FALSE)+scale_y_continuous(limits=c(0,50)) +labs(title="Soil Temperature", y="Soil Temperature", x="Family")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))+
   
-  ggplot(data=NEON_MAGs_metagenomes_chemistry_Topthree,aes(y=`soilInWaterpH`,x=`Family`, color=`Order`, shape=`Order`))+geom_point()+scale_y_continuous(limits=c(0,14),breaks =rep(0:14) )+labs(title="Soil pH in Water", y="pH", x="Family")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))+
+  ggplot(data=NEON_MAGs_metagenomes_chemistry_Topthree,aes(y=`soilInWaterpH`,x=`Family`, color=`Order`))+geom_point()+scale_y_continuous(limits=c(0,14),breaks =rep(0:14) )+labs(title="Soil pH in Water", y="pH", x="Family")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))+
   
-  ggplot(data=NEON_MAGs_metagenomes_chemistry_Topthree,aes(y=`nlcdClass`,x=`Family`, color=`Order`, shape=`Order`))+geom_point(show.legend=FALSE)+labs(title="Vegetation Class", y="Vegetation Class", x="Family")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))+
+  ggplot(data=NEON_MAGs_metagenomes_chemistry_Topthree,aes(y=`nlcdClass`,x=`Family`, color=`Order`))+geom_point(show.legend=FALSE)+labs(title="Vegetation Class", y="Vegetation Class", x="Family")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))+
   
-  ggplot(data=NEON_MAGs_metagenomes_chemistry_Topthree,aes(y=`Ecosystem Subtype`,x=`Family`, color=`Order`, shape=`Order`))+geom_point()+labs(title="Ecosystem Subtype", y="Ecosystem Subtype", x="Family")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+  ggplot(data=NEON_MAGs_metagenomes_chemistry_Topthree,aes(y=`Ecosystem Subtype`,x=`Family`, color=`Order`,))+geom_point()+labs(title="Ecosystem Subtype", y="Ecosystem Subtype", x="Family")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
 
 # NEON_MAGs_metagenomes_chemistry_Topthree %>%
 #      ggplot(aes(y=`soilInWaterpH`,x=`Family`, color=`Order`, shape=`Order`))+geom_point()+labs(title="pH of Samples in Top Three Gammaproteobacteria Orders", y="Soil pH in Water", x="Family")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
@@ -214,7 +257,7 @@ NEON_MAGs_metagenomes_chemistry_Topthree %>%
 #      ggplot(aes(y=`Ecosystem Subtype`,x=`Family`, color=`Order`, shape=`Order`))+geom_point()+labs(title="Ecosystem Subtype of Samples in Top Three Gammaproteobacteria Orders", y="Ecosystem Subtype", x="Family")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
 
 ggsave(
-  "Gammaproteobacteria_TopThree_Temp_pH_NLCD_Ecosub.png",
+  "Gammaproteobacteria_Temp_pH_NLCD_Ecosub.png",
   plot = last_plot(),
   device = NULL,
   path = "/cloud/project/images/Plots/Gamma",

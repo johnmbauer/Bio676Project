@@ -110,7 +110,8 @@ NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria_Novel <- NEON_MAGs_metagenom
 
 #Toolik
 NEON_MAGs_metagenomes_chemistry_TOOL<- NEON_MAGs_metagenomes_chemistry %>% 
-  filter(`Site ID.x` == "TOOL")
+  filter(`Site ID.x` == "TOOL") %>%
+  filter(Domain=="Bacteria")
 NEON_MAGs_metagenomes_chemistry_TOOL_Novel <- NEON_MAGs_metagenomes_chemistry_TOOL %>%
   filter(is.na(Order) | is.na(Family) | is.na(Genus) | is.na(Species))
 #almost are novel only two have species names
@@ -656,6 +657,17 @@ ggsave(
 
 ## Toolik triplot with Bin Completeness and Bin Contamination
 ```{r, fig.height=12, fig.width=12}
+NEON_MAGs_metagenomes_chemistry_TOOL_noblank <- NEON_MAGs_metagenomes_chemistry_TOOL %>% 
+  rename("AssemblyType" = "Assembly Type") %>% 
+  rename("BinCompleteness" = "Bin Completeness") %>% 
+  rename("BinContamination" = "Bin Contamination") %>% 
+  rename("TotalNumberofBases" = "Total Number of Bases") %>% 
+  rename("EcosystemSubtype" = "Ecosystem Subtype") %>%
+  rename("GeneCount" = "Gene Count") %>% 
+  rename("GCassembled" = "GC  * assembled")
+
+
+
 ggtree(tree_bac_TOOL_MAGs)  %<+%
   NEON_MAGs_metagenomes_chemistry + 
   geom_tippoint(aes(colour=`Ecosystem Subtype`)) + 

@@ -11,20 +11,20 @@ output:
     Highlight: haddock
     code_folding: hide
 ---
-```{r}
+```{r, echo=FALSE}
 library(knitr)
 library(tidyverse)
 ```
 
 
 
-# Abstract
+# Abstract:
 
 # Introduction:
 
-  Carbon emissions from industrial activity has led to numerous changes to the global climate that threaten the ecosystems humanity depends on for industrial agriculture. Rising temperatures has caused the melting of glaciers and permafrost releasing bacterial species that have been dormant for millennium (source). Additionally, The higher green house gas atmospheric content has lead to the acidification of both ocean and ground water (source). The changing climate has also lead to species migration. With the recent passing of the 1.5 Celsius average global temperature milestone set by ORG, it is imperative that society adapt to our changing world. 
+Carbon emissions from industrial activity has led to numerous changes to the global climate that threaten the ecosystems humanity depends on for industrial agriculture. Rising temperatures has caused the melting of glaciers and permafrost releasing bacterial species that have been dormant for millennium (source). Additionally, The higher green house gas atmospheric content has lead to the acidification of both ocean and ground water (source). The changing climate has also lead to species migration. With the recent passing of the 1.5 Celsius average global temperature milestone set by ORG, it is imperative that society adapt to our changing world. 
 
-  In the face of climate and antibiotic challenges, plants have developed symbotic relationships with bacteria. PLANT BACTERIA BIOCONTROL EX. PLANT NITROGEN RELATION. Thus, it has been proposed that humanity's crops could be better insulated to ecological changes by exploiting these relationships. While several beneficial bacterial species have identified, the vast majority of the bacterial kingdom remains sequenced. Additionally, with their ability to rapidly evolve in the face of ecological challenges, new species with more robust tolerances to climate change influences will only grow with time. Thus, soil bacterium represent a vast untapped resource of climate change resistant proteins, biocontrol agents, and nitrogen fixators. Data collection effort by organizations like the National Ecological Observatory Network, provide a valuable genomic resource for phylogenetic analyses to determine the identities potential beneficial bacteria as well as monitoring the population changes caused by a changing climate.
+In the face of climate and antibiotic challenges, plants have developed symbiotic relationships with bacteria. PLANT BACTERIA BIOCONTROL EX. PLANT NITROGEN RELATION. Thus, it has been proposed that humanity's crops could be better insulated to ecological changes by exploiting these relationships. While several beneficial bacterial species have identified, the vast majority of the bacterial kingdom remains sequenced. Additionally, with their ability to rapidly evolve in the face of ecological challenges, new species with more robust tolerances to climate change influences will only grow with time. Thus, soil bacterium represent a vast untapped resource of climate change resistant proteins, biocontrol agents, and nitrogen fixators. Data collection effort by organizations like the National Ecological Observatory Network, provide a valuable genomic resource for phylogenetic analyses to determine the identities potential beneficial bacteria as well as monitoring the population changes caused by a changing climate.
 
 ![**Figure 1:** Phylogenetic Tree of all MAGs collected in GOLD Study ID Gs0161344 by the National Ecological Observatory Network.](/cloud/project/images/Plots/Gamma/NEON_MAGs_Phylum_Highlight_with_Label_Circular_Tree.png)
 

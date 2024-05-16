@@ -195,6 +195,30 @@ tree_Gammaproteobacteria <- Subtree(tree_bac_node_Gammaproteobacteria, 3048)
 
 # Graphs
 
+## Gammaproteobacteria distribution by order
+```{r,, fig.height=12, fig.width=12}
+NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria %>%
+  ggplot(aes(x=Family))+geom_bar(aes(fill=Family),position=position_dodge2(width=0.9, preserve="single"),show.legend=FALSE)+coord_flip()+facet_wrap(vars(Order), scales="free_y", ncol=4)+labs(title="Distribution of Gammaproteobacteria MAGs by Order", x="Family", y="n")+theme_classic()
+
+ggsave(
+  "Gammaproteobacteria_distribution_by_order.png",
+  plot = last_plot(),
+  device = NULL,
+  path = "/cloud/project/images/Plots/Gamma",
+  scale = 1,
+  width = NA,
+  height = NA,
+  units = c("in", "cm", "mm", "px"),
+  dpi = 300,
+  limitsize = TRUE,
+  bg = NULL,
+  create.dir = FALSE,
+)
+```
+
+
+
+## Gene Count vs Genome Size
 ```{r, fig.height=12, fig.width=12}
 NEON_MAGs_metagenomes_chemistry_Bacteria <-NEON_MAGs_metagenomes_chemistry %>%
   filter(Domain=="Bacteria") %>% 
@@ -204,11 +228,41 @@ datatable(NEON_MAGs_metagenomes_chemistry_Bacteria %>%
             select(Phylum,Class,Order,Family, Genus,Species,`Gene Count`, `Genome Size (Kbp)`))
            
 NEON_MAGs_metagenomes_chemistry_Bacteria %>%
-  ggplot(aes(x=`Gene Count`, y=`Genome Size (Kbp)`, color=`Phylum`))+geom_point()+labs(title="Gene Count vs Genome Size", x="Gene Count", y="Genome Size (Kbp)")+scale_y_continuous(limits=c(0,15000), breaks=c(2500,5000,7500,10000,12500,15000))+scale_x_continuous(limits=c(0,15000), breaks=c(2500,5000,7500,10000,12500,15000))+theme_classic()
+  ggplot(aes(x=`Phylum`,y=`Genome Size (Kbp)`,color=`Phylum`))+geom_boxplot(show.legend = FALSE)+scale_y_continuous(limits=c(0,15000), breaks=c(2500,5000,7500,10000,12500,15000))+theme_classic()+labs(title="Phyla Genome Size Distributions", x="Phyla", y="Genome Size (Kbp)")+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))+
+  ggplot(data=NEON_MAGs_metagenomes_chemistry_Bacteria, aes(x=`Gene Count`, y=`Genome Size (Kbp)`, color=`Phylum`))+geom_point()+labs(title="Gene Count vs Genome Size", x="Gene Count", y="")+scale_y_continuous(limits=c(0,15000), breaks=c(2500,5000,7500,10000,12500,15000))+scale_x_continuous(limits=c(0,15000), breaks=c(2500,5000,7500,10000,12500,15000))+theme_classic()
+  
  
 
 ggsave(
   "Gene_Count_vs_Estimated_Mag_Genome_Size_with_phyla.png",
+  plot = last_plot(),
+  device = NULL,
+  path = "/cloud/project/images/Plots/Gamma",
+  scale = 1,
+  width = NA,
+  height = NA,
+  units = c("in", "cm", "mm", "px"),
+  dpi = 300,
+  limitsize = TRUE,
+  bg = NULL,
+  create.dir = FALSE,
+)
+
+NEON_MAGs_metagenomes_chemistry_Bacteria <-NEON_MAGs_metagenomes_chemistry %>%
+  filter(Domain=="Bacteria") %>% 
+  mutate(`Genome Size (Kbp)`=as.integer(`Total Number of Bases`/1000)) 
+ 
+datatable(NEON_MAGs_metagenomes_chemistry_Bacteria %>%
+            select(Phylum,Class,Order,Family, Genus,Species,`Gene Count`, `Genome Size (Kbp)`))
+           
+NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria %>%
+  mutate(`Genome Size (Kbp)`=as.integer(`Total Number of Bases`/1000)) %>%
+  ggplot(aes(x=`Order`,y=`Genome Size (Kbp)`,color=`Order`))+geom_boxplot(show.legend = FALSE)+scale_y_continuous(limits=c(0,15000), breaks=c(2500,5000,7500,10000,12500,15000))+theme_classic()+labs(title="Gammaproteobacteria Genome Size Distributions", x="Order", y="Genome Size (Kbp)")+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+  
+ 
+
+ggsave(
+  "Gammaproteobacteria_Gene_Count_vs_Estimated_Mag_Genome_Size_with_Order.png",
   plot = last_plot(),
   device = NULL,
   path = "/cloud/project/images/Plots/Gamma",
@@ -241,11 +295,11 @@ NEON_MAGs_metagenomes_chemistry_Topthree <- NEON_MAGs_metagenomes_chemistry_Gamm
 NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria %>%
      ggplot(aes(y=`soilTemp`,x=`Family`, color=`Order`), size=1)+geom_point(show.legend=FALSE)+scale_y_continuous(limits=c(0,50)) +labs(title="Soil Temperature", y="Soil Temperature", x="Family")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))+
   
-  ggplot(data=NEON_MAGs_metagenomes_chemistry_Topthree,aes(y=`soilInWaterpH`,x=`Family`, color=`Order`))+geom_point()+scale_y_continuous(limits=c(0,14),breaks =rep(0:14) )+labs(title="Soil pH in Water", y="pH", x="Family")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))+
+  ggplot(data=NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria,aes(y=`soilInWaterpH`,x=`Family`, color=`Order`))+geom_point()+scale_y_continuous(limits=c(0,14),breaks =rep(0:14) )+labs(title="Soil pH in Water", y="pH", x="Family")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))+
   
-  ggplot(data=NEON_MAGs_metagenomes_chemistry_Topthree,aes(y=`nlcdClass`,x=`Family`, color=`Order`))+geom_point(show.legend=FALSE)+labs(title="Vegetation Class", y="Vegetation Class", x="Family")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))+
+  ggplot(data=NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria,aes(y=`nlcdClass`,x=`Family`, color=`Order`))+geom_point(show.legend=FALSE)+labs(title="Vegetation Class", y="Vegetation Class", x="Family")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))+
   
-  ggplot(data=NEON_MAGs_metagenomes_chemistry_Topthree,aes(y=`Ecosystem Subtype`,x=`Family`, color=`Order`,))+geom_point()+labs(title="Ecosystem Subtype", y="Ecosystem Subtype", x="Family")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+  ggplot(data=NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria,aes(y=`Ecosystem Subtype`,x=`Family`, color=`Order`,))+geom_point()+labs(title="Ecosystem Subtype", y="Ecosystem Subtype", x="Family")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
 
 # NEON_MAGs_metagenomes_chemistry_Topthree %>%
 #      ggplot(aes(y=`soilInWaterpH`,x=`Family`, color=`Order`, shape=`Order`))+geom_point()+labs(title="pH of Samples in Top Three Gammaproteobacteria Orders", y="Soil pH in Water", x="Family")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))

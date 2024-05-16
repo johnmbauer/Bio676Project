@@ -7,15 +7,173 @@ output:
   html_document:
     toc: true
     toc_depth: 4
+    toc_float: True
     Theme: yeti
     Highlight: haddock
     code_folding: hide
 ---
-```{r, echo=FALSE}
-library(knitr)
+# Setup:
+#### Library
+```{r, message=FALSE, warning=FALSE}
 library(tidyverse)
+library(knitr)
+library(ggtree)
+library(TDbook) #A Companion Package for the Book "Data Integration, Manipulation and Visualization of Phylogenetic Trees" by Guangchuang Yu (2022, ISBN:9781032233574).
+library(ggimage)
+library(rphylopic)
+library(treeio)
+library(tidytree)
+library(ape)
+library(TreeTools)
+library(phytools)
+library(ggnewscale)
+library(ggtreeExtra)
+library(ggstar)
+#library(ggeasy) #https://jonocarroll.github.io/ggeasy/
+library(DT)
+```
+#### NEON MAGs
+```{r, message=FALSE, warning=FALSE}
+NEON_MAGs <- read_csv("data/NEON/GOLD_Study_ID_Gs0161344_NEON_2024_4_21.csv") %>% 
+  # remove columns that are not needed for data analysis
+  select(-c(`GOLD Study ID`, `Bin Methods`, `Created By`, `Date Added`, `Bin Lineage`)) %>% 
+  # create a new column with the Assembly Type
+  mutate("Assembly Type" = case_when(`Genome Name` == "NEON combined assembly" ~ `Genome Name`,
+                            TRUE ~ "Individual")) %>% 
+  mutate_at("Assembly Type", str_replace, "NEON combined assembly", "Combined") %>% 
+  mutate_at("GTDB-Tk Taxonomy Lineage", str_replace, "d__", "") %>%  
+  mutate_at("GTDB-Tk Taxonomy Lineage", str_replace, "p__", "") %>% 
+  mutate_at("GTDB-Tk Taxonomy Lineage", str_replace, "c__", "") %>% 
+  mutate_at("GTDB-Tk Taxonomy Lineage", str_replace, "o__", "") %>% 
+  mutate_at("GTDB-Tk Taxonomy Lineage", str_replace, "f__", "") %>% 
+  mutate_at("GTDB-Tk Taxonomy Lineage", str_replace, "g__", "") %>% 
+  mutate_at("GTDB-Tk Taxonomy Lineage", str_replace, "s__", "") %>%
+  separate(`GTDB-Tk Taxonomy Lineage`, c("Domain", "Phylum", "Class", "Order", "Family", "Genus", "Species"), ";", remove = FALSE) %>% 
+  mutate_at("Domain", na_if,"") %>% 
+  mutate_at("Phylum", na_if,"") %>% 
+  mutate_at("Class", na_if,"") %>% 
+  mutate_at("Order", na_if,"") %>% 
+  mutate_at("Family", na_if,"") %>% 
+  mutate_at("Genus", na_if,"") %>% 
+  mutate_at("Species", na_if,"") %>% 
+  
+  # Get rid of the the common string "Soil microbial communities from "
+  mutate_at("Genome Name", str_replace, "Terrestrial soil microbial communities from ", "") %>% 
+  # Use the first `-` to split the column in two
+  separate(`Genome Name`, c("Site","Sample Name"), " - ") %>% 
+  # Get rid of the the common string "S-comp-1"
+  mutate_at("Sample Name", str_replace, "-comp-1", "") %>%
+  # separate the Sample Name into Site ID and plot info
+  separate(`Sample Name`, c("Site ID","subplot.layer.date"), "_", remove = FALSE,) %>% 
+  # separate the plot info into 3 columns
+  separate(`subplot.layer.date`, c("Subplot", "Layer", "Date"), "-") 
 ```
 
+```{r, message=FALSE, warning=FALSE}
+NEON_metagenomes <- read_tsv("data/NEON/exported_img_data_Gs0161344_NEON.tsv") %>% 
+  select(-c(`Domain`, `Sequencing Status`, `Sequencing Center`)) %>% 
+  rename(`Genome Name` = `Genome Name / Sample Name`) %>% 
+  filter(str_detect(`Genome Name`, 're-annotation', negate = T)) %>% 
+  filter(str_detect(`Genome Name`, 'WREF plot', negate = T)) 
+
+NEON_metagenomes <- NEON_metagenomes %>% 
+  # Get rid of the the common string "Soil microbial communities from "
+  mutate_at("Genome Name", str_replace, "Terrestrial soil microbial communities from ", "") %>% 
+  # Use the first `-` to split the column in two
+  separate(`Genome Name`, c("Site","Sample Name"), " - ") %>% 
+  # Get rid of the the common string "-comp-1"
+  mutate_at("Sample Name", str_replace, "-comp-1", "") %>%
+  # separate the Sample Name into Site ID and plot info
+  separate(`Sample Name`, c("Site ID","subplot.layer.date"), "_", remove = FALSE,) %>% 
+  # separate the plot info into 3 columns
+  separate(`subplot.layer.date`, c("Subplot", "Layer", "Date"), "-")
+
+NEON_chemistry <- read_tsv("data/NEON/neon_plot_soilChem1_metadata.tsv") %>% 
+  # remove -COMP from genomicsSampleID
+  mutate_at("genomicsSampleID", str_replace, "-COMP", "") 
+
+NEON_MAGs_metagenomes_chemistry <- NEON_MAGs %>% 
+  left_join(NEON_metagenomes, by = "Sample Name") %>% 
+  left_join(NEON_chemistry, by = c("Sample Name" = "genomicsSampleID")) %>%
+  rename("label" = "Bin ID")
+
+tree_arc <- read.tree("data/NEON/gtdbtk.ar53.decorated.tree")
+tree_bac <- read.tree("data/NEON/gtdbtk.bac120.decorated.tree")
+
+#Gammaproteobacteria
+NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria <- NEON_MAGs_metagenomes_chemistry %>%
+  filter(str_detect(`Class`,"Gammaproteobacteria"))
+
+#Steroidobacterales
+NEON_MAGs_metagenomes_chemistry_Steroidobacterales<- NEON_MAGs_metagenomes_chemistry %>%
+  filter(str_detect(`Order`,"Steroidobacterales"))
+#Burkholderiales
+NEON_MAGs_metagenomes_chemistry_Burkholderiales <- NEON_MAGs_metagenomes_chemistry %>%
+  filter(str_detect(`Order`,"Burkholderiales"))
+#Novel
+NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria_Novel <- NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria %>%
+  filter(is.na(Order) | is.na(Family) | is.na(Genus) | is.na(Species))
+#almost are novel only two have species names
+
+#Toolik
+NEON_MAGs_metagenomes_chemistry_TOOL<- NEON_MAGs_metagenomes_chemistry %>% 
+  filter(`Site ID.x` == "TOOL")
+NEON_MAGs_metagenomes_chemistry_TOOL_Novel <- NEON_MAGs_metagenomes_chemistry_TOOL %>%
+  filter(is.na(Order) | is.na(Family) | is.na(Genus) | is.na(Species))
+#almost are novel only two have species names
+TOOL_MAGs_label <- NEON_MAGs_metagenomes_chemistry_TOOL$label
+tree_bac_TOOL_MAGs <-drop.tip(tree_bac,tree_bac$tip.label[-match(TOOL_MAGs_label, tree_bac$tip.label)])
+
+# Make a vector with the internal node lables
+node_vector_bac_TOOL_MAGS = c(tree_bac_TOOL_MAGs$tip.label,tree_bac_TOOL_MAGs$node.label)
+
+```
+#### Tree Nodes
+```{r, message=FALSE, warning=FALSE}
+
+# Make a vector with the internal node labels
+node_vector_bac = c(tree_bac$tip.label,tree_bac$node.label)
+
+# Search for your Phylum or Class
+phylumss <-NEON_MAGs_metagenomes_chemistry %>%
+            count(Phylum, sort=TRUE)
+n=1
+while (n!=29) {
+  grep(phylumss[n,1], node_vector_bac, value = TRUE)
+  phylumss[n,3] <-match(grep(phylumss[n,1], node_vector_bac, value = TRUE), node_vector_bac)[1]
+  n=n+1
+} 
+
+# grep("Thermoproteota", node_vector_bac, value = TRUE)
+# match(grep("Thermoproteota", node_vector_bac, value = TRUE), node_vector_bac)
+# 
+# grep("Actinomycetota", node_vector_bac, value = TRUE)
+# match(grep("Actinomycetota", node_vector_bac, value = TRUE), node_vector_bac)
+# 
+# grep("Myxococcota", node_vector_bac, value = TRUE)
+# match(grep("Myxococcota", node_vector_bac, value = TRUE), node_vector_bac)
+# 
+# grep("Bacteroidota", node_vector_bac, value = TRUE)
+# match(grep("Bacteroidota", node_vector_bac, value = TRUE), node_vector_bac)
+# 
+# grep("Verrucomicrobiota", node_vector_bac, value = TRUE)
+# match(grep("Verrucomicrobiota", node_vector_bac, value = TRUE), node_vector_bac)
+# 
+# grep("Chloroflexota", node_vector_bac, value = TRUE)
+# match(grep("Chloroflexota", node_vector_bac, value = TRUE), node_vector_bac)
+# 
+# grep("Eremiobacterota", node_vector_bac, value = TRUE)
+# match(grep("Eremiobacterota", node_vector_bac, value = TRUE), node_vector_bac)
+# 
+# grep("Patescibacteria", node_vector_bac, value = TRUE)
+# match(grep("Patescibacteria", node_vector_bac, value = TRUE), node_vector_bac)
+# 
+# grep("Pseudomonadota", node_vector_bac, value = TRUE)
+# match(grep("Pseudomonadota", node_vector_bac, value = TRUE), node_vector_bac)
+
+tree_bac_node_Gammaproteobacteria <- Preorder(tree_bac)
+tree_Gammaproteobacteria <- Subtree(tree_bac_node_Gammaproteobacteria, 3048)
+```
 
 
 # Abstract:
@@ -99,8 +257,8 @@ tidyverse,knitr, ggtree, TDbook #A Companion Package for the Book "Data Integrat
 
 
 
-![**Figure 4:** Phylogenetic treee of all MAGs collected in GOLD Study ID Gs0161344 by the National Ecological Observatory Network with the Gammaproteobacteria class of Psedomondata highlighted in blue](/cloud/project/images/Plots/Gamma/NEON_MAGS_Gammaproteobacteria_Highlight_with_Label_Circular_Tree.png)
-![**Figure 5:** Phylogenetic tree of all MAGs belonging to the class Gammaproteobacteria with Site location and Ecosystem subtype markers. ](/cloud/project/images/Plots/Gamma/NEON_MAGS_Gammaproteobacteria_with_Ecosystem_Subtype_System_Rectangular_Tree.png)
+![**Figure 4:** Phylogenetic treee of all MAGs collected in GOLD Study ID Gs0161344 by the National Ecological Observatory Network with the *Gammaproteobacteria* class of Psedomondata highlighted in blue](/cloud/project/images/Plots/Gamma/NEON_MAGS_Gammaproteobacteria_Highlight_with_Label_Circular_Tree.png)
+![**Figure 5:** Phylogenetic tree of all MAGs belonging to the class *Gammaproteobacteria* with Site location and Ecosystem subtype markers. ](/cloud/project/images/Plots/Gamma/NEON_MAGS_Gammaproteobacteria_with_Ecosystem_Subtype_System_Rectangular_Tree.png)
 
 ^fix data pt shapes, also make this all mags if possible
 
@@ -117,13 +275,52 @@ The vast majority of bacteria found in this study were determined to be novel sp
 ![**Figure 9:** Genome Count vs Genome size for all Bacterial NEON MAGs in GOLD Study ID Gs0161344. Bacterial MAGs were selected from individual assemblies.](/cloud/project/images/Plots/Gamma/Gene_Count_vs_Estimated_Mag_Genome_Size_with_phyla.png)
 
 
-Terrestrial bacteria are known to have large genomes encoding thousands genes. This is due in larger part to the diverse environment they are exposed to. Their larger genomes allow for the expression of multiple metabolic phenotypes that allow them to adapt to environmental challenges. NEON samples analyzed in this study had a broad spread of genome sizes with the minimum genome and maximum genomes sizes being 753 from the phylum Chloroflexota and 12,584 Kbp from the phylum Actinomycetota, respectively. There was a linear relationship between gene count and genome for all NEON samples, with a rough 1,000 bp per gene ratio.
+Terrestrial bacteria are known to have large genomes encoding thousands genes. This is due in larger part to the diverse environment they are exposed to. Their larger genomes allow for the expression of multiple metabolic phenotypes that allow them to adapt to environmental challenges. NEON samples analyzed in this study had a broad spread of genome sizes with the minimum genome and maximum genomes sizes being 753 from the phylum Chloroflexota and 12,584 kbp from the phylum Actinomycetota, respectively (Fig. 9). There was a linear relationship between gene count and genome for all NEON samples, with a rough 1,000 bp per gene ratio (Fig. 9).
 
 
-## Gammaproteobacteria 13/20 graphs
+## *Gammaproteobacteria* 13/20 graphs
 
-![**Figure 10:**](/cloud/project/images/Plots/Gamma/NEON_MAGS_Gammaproteobacteria_with_Ecosystem_Subtype_and_Total_Number_of_Bases_Label_Circular_Tree.png)
-![**Figure 1:**](/cloud/project/images/Plots/Gamma/Gammaproteobacteria_Temp_pH_NLCD_Ecosub.png)
+![**Figure 10:** Phylogenetic Tree of *Gammaproteobacteria* with Ecosystem Subtype and Number of Bases markers.This tree includes MAG reads from all NEON sites filtered to those annotated as belonging to the class Gammaproteobacteria](/cloud/project/images/Plots/Gamma/NEON_MAGS_Gammaproteobacteria_with_Ecosystem_Subtype_and_Total_Number_of_Bases_Label_Circular_Tree.png)
+
+![**Figure 11:** Distribution of Genome Size for *Gammaproteobacteria* Members.This tree includes MAG reads from all NEON sites filtered to those annotated as belonging to the class Gammaproteobacteria](/cloud/project/images/Plots/Gamma/Gammaproteobacteria_distribution_by_order.png)
+
+![**Figure 12:** Distribution of Genome Size for *Gammaproteobacteria* Members.This tree includes MAG reads from all NEON sites filtered to those annotated as belonging to the class Gammaproteobacteria](/cloud/project/images/Plots/Gamma/Gammaproteobacteria_Gene_Count_vs_Estimated_Mag_Genome_Size_with_Order.png)
+
+NEON MAGs assigned to the *Gammaproteobacteria* class were found in all ecosystem subtypes (Fig. 10). Unlike the larger NEON data set, the distribution of genome size of *Gammaproteobacteria* members was fairly narrow with members averaging between 2000 and 5000 kbp (Fig. 12). With the exception of *Burkholderiales*,*Steroidobacterales*, and *Xanthomonadales*, this was largely due to the fewer MAGs in each order(Fig.10). The vast majority of *Gammaproteobacteria* annotated in this study were novel species with only two bacteria belonging to the *Xanthomonadales* order assigned as *Stenotrophomonas stenotrophomonas* sp024519465. *Steroidobacterales* had by far the most annontated members, while *Burkholderiales* had the most family member groups (Fig. 11).        
+
+
+![**Figure 13:**](/cloud/project/images/Plots/Gamma/Gammaproteobacteria_Temp_pH_NLCD_Ecosub.png)
+Members of *Gammaproteobacteria* were found in a variety of ecosystem conditions. The soil pH of all *Gammaproteobacterial* samples was largely neutral to mildly acidic with lowest pH around 4 (Fig. 4). Overall, the vegetation class of sedge and grassland herbaceous and contained the least amount of family groups in *Gammproteobacteria* (Fig. 13). This is not too surprising for sedge herbaceous as this vegetation class is only found in one Alaskan NEON site (Sup. Fig. 1). However, grassland herbaceous vegetation is present in 5 out of the 13 sample sites (Sup. Fig 2). Interestingly, despite being the *Gammaproteobacteria* order with the most MAGs and existing in a variety of vegetation classes, soil pH and temperatures, no members of the *Steroidobacterales* order were found in tropical forest or desert ecosystems sampled in this study(Fig. 13). These ecosystem subtypes correspond to NEON sites in Puerto Rico and Arizona, USA, respectively (Sup.Fig 2).    
+
+![**Figure 1:**](/cloud/project/images/Plots/Gamma/Gammaproteobacteria_Sample_Elevation_vs_Family.png)
+
+## Figure 14:Steroidobacterales 
+```{r,fig.height=8, fig.width=6}
+NEON_MAGs_metagenomes_chemistry_Bog <-NEON_MAGs_metagenomes_chemistry_Steroidobacterales  %>%
+  filter(str_detect(Genus,"Bog-1198"))
+
+NEON_MAGs_metagenomes_chemistry_Steroidobacterales  %>%
+  mutate(`Genome Size (Kbp)`=as.integer(`Total Number of Bases`/1000)) %>%
+  ggplot(aes(x=`Genus`,y=`Genome Size (Kbp)`))+geom_boxplot(show.legend = FALSE)+scale_y_continuous(limits=c(0,15000), breaks=c(2500,5000,7500,10000,12500,15000))+theme_classic()+labs(title="Genome Size Distribution", x="Genus", y="Genome Size (Kbp)")+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))+
+  
+  ggplot(data=NEON_MAGs_metagenomes_chemistry_Steroidobacterales,aes(x=Genus))+geom_bar(show.legend=FALSE)+labs(title="Genus Distribution", x="Genus", y="n")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+
+```
+## Figure 15 Genus BOG-11198
+```{r,fig.height=8, fig.width=8}
+NEON_MAGs_metagenomes_chemistry_Steroidobacterales  %>%
+  filter(str_detect(Genus,"Bog-1198")) %>%
+ggplot(aes(x=`Ecosystem Subtype`))+geom_bar(show.legend=FALSE)+labs(title="Ecosystem Subtype Distribution", x="Ecosystem Subtype", y="n")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))+
+  
+  ggplot(data=NEON_MAGs_metagenomes_chemistry_Bog, aes(x=`Site.x`))+geom_bar(show.legend=FALSE)+labs(title="Site Distribution", x="Site", y="n")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+```
+
+
+
+
+Members in the order *Steriobacterales* were further examined to see if their high population is correlated with genome size or sample location.  
+
+
 
 
 
@@ -229,6 +426,21 @@ redo this because points are overlapping
 ## Toolik
 
 # Supplemental Figures:
+## Supplemental Figure 1: NEON Site vs Vegetation subclass
+```{r}
+NEON_MAGs_metagenomes_chemistry %>%
+  ggplot(aes(y=`Site.x`, x=nlcdClass))+geom_point()+labs(title="NEON Site Vegetation Classes", y="Site", x="Vegetation Class")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+```
+
+
+## Supplemental Figure 2: NEON Site vs Ecosystem subclass
+```{r}
+NEON_MAGs_metagenomes_chemistry %>%
+  ggplot(aes(y=`Site.x`, x=`Ecosystem Subtype`))+geom_point()+labs(title="NEON Site Ecosystem Subtypes", y="Site", x="Ecosystem Subtype")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+```
+
+
+
 
 ![**Figure 1:**](/cloud/project/images/Plots/Gamma/NEON_MAGS_Gammaproteobacteria_Highlight_Circular_Tree.png)
 

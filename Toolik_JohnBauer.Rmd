@@ -162,6 +162,19 @@ tree_Gammaproteobacteria <- Subtree(tree_bac_node_Gammaproteobacteria, 3048)
 
 # Graphs
 
+## NEON Site vs Vegetation subclass
+```{r,, fig.width=12, fig.height=12}
+NEON_MAGs_metagenomes_chemistry %>%
+  ggplot(aes(y=`Site.x`, x=nlcdClass))+geom_point()+labs(title="NEON Site Vegetation Classes", y="Site", x="Vegetation Class")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+```
+
+## NEON Site vs Ecosystem subclass
+```{r,, fig.width=12, fig.height=12}
+NEON_MAGs_metagenomes_chemistry %>%
+  ggplot(aes(y=`Site.x`, x=`Ecosystem Subtype`))+geom_point()+labs(title="NEON Site Ecosystem Subtypes", y="Site", x="Ecosystem Subtype")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+```
+
+
 ## Toolik Bin Contamination  vs Bin Completeness
 ```{r, fig.width=12, fig.height=12}
 NEON_MAGs_metagenomes_chemistry_TOOL %>%

@@ -14,7 +14,7 @@ output:
 ---
 # Setup:
 #### Library
-```{r, message=FALSE, warning=FALSE}
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
 library(tidyverse)
 library(knitr)
 library(ggtree)
@@ -33,7 +33,7 @@ library(ggstar)
 library(DT)
 ```
 #### NEON MAGs
-```{r, message=FALSE, warning=FALSE}
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
 NEON_MAGs <- read_csv("data/NEON/GOLD_Study_ID_Gs0161344_NEON_2024_4_21.csv") %>% 
   # remove columns that are not needed for data analysis
   select(-c(`GOLD Study ID`, `Bin Methods`, `Created By`, `Date Added`, `Bin Lineage`)) %>% 
@@ -224,14 +224,24 @@ tree_bac_node_Gammaproteobacteria <- Preorder(tree_bac)
 tree_Gammaproteobacteria <- Subtree(tree_bac_node_Gammaproteobacteria, 3048)
 ```
 
+#### Plot theme
+```{r}
+# theme_classic(axis.text.x = element_text(color="grey20", size = 12,angle = 90, hjust = 0.5, vjust = 0.5), 
+#                             axis.text.y = element_text(color = "grey20", size = 12), text=element_text(size = 16))
+
+John_theme <-theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1, color="black"),axis.title.x=element_text(size = 15),
+                   axis.text.y=element_text(color="black"),axis.title.y=element_text(size = 15),title.text=element_text(face = "bold",size = 20))
+
+```
+
 
 # Abstract:
 
 # Introduction:
 
-  Carbon emissions from industrial activity has led to numerous changes to the global climate that threaten the ecosystems humanity depends on for industrial agriculture. Rising temperatures has caused the melting of glaciers and permafrost releasing bacterial species that have been dormant for millennium (source). Additionally, The higher green house gas atmospheric content has lead to the acidification of both ocean and ground water (source). The changing climate has also lead to species migration. With the recent passing of the 1.5 Celsius average global temperature milestone set by ORG, it is imperative that society adapt to our changing world. 
+&nbsp;&nbsp;&nbsp;&nbsp;Carbon emissions from industrial activity has led to numerous changes to the global climate that threaten the ecosystems humanity depends on for industrial agriculture. Rising temperatures has caused the melting of glaciers and permafrost releasing bacterial species that have been dormant for millennium (source). Additionally, The higher green house gas atmospheric content has lead to the acidification of both ocean and ground water (source). The changing climate has also lead to species migration. With the recent passing of the 1.5 Celsius average global temperature milestone set by ORG, it is imperative that society adapt to our changing world. 
 
-  In the face of climate and antibiotic challenges, plants have developed symbiotic relationships with bacteria. PLANT BACTERIA BIOCONTROL EX. PLANT NITROGEN RELATION. Thus, it has been proposed that humanity's crops could be better insulated to ecological changes by exploiting these relationships. While several beneficial bacterial species have identified, the vast majority of the bacterial kingdom remains sequenced. Additionally, with their ability to rapidly evolve in the face of ecological challenges, new species with more robust tolerances to climate change influences will only grow with time. Thus, soil bacterium represent a vast untapped resource of climate change resistant proteins, biocontrol agents, and nitrogen fixators. Data collection effort by organizations like the National Ecological Observatory Network, provide a valuable genomic resource for phylogenetic analyses to determine the identities potential beneficial bacteria as well as monitoring the population changes caused by a changing climate.
+&nbsp;&nbsp;&nbsp;&nbsp;In the face of climate and antibiotic challenges, plants have developed symbiotic relationships with bacteria. PLANT BACTERIA BIOCONTROL EX. PLANT NITROGEN RELATION. Thus, it has been proposed that humanity's crops could be better insulated to ecological changes by exploiting these relationships. While several beneficial bacterial species have identified, the vast majority of the bacterial kingdom remains sequenced. Additionally, with their ability to rapidly evolve in the face of ecological challenges, new species with more robust tolerances to climate change influences will only grow with time. Thus, soil bacterium represent a vast untapped resource of climate change resistant proteins, biocontrol agents, and nitrogen fixators. Data collection effort by organizations like the National Ecological Observatory Network, provide a valuable genomic resource for phylogenetic analyses to determine the identities potential beneficial bacteria as well as monitoring the population changes caused by a changing climate.
 
 
 
@@ -244,35 +254,21 @@ tree_Gammaproteobacteria <- Subtree(tree_bac_node_Gammaproteobacteria, 3048)
 
 
 ![**Figure 1:** Phylogenetic Tree of all MAGs collected in GOLD Study ID Gs0161344 by the National Ecological Observatory Network with bacterial phyla labels](/cloud/project/images/Plots/Gamma/NEON_MAGs_Phylum_Highlight_with_Label_Circular_Tree.png)
+&nbsp;
 
- 
- 
+&nbsp;&nbsp;&nbsp;&nbsp;This study's genomic data set was collected from soil samples by the National Ecological Observatory Network (NEON) from locations across the United States in GOLD Study ID  Gs0161344. There were INSERT total MAGs with PERCENT been novel species of bacteria. To make analyses more feasible, this report will only comment on two data subsets, MAGs belonging to the class Gammaproteobacteria, and MAGs belonging found at Toolik Field Station, Alaska USA. 
 
- 
- 
- 
-  This study's genomic data set was collected from soil samples by the National Ecological Observatory Network (NEON) from locations across the United States in GOLD Study ID  Gs0161344. There were INSERT total MAGs with PERCENT been novel species of bacteria. To make analyses more feasible, this report will only comment on two data subsets, MAGs belonging to the class Gammaproteobacteria, and MAGs belonging found at Toolik Field Station, Alaska USA. 
-
-
-
-
-
-
-
-
-
-
-
+&nbsp;
 
 ![**Figure 2:** Uprooted maximum-likelyhood phylogentic tree of gammaproteobactria based on 120 concatenated single copy proteins sequences from 780 reference genomes [@liao_reclassification_2020]. Figure adapted from Figure 2 of Liao et al.](/cloud/project/liaoFig2(1).png)
 
 
 
+&nbsp;
 
+&nbsp;&nbsp;&nbsp;&nbsp;The class Gammaproteobacteria, under the phylum Pseudomondata, is made up of around 381 genera that thrive in marine, terrestial, and eukaryotic host ecosystems [@liao_reclassification_2020]. Historically, this class has be defined phylogenetically by 16s rRNA sequence homology [@williams_proposal_2013]. Some notable members of this class include *Escherichia coli*, *Vibrio fischeri*, and *Pseudomonas aeruginosa*. INSERT SOIL EXAMPLES. This class has great diversity of morphologies with rod, cocci, spirilla, and filaments all represented [@williams_phylogeny_2010]. Additionally, species in class display a variety of trophisms including chemoautotrophs and photoautotrophs [@gao_phylogenomics_2009].
 
-  The class Gammaproteobacteria, under the phylum Pseudomondata, is made up of around 381 genera that thrive in marine, terrestial, and eukaryotic host ecosystems [@liao_reclassification_2020]. Historically, this class has be defined phylogenetically by 16s rRNA sequence homology [@williams_proposal_2013]. Some notable members of this class include *Escherichia coli*, *Vibrio fischeri*, and *Pseudomonas aeruginosa*. INSERT SOIL EXAMPLES. This class has great diversity of morphologies with rod, cocci, spirilla, and filaments all represented [@williams_phylogeny_2010]. Additionally, species in class display a variety of trophisms including chemoautotrophs and photoautotrophs [@gao_phylogenomics_2009].
-
-
+&nbsp;
 
 
 
@@ -287,17 +283,17 @@ tree_Gammaproteobacteria <- Subtree(tree_bac_node_Gammaproteobacteria, 3048)
 
 
 
-  Located 400 miles north from Fairbanks, Alaska at the foot of the Brooks mountain range, biodiversity at Toolik Field Station is heavily influenced by its harsh winters where temperatures can reach -50⁰F. It is home to a variety of fauna including caribou, loons, voles, and polar bears. Located above the northern tree line, the vegetation in the tundra here mainly consists of birch, willow, sedges and grass. The site contains a large range of soil conditions, including layers of permafrost, created by glacial action [@NEON_collection_2023].   
+&nbsp;&nbsp;&nbsp;&nbsp;Located 400 miles north from Fairbanks, Alaska at the foot of the Brooks mountain range, biodiversity at Toolik Field Station is heavily influenced by its harsh winters where temperatures can reach -50⁰F. It is home to a variety of fauna including caribou, loons, voles, and polar bears. Located above the northern tree line, the vegetation in the tundra here mainly consists of birch, willow, sedges and grass. The site contains a large range of soil conditions, including layers of permafrost, created by glacial action [@NEON_collection_2023].   
 
-  This study examines the genomic content and environmental conditions of bacteria found at the Toolik Field station to help establish a reference population for future comparisons of bacterial population changes.  
+&nbsp;&nbsp;&nbsp;&nbsp;This study examines the genomic content and environmental conditions of bacteria found at the Toolik Field station to help establish a reference population for future comparisons of bacterial population changes.  
 
 # Methods:
 
 ## Data Processing:
-Microbial samples analyzed in this study were collected from soil samples taken from NEON observation sites across the United States and sequenced via high throughput Illumina sequencing. Sequence results were then processed and annotated by the DOE JGI Metagenome Workflow for its inclusion in the Integrated Microbial Genomes and Microbiomes (IGM/M) Database and Joint Genomic Institute 's Genomes Online Database (JGI GOLD). Briefly this workflow consists of the following steps: (1) Assembly of contigs and read alignment to assembled contigs. Contigs are additionally processed for quality control. (2) Feature prediction of coding and non-coding genes, as well as CRISPR sequences. (3) Functional annotation, in which predicted features are assigned identifiers based on sequence similarity. (4) Taxonomic annotation in which contig-level phylogenetic assignments are made based on functional annotations. (5) Binning by high- and medium-quality genome bins. Bins are additionally screened for contamination. A detailed explanation of the workflow can be found in Clum et al., *ASM mSystems*, 2021.
+&nbsp;&nbsp;&nbsp;&nbsp;Microbial samples analyzed in this study were collected from soil samples taken from NEON observation sites across the United States and sequenced via high throughput Illumina sequencing. Sequence results were then processed and annotated by the DOE JGI Metagenome Workflow for its inclusion in the Integrated Microbial Genomes and Microbiomes (IGM/M) Database and Joint Genomic Institute 's Genomes Online Database (JGI GOLD). Briefly this workflow consists of the following steps: (1) Assembly of contigs and read alignment to assembled contigs. Contigs are additionally processed for quality control. (2) Feature prediction of coding and non-coding genes, as well as CRISPR sequences. (3) Functional annotation, in which predicted features are assigned identifiers based on sequence similarity. (4) Taxonomic annotation in which contig-level phylogenetic assignments are made based on functional annotations. (5) Binning by high- and medium-quality genome bins. Bins are additionally screened for contamination. A detailed explanation of the workflow can be found in Clum et al., *ASM mSystems*, 2021.
 
 ## Figure Preparation: 
-The figures of this study were formatted with the following packages in R: 
+&nbsp;&nbsp;&nbsp;&nbsp;The figures of this study were formatted with the following packages in R: 
 tidyverse,knitr, ggtree, TDbook #A Companion Package for the Book "Data Integration, Manipulation and Visualization of Phylogenetic Trees" by Guangchuang Yu (2022, ISBN:9781032233574).
 , ggimage, rphylopic, treeio, tidytree, ape, TreeTools, phytools, ggnewscale, ggtreeExtra, ggstar, DT (GGTREE SOURCES)
 
@@ -317,15 +313,21 @@ tidyverse,knitr, ggtree, TDbook #A Companion Package for the Book "Data Integrat
 
 
 ![**Figure 7:** Novel Bacteria MAG NEON Site Distribution. Novel Bacteria were determined from MAGs constructed from individual assemblies. Novel indicates the MAGs could not be placed in an existing group at the species, genus or family level](/cloud/project/images/Plots/Lab9/Total_Novel_Bacteria_per_Site.png)
-The vast majority of bacteria found in this study were determined to be novel species with PERCENT being unable to place phylogenetically at the genus level.
+&nbsp;
+
+&nbsp;&nbsp;&nbsp;&nbsp;The vast majority of bacteria found in this study were determined to be novel species with PERCENT being unable to place phylogenetically at the genus level.
+
+&nbsp;
 
 ![**Figure 8:** Novel Bacteria Distribution by Phyla. Novel Bacteria were determined from MAGs constructed from individual assemblies. Novel indicates the MAGs could not be placed in an existing group at the species, genus or family level](/cloud/project/images/Plots/Lab9/Novel_Genera_per_Phylum.png)
 
 ![**Figure 9:** Genome Count vs Genome size for all Bacterial NEON MAGs in GOLD Study ID Gs0161344. Bacterial MAGs were selected from individual assemblies.](/cloud/project/images/Plots/Gamma/Gene_Count_vs_Estimated_Mag_Genome_Size_with_phyla.png)
 
+&nbsp;
 
-Terrestrial bacteria are known to have large genomes encoding thousands genes. This is due in larger part to the diverse environment they are exposed to. Their larger genomes allow for the expression of multiple metabolic phenotypes that allow them to adapt to environmental challenges. NEON samples analyzed in this study had a broad spread of genome sizes with the minimum genome and maximum genomes sizes being 753 from the phylum Chloroflexota and 12,584 kbp from the phylum Actinomycetota, respectively (Fig. 9). There was a linear relationship between gene count and genome for all NEON samples, with a rough 1,000 bp per gene ratio (Fig. 9).
+&nbsp;&nbsp;&nbsp;&nbsp;Terrestrial bacteria are known to have large genomes encoding thousands genes. This is due in larger part to the diverse environment they are exposed to. Their larger genomes allow for the expression of multiple metabolic phenotypes that allow them to adapt to environmental challenges. NEON samples analyzed in this study had a broad spread of genome sizes with the minimum genome and maximum genomes sizes being 753 from the phylum Chloroflexota and 12,584 kbp from the phylum Actinomycetota, respectively (Fig. 9). There was a linear relationship between gene count and genome for all NEON samples, with a rough 1,000 bp per gene ratio (Fig. 9).
 
+&nbsp;
 
 ## *Gammaproteobacteria* 8 graphs
 
@@ -334,26 +336,31 @@ Terrestrial bacteria are known to have large genomes encoding thousands genes. T
 ![**Figure 11:** Distribution of Genome Size for *Gammaproteobacteria* Members.This tree includes MAG reads from all NEON sites filtered to those annotated as belonging to the class Gammaproteobacteria](/cloud/project/images/Plots/Gamma/Gammaproteobacteria_distribution_by_order.png)
 
 ![**Figure 12:** Distribution of Genome Size for *Gammaproteobacteria* Members.This tree includes MAG reads from all NEON sites filtered to those annotated as belonging to the class Gammaproteobacteria](/cloud/project/images/Plots/Gamma/Gammaproteobacteria_Gene_Count_vs_Estimated_Mag_Genome_Size_with_Order.png)
+&nbsp;
 
-NEON MAGs assigned to the *Gammaproteobacteria* class were found in all ecosystem subtypes (Fig. 10). Unlike the larger NEON data set, the distribution of genome size of *Gammaproteobacteria* members was fairly narrow with members averaging between 2000 and 5000 kbp (Fig. 12). With the exception of *Burkholderiales*,*Steroidobacterales*, and *Xanthomonadales*, this was largely due to the fewer MAGs in each order(Fig.10). The vast majority of *Gammaproteobacteria* annotated in this study were novel species with only two bacteria belonging to the *Xanthomonadales* order assigned as *Stenotrophomonas stenotrophomonas* sp024519465. *Steroidobacterales* had by far the most annontated members, while *Burkholderiales* had the most family member groups (Fig. 11).        
-
+&nbsp;&nbsp;&nbsp;&nbsp;NEON MAGs assigned to the *Gammaproteobacteria* class were found in all ecosystem subtypes (Fig. 10). Unlike the larger NEON data set, the distribution of genome size of *Gammaproteobacteria* members was fairly narrow with members averaging between 2000 and 5000 kbp (Fig. 12). With the exception of *Burkholderiales*,*Steroidobacterales*, and *Xanthomonadales*, this was largely due to the fewer MAGs in each order(Fig.10). The vast majority of *Gammaproteobacteria* annotated in this study were novel species with only two bacteria belonging to the *Xanthomonadales* order assigned as *Stenotrophomonas stenotrophomonas* sp024519465. *Steroidobacterales* had by far the most annontated members, while *Burkholderiales* had the most family member groups (Fig. 11).        
+&nbsp;
 
 ![**Figure 13:**](/cloud/project/images/Plots/Gamma/Gammaproteobacteria_Temp_pH_NLCD_Ecosub.png)
-Members of *Gammaproteobacteria* were found in a variety of ecosystem conditions. The soil pH of all *Gammaproteobacteria* samples was largely neutral to mildly acidic with lowest pH around 4 (Fig. 4). Overall, the vegetation class of sedge and grassland herbaceous and contained the least amount of family groups in *Gammproteobacteria* (Fig. 13). This is not too surprising for sedge herbaceous as this vegetation class is only found in one Alaskan NEON site (Sup. Fig. 1). However, grassland herbaceous vegetation is present in 5 out of the 13 sample sites (Sup. Fig 2). Interestingly, despite being the *Gammaproteobacteria* order with the most MAGs and existing in a variety of vegetation classes, soil pH and temperatures, no members of the *Steroidobacterales* order were found in tropical forest or desert ecosystems sampled in this study(Fig. 13). These ecosystem subtypes correspond to NEON sites in Puerto Rico and Arizona, USA, respectively (Sup.Fig 2).    
+&nbsp;
+
+&nbsp;&nbsp;&nbsp;&nbsp;Members of *Gammaproteobacteria* were found in a variety of ecosystem conditions. The soil pH of all *Gammaproteobacteria* samples was largely neutral to mildly acidic with lowest pH around 4 (Fig. 4). Overall, the vegetation class of sedge and grassland herbaceous and contained the least amount of family groups in *Gammproteobacteria* (Fig. 13). This is not too surprising for sedge herbaceous as this vegetation class is only found in one Alaskan NEON site (Sup. Fig. 1). However, grassland herbaceous vegetation is present in 5 out of the 13 sample sites (Sup. Fig 2). Interestingly, despite being the *Gammaproteobacteria* order with the most MAGs and existing in a variety of vegetation classes, soil pH and temperatures, no members of the *Steroidobacterales* order were found in tropical forest or desert ecosystems sampled in this study(Fig. 13). These ecosystem subtypes correspond to NEON sites in Puerto Rico and Arizona, USA, respectively (Sup.Fig 2).    
+
+&nbsp;
 
 ### Figure 14:*Steroidobacterale Steroidobacteraceae*
-	
 ```{r,fig.height=10, fig.width=6}
 NEON_MAGs_metagenomes_chemistry_Steroidobacterales <-NEON_MAGs_metagenomes_chemistry_Steroidobacterales  %>%
   mutate(`Genome Size (Kbp)`=as.integer(`Total Number of Bases`/1000))
-
+#Ecosubtype
 NEON_MAGs_metagenomes_chemistry_Steroidobacterales  %>%
-  ggplot(aes(x=Genus, y=`Ecosystem Subtype`))+geom_point(show.legend=FALSE)+labs(title="Genus Distribution", x="Genus", y="Ecosystem Subtype")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))+
-  
-  ggplot(data=NEON_MAGs_metagenomes_chemistry_Steroidobacterales,aes(x=Genus, `Site ID.x`))+geom_point(show.legend=FALSE)+labs(title="Genus Distribution", x="Genus", y="Site ID")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))+
-  
-  ggplot(data=NEON_MAGs_metagenomes_chemistry_Steroidobacterales, aes(x=`Genus`,y=`Genome Size (Kbp)`))+geom_boxplot(show.legend = FALSE)+scale_y_continuous(limits=c(0,15000), breaks=c(2500,5000,7500,10000,12500,15000))+theme_classic()+labs(title="Genome Size Distribution", x="Genus", y="Genome Size (Kbp)")+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))+
-  ggplot(data=NEON_MAGs_metagenomes_chemistry_Steroidobacterales,aes(x=Genus))+geom_bar(show.legend=FALSE)+labs(title="Genus Distribution", x="Genus", y="n")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+  ggplot(aes(x=Genus, y=`Ecosystem Subtype`))+geom_point(show.legend=FALSE)+labs(title="A", x="Genus", y="Ecosystem Subtype")+theme_classic()+John_theme+
+#siteID  
+  ggplot(data=NEON_MAGs_metagenomes_chemistry_Steroidobacterales,aes(x=Genus, `Site ID.x`))+geom_point(show.legend=FALSE)+labs(title="B", x="Genus", y="Site ID")+theme_classic()+John_theme+
+#genomesize  
+  ggplot(data=NEON_MAGs_metagenomes_chemistry_Steroidobacterales, aes(x=`Genus`,y=`Genome Size (Kbp)`))+geom_boxplot(show.legend = FALSE)+scale_y_continuous(limits=c(0,15000), breaks=c(2500,5000,7500,10000,12500,15000))+theme_classic()+labs(title="C", x="Genus", y="Genome Size (Kbp)")+John_theme+
+#genus count
+  ggplot(data=NEON_MAGs_metagenomes_chemistry_Steroidobacterales,aes(x=Genus))+geom_bar(show.legend=FALSE)+labs(title="D", x="Genus", y="n")+theme_classic()+John_theme
   
 ```
 
@@ -367,9 +374,12 @@ NEON_MAGs_metagenomes_chemistry_Bog %>%
   
   ggplot(data=NEON_MAGs_metagenomes_chemistry_Bog, aes(x=`Site.x`))+geom_bar(show.legend=FALSE)+labs(title="Site Distribution", x="Site", y="n")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
 ```
+&nbsp;
 
-Members in the order *Steriobacterales* were further examined to see if their high population is correlated with genome size or sample location. Only the *Steroidobacteraceae* family was found under the order. This family contain 7 genera with the genus BOG-1198 accounting for 30 of the 50 of *Steriobacterales* MAGs (figs. 10,14). Once again the distribution of genome size appears correlated to the total MAG counts for each genera in the *Steroidobacteraceae* family, with the higher populations corresponding to larger deviation in genome size. Given that BOG-1198 accounted for a majority of *Steriobacterales* MAGs, the genus was further examined. Members of this genus were found in several ecosystem subtypes and sample sites located in the northern United States. The majority Individual Assemblies of *Steroidobacteraceae* BOG-1198 MAGs were found at one of the three Alaskan sample sites (Figure 16).Note that all combined assembly MAGs were given the shrubland ecosystem subtype. A third of all BOG-1198 MAGs were coassembled.    
+&nbsp;&nbsp;&nbsp;&nbsp;Members in the order *Steriobacterales* were further examined to see if their high population is correlated with genome size or sample location. Only the *Steroidobacteraceae* family was found under the order. This family contain 7 genera with the genus BOG-1198 accounting for 30 of the 50 of *Steriobacterales* MAGs (figs. 10,14). Once again the distribution of genome size appears correlated to the total MAG counts for each genera in the *Steroidobacteraceae* family, with the higher populations corresponding to larger deviation in genome size. Given that BOG-1198 accounted for a majority of *Steriobacterales* MAGs, the genus was further examined. Members of this genus were found in several ecosystem subtypes and sample sites located in the northern United States. The majority Individual Assemblies of *Steroidobacteraceae* BOG-1198 MAGs were found at one of the three Alaskan sample sites (Figure 16).Note that all combined assembly MAGs were given the shrubland ecosystem subtype. A third of all BOG-1198 MAGs were coassembled.    
 
+
+&nbsp;
 
 ### Figure 16: *Burkholderiales*
 	
@@ -399,8 +409,11 @@ ggplot(data=NEON_MAGs_metagenomes_chemistry_Burkholderiaceae, aes(x=`Ecosystem S
   
 ```
 
+&nbsp;
 
-Members of the order *Burkholderiales* were also examined further at the genus level to determine if their broader diversity corresponded to the variety of ecosystems they were found in. Indeed, members of this order were found across the United States in several different ecosystem subtypes. Individually assembled members of the *Burkholderiaceae* including the genera *Caballeronia*, *Herbaspirillum*, and *Paraburkholderi*, were found mainly temperate forests with some members also found in tundra and and Boreal forest/Taiga subtypes (Fig. 16, 17). Interestingly, genera genome size distribution appears not to be correlated to the amount genera members. Despite only having 4 MAGs from the Niwot Ridge site in Colorado the *Herbaspirillum* genera contained a broad range of genome sizes. The *Caballeronia* genera, containing 5 MAGs, had a much tighter distribution of genome size (Fig. 16). Also of note is the appearance of the *Trinicki* genera in the Wind River Experimental Forest in Washington (Fig. 16,17). *Trinicki* members have prevously been found to form endosymbotic relations with the phyopathgenic fungi *Rhizopus microsporus* (Source). 
+&nbsp;&nbsp;&nbsp;&nbsp;Members of the order *Burkholderiales* were also examined further at the genus level to determine if their broader diversity corresponded to the variety of ecosystems they were found in. Indeed, members of this order were found across the United States in several different ecosystem subtypes. Individually assembled members of the *Burkholderiaceae* including the genera *Caballeronia*, *Herbaspirillum*, and *Paraburkholderi*, were found mainly temperate forests with some members also found in tundra and and Boreal forest/Taiga subtypes (Fig. 16, 17). Interestingly, genera genome size distribution appears not to be correlated to the amount genera members. Despite only having 4 MAGs from the Niwot Ridge site in Colorado the *Herbaspirillum* genera contained a broad range of genome sizes. The *Caballeronia* genera, containing 5 MAGs, had a much tighter distribution of genome size (Fig. 16). Also of note is the appearance of the *Trinicki* genera in the Wind River Experimental Forest in Washington (Fig. 16,17). *Trinicki* members have prevously been found to form endosymbotic relations with the phyopathgenic fungi *Rhizopus microsporus* (Source). 
+
+&nbsp;
 
 ## Toolik 0/20 graphs
 
@@ -543,7 +556,7 @@ ggtree(tree_bac_TOOL_MAGs)  %<+%
 
 
 ## Gammaproteobacteria
-Several notable genera in *Burkholderiales* were found in this study, Caballeronia, paraburkholderia (known nitrogen fixators and endosymbotes), trinickia Novel associated with phytopathogen from journal club
+&nbsp;&nbsp;&nbsp;&nbsp;Several notable genera in *Burkholderiales* were found in this study, Caballeronia, paraburkholderia (known nitrogen fixators and endosymbotes), trinickia Novel associated with phytopathogen from journal club
 
 
 ## Toolik

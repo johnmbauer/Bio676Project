@@ -230,7 +230,7 @@ tree_Gammaproteobacteria <- Subtree(tree_bac_node_Gammaproteobacteria, 3048)
 #                             axis.text.y = element_text(color = "grey20", size = 12), text=element_text(size = 16))
 
 John_theme <-theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1, color="black"),axis.title.x=element_text(size = 15),
-                   axis.text.y=element_text(color="black"),axis.title.y=element_text(size = 15),title.text=element_text(face = "bold",size = 20))
+                   axis.text.y=element_text(color="black"),axis.title.y=element_text(size = 15))
 
 ```
 
@@ -349,7 +349,7 @@ tidyverse,knitr, ggtree, TDbook #A Companion Package for the Book "Data Integrat
 &nbsp;
 
 ### Figure 14:*Steroidobacterale Steroidobacteraceae*
-```{r,fig.height=10, fig.width=6}
+```{r,fig.height=10, fig.width=6, fig.align='center'}
 NEON_MAGs_metagenomes_chemistry_Steroidobacterales <-NEON_MAGs_metagenomes_chemistry_Steroidobacterales  %>%
   mutate(`Genome Size (Kbp)`=as.integer(`Total Number of Bases`/1000))
 #Ecosubtype
@@ -363,6 +363,8 @@ NEON_MAGs_metagenomes_chemistry_Steroidobacterales  %>%
   ggplot(data=NEON_MAGs_metagenomes_chemistry_Steroidobacterales,aes(x=Genus))+geom_bar(show.legend=FALSE)+labs(title="D", x="Genus", y="n")+theme_classic()+John_theme
   
 ```
+**Figure 14:** A) Dotplot of ecosystem subtype each genus of *Steroidobacteraceae* was found in. B) Dotplot of the NEON sites each genus of *Steroidobacteraceae* was found in. C) Boxplot of MAG genome sizes in Kbp for each genus of *Steroidobacteraceae*. D) Total MAG counts of each genus of *Steroidobacteraceae*. All samples belong to the GOLD Study ID Gs0161344.
+
 
 ### Figure 15: *Steroidobacteraceae* BOG-1198
 ```{r,fig.height=8, fig.width=8}

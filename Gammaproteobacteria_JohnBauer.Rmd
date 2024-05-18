@@ -151,7 +151,7 @@ datatable (NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria_Novel %>%
 # Make a vector with the internal node labels
 node_vector_bac = c(tree_bac$tip.label,tree_bac$node.label)
 
-# Search for your Phylum or Class
+# Search for Phylum
 phylumss <-NEON_MAGs_metagenomes_chemistry %>%
             count(Phylum, sort=TRUE)
 n=1

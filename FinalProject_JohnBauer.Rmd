@@ -127,6 +127,18 @@ tree_bac_TOOL_MAGs <-drop.tip(tree_bac,tree_bac$tip.label[-match(TOOL_MAGs_label
 # Make a vector with the internal node lables
 node_vector_bac_TOOL_MAGS = c(tree_bac_TOOL_MAGs$tip.label,tree_bac_TOOL_MAGs$node.label)
 
+NEON_MAGs_metagenomes_chemistry_TOOL_noblank <- NEON_MAGs_metagenomes_chemistry_TOOL %>% 
+  rename("Phyla" = "Phylum") %>% 
+  rename("AssemblyType" = "Assembly Type") %>% 
+  rename("WaterpH" ="soilInWaterpH") %>% 
+  rename("Temp" ="soilTemp") %>% 
+  rename("BinCompleteness" = "Bin Completeness") %>% 
+  rename("BinContamination" = "Bin Contamination") %>% 
+  rename("TotalNumberofBases" = "Total Number of Bases") %>% 
+  rename("EcosystemSubtype" = "Ecosystem Subtype") %>%
+  rename("GeneCount" = "Gene Count") %>% 
+  rename("GCassembled" = "GC  * assembled")
+
 ```
 #### Tree Nodes
 ```{r, message=FALSE, warning=FALSE}
@@ -315,7 +327,7 @@ The vast majority of bacteria found in this study were determined to be novel sp
 Terrestrial bacteria are known to have large genomes encoding thousands genes. This is due in larger part to the diverse environment they are exposed to. Their larger genomes allow for the expression of multiple metabolic phenotypes that allow them to adapt to environmental challenges. NEON samples analyzed in this study had a broad spread of genome sizes with the minimum genome and maximum genomes sizes being 753 from the phylum Chloroflexota and 12,584 kbp from the phylum Actinomycetota, respectively (Fig. 9). There was a linear relationship between gene count and genome for all NEON samples, with a rough 1,000 bp per gene ratio (Fig. 9).
 
 
-## *Gammaproteobacteria* 13/20 graphs
+## *Gammaproteobacteria* 8 graphs
 
 ![**Figure 10:** Phylogenetic Tree of *Gammaproteobacteria* with Ecosystem Subtype and Number of Bases markers.This tree includes MAG reads from all NEON sites filtered to those annotated as belonging to the class Gammaproteobacteria](/cloud/project/images/Plots/Gamma/NEON_MAGS_Gammaproteobacteria_with_Ecosystem_Subtype_and_Total_Number_of_Bases_Label_Circular_Tree.png)
 
@@ -404,8 +416,88 @@ ggtree(tree_bac_TOOL_MAGs, layout="circular", branch.length="none") +
                   offset.text=0.5 , textcolor='black', barcolor='steelblue',barsize=1.5, fontsize=5)
 ```
 
-### Figure 19: 
+## Figure 19 TOOLIK distribution by Phylum
+```{r, fig.width = 12, fig.height = 8}
+NEON_MAGs_metagenomes_chemistry_TOOL %>% 
+  ggplot(aes(x=fct_rev(fct_infreq(Phylum)), fill=Order))+geom_bar()+coord_flip()+labs(title="MAG Count by Phylum at Toolik Field Station ", x="Site", y="MAG Count",fill="Phylum")+theme_classic()
 
+```
+## NEON Site Sample Temperatures and pH
+```{r}
+NEON_MAGs_metagenomes_chemistry %>%
+     ggplot(aes(y=`soilTemp`,x=`Site ID.x`, color=`Site ID.x`), size=1)+geom_point(show.legend = FALSE)+scale_y_continuous(limits=c(0,50),breaks = c(10,20,30,40,50)) +labs(title="Soil Temperature", y="Soil Temperature", x="Site ID")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))+
+     ggplot(data=NEON_MAGs_metagenomes_chemistry,aes(y=`soilInWaterpH`,x=`Site ID.x`, color=`Site ID.x`), size=1)+geom_point(show.legend = FALSE)+scale_y_continuous(limits=c(0,14),breaks=c(1:14)) +labs(title="Soil pH", y="Soil Temperature", x="Site ID")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+```
+
+
+
+```{r, fig.width=12, fig.height=12}
+NEON_MAGs_metagenomes_chemistry_TOOL_Xanthomonadales <- NEON_MAGs_metagenomes_chemistry_TOOL %>%
+  filter(str_detect(`Order`,"Xanthomonadales"))
+NEON_MAGs_metagenomes_chemistry_TOOL_Burkholderiales <- NEON_MAGs_metagenomes_chemistry_TOOL %>%
+  filter(str_detect(`Order`,"Burkholderiales"))
+NEON_MAGs_metagenomes_chemistry_TOOL_Steroidobacterales <- NEON_MAGs_metagenomes_chemistry_TOOL %>%
+  filter(str_detect(`Order`,"Steroidobacterales"))
+NEON_MAGs_metagenomes_chemistry_Alaska <-NEON_MAGs_metagenomes_chemistry %>%
+  filter(str_detect(Site.x,"Alaska"))
+
+
+#ALL NEON TEMP
+NEON_MAGs_metagenomes_chemistry %>%
+     ggplot(aes(y=`soilTemp`,x=`Site.x`, color=`Phylum`), size=1)+geom_point(position=position_dodge2(width=1, preserve="single"))+scale_y_continuous(limits=c(0,50),breaks = c(10,20,30,40,50)) +labs(title="Soil Temperature", y="Soil Temperature", x="Family")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+#ALL NEON pH
+NEON_MAGs_metagenomes_chemistry %>%
+     ggplot(aes(y=`soilInWaterpH`,x=`Site.x`, color=`Phylum`), size=1)+geom_point()+scale_y_continuous(limits=c(0,14),breaks=c(1:14)) +labs(title="Soil Temperature", y="Soil Temperature", x="Site")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+
+#ALASKAN TEMP
+NEON_MAGs_metagenomes_chemistry_Alaska %>%
+     ggplot(aes(x=`Phylum`,y=`soilTemp`, color=`Phylum`), size=1)+geom_point(show.legend=FALSE)+facet_wrap(vars(Site.x), scales="free_y", ncol=3)+scale_y_continuous(limits=c(0,10)) +labs(title="Soil Temperature", y="Soil Temperature", x="Site")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+#ALASKAN PH
+NEON_MAGs_metagenomes_chemistry_Alaska %>%
+     ggplot(aes(x=`Phylum`,y=`soilInWaterpH`, color=`Phylum`), size=1)+geom_point()+facet_wrap(vars(Site.x), scales="free_y", ncol=3)+scale_y_continuous(limits=c(0,14),breaks =rep(0:14)) +labs(title="Soil pH", y="Soil pH", x="Site")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+
+NEON_MAGs_metagenomes_chemistry_Alaska %>%
+     ggplot(aes(x=`Phylum`, fill=`Order`))+geom_bar()+facet_wrap(vars(Site.x), scales="free_y", ncol=3) +labs(title="Soil pH", y="Soil pH", x="Site")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+
+NEON_MAGs_metagenomes_chemistry_TOOL %>%
+     ggplot(aes(y=`soilTemp`,x=`Phylum`, color=`Phylum`), size=1)+geom_point(show.legend=FALSE)+scale_y_continuous(limits=c(0,50)) +labs(title="Soil pH", y="Soil pHe", x="Site")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+  
+  ggplot(data=NEON_MAGs_metagenomes_chemistry_TOOL,aes(y=`soilInWaterpH`,x=`Order`, color=`Phylum`))+geom_point()+scale_y_continuous(limits=c(0,14),breaks =rep(0:14) )+labs(title="Soil pH in Water", y="pH", x="Family")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+  
+  ggplot(data=NEON_MAGs_metagenomes_chemistry_TOOL,aes(y=`nlcdClass`,x=`Family`, color=`Order`))+geom_point(show.legend=FALSE)+labs(title="Vegetation Class", y="Vegetation Class", x="Family")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+```
+
+
+## TOOLIK distribution by Phylum
+```{r, fig.width = 12, fig.height = 8}
+NEON_MAGs_metagenomes_chemistry_TOOL %>% 
+  ggplot(aes(x=fct_rev(fct_infreq(Phylum)), fill=Order))+geom_bar()+coord_flip()+labs(title="MAG Count by Phylum at Toolik Field Station ", x="Site", y="MAG Count",fill="Phylum")+theme_classic()
+
+```
+
+## Figure 19
+```{r}
+NEON_MAGs_metagenomes_chemistry_TOOL %>%
+  mutate(`Genome Size (Kbp)`=as.integer(`Total Number of Bases`/1000)) %>%
+  ggplot(aes(x=`Phylum`,y=`Genome Size (Kbp)`,color=`Phylum`))+geom_boxplot(show.legend = FALSE)+scale_y_continuous(limits=c(0,15000), breaks=c(2500,5000,7500,10000,12500,15000))+theme_classic()+labs(title="Phyla Genome Size Distributions", x="Phyla", y="Genome Size (Kbp)")+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+```
+
+
+
+### Figure 20: 
+```{r, fig.height=12, fig.width=12}
+ggtree(tree_bac_TOOL_MAGs)  %<+%
+  NEON_MAGs_metagenomes_chemistry + 
+  geom_tippoint(aes(colour=`Phylum`)) + 
+
+# For unknown reasons the following does not like blank spaces in the names
+  geom_facet(panel = "Gene Count", data = NEON_MAGs_metagenomes_chemistry_TOOL_noblank, geom = geom_point, 
+      mapping=aes(x = GeneCount, color=Phyla))+
+  geom_facet(panel = "% GC Content ", data = NEON_MAGs_metagenomes_chemistry_TOOL_noblank, geom = geom_col, 
+                aes(x = GCassembled,fill=Phyla), orientation = 'y', width = .6, show.legend=FALSE) +
+  theme_tree2(legend.position=c(.1, .7))
+
+```
 
 
 ![**Figure 1:**](/cloud/project/images/Plots/Toolik/Toolik_Sample_Soil_Temperature_vs_pH_in_Water.png)

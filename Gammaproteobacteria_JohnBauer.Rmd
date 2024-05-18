@@ -573,50 +573,21 @@ ggsave(
 
 ## Gammmaproteobacteria Rectangular Tree -Commented out
 ```{r, fig.height=12, fig.width=12}
-# ggtree(tree_Gammaproteobacteria) +
-#   geom_tiplab(size=3) +
-#   xlim(0,20)
-# 
-# ggsave(
-#   "Gammmaproteobacteria_Rectangular_Tree.png",
-#   plot = last_plot(),
-#   device = NULL,
-#   path = "/cloud/project/images/Plots/Gamma",
-#   scale = 1,
-#   width = NA,
-#   height = NA,
-#   units = c("in", "cm", "mm", "px"),
-#   dpi = 300,
-#   limitsize = TRUE,
-#   bg = NULL,
-#   create.dir = FALSE,
-# )
+ggtree(tree_Gammaproteobacteria) + 
+  geom_tiplab(size=3) +
+  xlim(0,20)
 
 
 ```
 
 ## Gammaproteobacteria Circular Tree -commented out
 ```{r, fig.height=12, fig.width=12}
-# ggtree(tree_Gammaproteobacteria, layout="circular") + 
-#   geom_tiplab(aes(angle=angle))+
-#     theme_tree() +
-#     xlim(0,20)
-# 
-# ggsave(
-#   "Gammmaproteobacteria_Circular_Tree.png",
-#   plot = last_plot(),
-#   device = NULL,
-#   path = "/cloud/project/images/Plots/Gamma",
-#   scale = 1,
-#   width = NA,
-#   height = NA,
-#   units = c("in", "cm", "mm", "px"),
-#   dpi = 300,
-#   limitsize = TRUE,
-#   bg = NULL,
-#   create.dir = FALSE,
-# )
+ggtree(tree_Gammaproteobacteria, layout="circular")+geom_point2(aes(subset=(node==1444)), shape=23, size=5, fill='steelblue')
+   
+  
 
+grep("3300060645_73", node_vector_bac, value = TRUE)
+match(grep("3300060645_73", node_vector_bac, value = TRUE), node_vector_bac)
 ```
 
 ## NEON MAGS Gammaproteobacteria Highlight Circular Tree
@@ -624,20 +595,7 @@ ggsave(
 ggtree(tree_bac, layout="circular") +
     geom_hilight(node=3048, fill="steelblue", alpha=.6)
 
-ggsave(
-  "NEON_MAGS_Gammaproteobacteria_Highlight_Circular_Tree.png",
-  plot = last_plot(),
-  device = NULL,
-  path = "/cloud/project/images/Plots/Gamma",
-  scale = 1,
-  width = NA,
-  height = NA,
-  units = c("in", "cm", "mm", "px"),
-  dpi = 300,
-  limitsize = TRUE,
-  bg = NULL,
-  create.dir = FALSE,
-)
+
 ```
 
 ## NEON MAGS Gammaproteobacteria Highlight with Label Circular Tree
@@ -668,11 +626,11 @@ ggsave(
 
 ## NEON MAGS Gammaproteobacteria Label Circular Tree -commented out
 ```{r, fig.height=12, fig.width=12}
-# ggtree(tree_bac, layout="circular", branch.length="none") %>% 
-#   collapse(node=3048) + 
-#   geom_point2(aes(subset=(node==3048)), shape=23, size=5, fill='steelblue') +  
-#   geom_cladelab(node=3048, label="Gammaproteobacteria", align=TRUE,  
-#                   offset = 2, textcolor='steelblue')
+ggtree(tree_bac, layout="circular", branch.length="none") %>%
+  collapse(node=3048) +
+  geom_point2(aes(subset=(node==1444)), shape=23, size=5, fill='steelblue') +
+  geom_cladelab(node=1444, label="Gammaproteobacteria", align=TRUE,
+                  offset = 2, textcolor='steelblue')
 # ggsave(
 #   "NEON_MAGS_Gammaproteobacteria_Label_Circular_Tree.png",
 #   plot = last_plot(),

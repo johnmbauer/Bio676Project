@@ -108,18 +108,6 @@ NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria_Novel <- NEON_MAGs_metagenom
 #almost are novel only two have species names
 
 
-#Toolik
-NEON_MAGs_metagenomes_chemistry_TOOL<- NEON_MAGs_metagenomes_chemistry %>% 
-  filter(`Site ID.x` == "TOOL") %>%
-  filter(Domain=="Bacteria")
-NEON_MAGs_metagenomes_chemistry_TOOL_Novel <- NEON_MAGs_metagenomes_chemistry_TOOL %>%
-  filter(is.na(Order) | is.na(Family) | is.na(Genus) | is.na(Species))
-#almost are novel only two have species names
-TOOL_MAGs_label <- NEON_MAGs_metagenomes_chemistry_TOOL$label
-tree_bac_TOOL_MAGs <-drop.tip(tree_bac,tree_bac$tip.label[-match(TOOL_MAGs_label, tree_bac$tip.label)])
-
-# Make a vector with the internal node lables
-node_vector_bac_TOOL_MAGS = c(tree_bac_TOOL_MAGs$tip.label,tree_bac_TOOL_MAGs$node.label)
 
 ```
 
@@ -655,10 +643,13 @@ ggsave(
 )
 ```
 
-## Toolik triplot with Bin Completeness and Bin Contamination
+## Toolik triplot with Water pH and Soil Temp
 ```{r, fig.height=12, fig.width=12}
 NEON_MAGs_metagenomes_chemistry_TOOL_noblank <- NEON_MAGs_metagenomes_chemistry_TOOL %>% 
+  rename("Phyla" = "Phylum") %>% 
   rename("AssemblyType" = "Assembly Type") %>% 
+  rename("WaterpH" ="soilInWaterpH") %>% 
+  rename("Temp" ="soilTemp") %>% 
   rename("BinCompleteness" = "Bin Completeness") %>% 
   rename("BinContamination" = "Bin Contamination") %>% 
   rename("TotalNumberofBases" = "Total Number of Bases") %>% 
@@ -666,62 +657,32 @@ NEON_MAGs_metagenomes_chemistry_TOOL_noblank <- NEON_MAGs_metagenomes_chemistry_
   rename("GeneCount" = "Gene Count") %>% 
   rename("GCassembled" = "GC  * assembled")
 
-
-
 ggtree(tree_bac_TOOL_MAGs)  %<+%
   NEON_MAGs_metagenomes_chemistry + 
-  geom_tippoint(aes(colour=`Ecosystem Subtype`)) + 
+  geom_tippoint(aes(colour=`Phylum`)) + 
 
 # For unknown reasons the following does not like blank spaces in the names
-  geom_facet(panel = "Bin Completeness", data = NEON_MAGs_metagenomes_chemistry_noblank, geom = geom_point, 
-      mapping=aes(x = BinCompleteness)) +
-  geom_facet(panel = "Bin Contamination", data = NEON_MAGs_metagenomes_chemistry_noblank, geom = geom_col, 
-                aes(x = BinContamination), orientation = 'y', width = .6) +
+  geom_facet(panel = "Soil pH", data = NEON_MAGs_metagenomes_chemistry_TOOL_noblank, geom = geom_point, 
+      mapping=aes(x = WaterpH,color=Phyla)) +
+  geom_facet(panel = "Soil Temp", data = NEON_MAGs_metagenomes_chemistry_TOOL_noblank, geom = geom_point, 
+                aes(x = Temp,color=Phyla), orientation = 'y', width = .6,show.legend=FALSE) +
   theme_tree2(legend.position=c(.1, .7))
 
-ggsave(
-  "Toolik_MAGS_triplot_with_Bin_Completeness_and_Bin_Contamination.png",
-  plot = last_plot(),
-  device = NULL,
-  path = "/cloud/project/images/Plots/Toolik",
-  scale = 1,
-  width = NA,
-  height = NA,
-  units = c("in", "cm", "mm", "px"),
-  dpi = 300,
-  limitsize = TRUE,
-  bg = NULL,
-  create.dir = FALSE,
-)
 ```
 
 ## Toolik triplot with Gene and GC Content
 ```{r, fig.height=12, fig.width=12}
 ggtree(tree_bac_TOOL_MAGs)  %<+%
   NEON_MAGs_metagenomes_chemistry + 
-  geom_tippoint(aes(color=`Ecosystem Subtype`)) + 
+  geom_tippoint(aes(colour=`Phylum`)) + 
 
 # For unknown reasons the following does not like blank spaces in the names
-  geom_facet(panel = "Gene Count", data = NEON_MAGs_metagenomes_chemistry_noblank, geom = geom_point, 
-      mapping=aes(x = GeneCount))+
-  geom_facet(panel = "% GC Content ", data = NEON_MAGs_metagenomes_chemistry_noblank, geom = geom_col, 
-                aes(x = GCassembled), orientation = 'y', width = .6) +
+  geom_facet(panel = "Gene Count", data = NEON_MAGs_metagenomes_chemistry_TOOL_noblank, geom = geom_point, 
+      mapping=aes(x = GeneCount, color=Phyla))+
+  geom_facet(panel = "% GC Content ", data = NEON_MAGs_metagenomes_chemistry_TOOL_noblank, geom = geom_col, 
+                aes(x = GCassembled,fill=Phyla), orientation = 'y', width = .6, show.legend=FALSE) +
   theme_tree2(legend.position=c(.1, .7))
 
-ggsave(
-  "Toolik_MAGS_triplot_with_ Gene_and_GC_Content.png",
-  plot = last_plot(),
-  device = NULL,
-  path = "/cloud/project/images/Plots/Toolik",
-  scale = 1,
-  width = NA,
-  height = NA,
-  units = c("in", "cm", "mm", "px"),
-  dpi = 300,
-  limitsize = TRUE,
-  bg = NULL,
-  create.dir = FALSE,
-)
 ```
 
 ## Toolik with Ecosystem Subtype and Total Number of Bases in Outside Labels --commented

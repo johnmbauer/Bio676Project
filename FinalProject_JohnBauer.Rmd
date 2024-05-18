@@ -506,9 +506,9 @@ NEON_MAGs_metagenomes_chemistry_Bog <-NEON_MAGs_metagenomes_chemistry_Steroidoba
   filter(str_detect(Genus,"Bog-1198"))
 
 NEON_MAGs_metagenomes_chemistry_Bog %>%         
-         ggplot(aes(x=`Ecosystem Subtype`))+geom_bar(show.legend=FALSE)+labs(title="Ecosystem Subtype Distribution", x="Ecosystem Subtype", y="n")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))+
+         ggplot(aes(x=`Ecosystem Subtype`))+geom_bar(show.legend=FALSE)+labs(title="Ecosystem Subtype Distribution", x="Ecosystem Subtype", y="n")+theme_classic()+John_theme+
   
-  ggplot(data=NEON_MAGs_metagenomes_chemistry_Bog, aes(x=`Site.x`))+geom_bar(show.legend=FALSE)+labs(title="Site Distribution", x="Site", y="n")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+  ggplot(data=NEON_MAGs_metagenomes_chemistry_Bog, aes(x=`Site.x`))+geom_bar(show.legend=FALSE)+labs(title="Site Distribution", x="Site", y="n")+theme_classic()+John_theme
 ```
 &nbsp;
 
@@ -524,12 +524,12 @@ NEON_MAGs_metagenomes_chemistry_Burkholderiales <-NEON_MAGs_metagenomes_chemistr
   mutate(`Genome Size (Kbp)`=as.integer(`Total Number of Bases`/1000))
 
 NEON_MAGs_metagenomes_chemistry_Burkholderiales  %>%
-  ggplot(aes(x=Genus, y=`Ecosystem Subtype`,color=`Family`))+geom_point(show.legend=FALSE)+labs(title="Genus Distribution", x="Genus", y="Ecosystem Subtype")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))+
+  ggplot(aes(x=Genus, y=`Ecosystem Subtype`,color=`Family`))+geom_point(show.legend=FALSE)+labs(title="Genus Distribution", x="Genus", y="Ecosystem Subtype")+theme_classic()+John_theme+
   
-  ggplot(data=NEON_MAGs_metagenomes_chemistry_Burkholderiales,aes(x=Genus,y= `Site ID.x`,color=`Family`))+geom_point()+labs(title="Genus Distribution", x="Genus", y="Site ID")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))+
+  ggplot(data=NEON_MAGs_metagenomes_chemistry_Burkholderiales,aes(x=Genus,y= `Site ID.x`,color=`Family`))+geom_point()+labs(title="Genus Distribution", x="Genus", y="Site ID")+theme_classic()+John_theme+
   
-  ggplot(data=NEON_MAGs_metagenomes_chemistry_Burkholderiales, aes(x=`Genus`,y=`Genome Size (Kbp)`,color=`Family`))+geom_boxplot(show.legend = FALSE)+scale_y_continuous(limits=c(0,15000), breaks=c(2500,5000,7500,10000,12500,15000))+theme_classic()+labs(title="Genome Size Distribution", x="Genus", y="Genome Size (Kbp)")+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))+
-  ggplot(data=NEON_MAGs_metagenomes_chemistry_Burkholderiales,aes(x=Genus,fill=`Family`))+geom_bar()+labs(title="Genus Distribution", x="Genus", y="n")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+  ggplot(data=NEON_MAGs_metagenomes_chemistry_Burkholderiales, aes(x=`Genus`,y=`Genome Size (Kbp)`,color=`Family`))+geom_boxplot(show.legend = FALSE)+scale_y_continuous(limits=c(0,15000), breaks=c(2500,5000,7500,10000,12500,15000))+theme_classic()+labs(title="Genome Size Distribution", x="Genus", y="Genome Size (Kbp)")+John_theme+
+  ggplot(data=NEON_MAGs_metagenomes_chemistry_Burkholderiales,aes(x=Genus,fill=`Family`))+geom_bar()+labs(title="Genus Distribution", x="Genus", y="n")+theme_classic()+John_theme
   
 ```
 
@@ -539,9 +539,9 @@ NEON_MAGs_metagenomes_chemistry_Burkholderiaceae <- NEON_MAGs_metagenomes_chemis
    filter(str_detect(Family,"Burkholderiaceae" ))
 
   
-ggplot(data=NEON_MAGs_metagenomes_chemistry_Burkholderiaceae, aes(x=`Ecosystem Subtype`,fill=Genus))+geom_bar(show.legend=FALSE)+labs(title="Ecosystem Subtype Distribution", x="Ecosystem Subtype", y="n")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))+
+ggplot(data=NEON_MAGs_metagenomes_chemistry_Burkholderiaceae, aes(x=`Ecosystem Subtype`,fill=Genus))+geom_bar(show.legend=FALSE)+labs(title="Ecosystem Subtype Distribution", x="Ecosystem Subtype", y="n")+theme_classic()+John_theme+
   
-  ggplot(data=NEON_MAGs_metagenomes_chemistry_Burkholderiaceae, aes(x=`Site ID.x`, fill=Genus))+geom_bar()+labs(title="Site Distribution", x="Site", y="n")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+  ggplot(data=NEON_MAGs_metagenomes_chemistry_Burkholderiaceae, aes(x=`Site ID.x`, fill=Genus))+geom_bar()+labs(title="Site Distribution", x="Site", y="n")+theme_classic()+John_theme
   
 ```
 
@@ -553,8 +553,7 @@ ggplot(data=NEON_MAGs_metagenomes_chemistry_Burkholderiaceae, aes(x=`Ecosystem S
 
 ## Toolik 0/20 graphs
 
-
-### Figure 18: Phylogenetic treee of all MAGs collected in GOLD Study ID Gs0161344 by the National Ecological Observatory Network at Toolik Field Station, Alaska USA *Gammaproteobacteria* class of Psedomondata highlighted in blue.
+### Figure 18: Phylogenetic tree of all MAGs collected at Toolik in GOLD Study ID Gs0161344
 ```{r, fig.height=14, fig.width=12, fig.align='center'}
 ggtree(tree_bac_TOOL_MAGs, layout="circular", branch.length="none") +
     geom_hilight(node=258, fill="grey", alpha=.6) +
@@ -564,6 +563,7 @@ ggtree(tree_bac_TOOL_MAGs, layout="circular", branch.length="none") +
     geom_cladelab(node=259, label="Gammaproteobacteria", align=TRUE, angle='auto', offset=0.75,  
                   offset.text=0.5 , textcolor='black', barcolor='steelblue',barsize=1.5, fontsize=5)
 ```
+**Figure 18:** Phylogenetic tree of all MAGs collected in GOLD Study ID Gs0161344 by the National Ecological Observatory Network at Toolik Field Station, Alaska USA *Gammaproteobacteria* class of Psedomondata highlighted in blue.
 
 ### Figure 19 TOOLIK distribution by Phylum
 ```{r, fig.width = 12, fig.height = 8, fig.align='center'}
@@ -574,8 +574,8 @@ NEON_MAGs_metagenomes_chemistry_TOOL %>%
 ### Figure 20: NEON Site Sample Temperatures and pH
 ```{r, fig.align='center'}
 NEON_MAGs_metagenomes_chemistry %>%
-     ggplot(aes(y=`soilTemp`,x=`Site ID.x`, color=`Site ID.x`), size=1)+geom_point(show.legend = FALSE)+scale_y_continuous(limits=c(0,50),breaks = c(10,20,30,40,50)) +labs(title="Soil Temperature", y="Soil Temperature", x="Site ID")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))+
-     ggplot(data=NEON_MAGs_metagenomes_chemistry,aes(y=`soilInWaterpH`,x=`Site ID.x`, color=`Site ID.x`), size=1)+geom_point(show.legend = FALSE)+scale_y_continuous(limits=c(0,14),breaks=c(1:14)) +labs(title="Soil pH", y="Soil Temperature", x="Site ID")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+     ggplot(aes(y=`soilTemp`,x=`Site ID.x`, color=`Site ID.x`), size=1)+geom_point(show.legend = FALSE)+scale_y_continuous(limits=c(0,50),breaks = c(10,20,30,40,50)) +labs(title="Soil Temperature", y="Soil Temperature", x="Site ID")+theme_classic()+John_theme+
+     ggplot(data=NEON_MAGs_metagenomes_chemistry,aes(y=`soilInWaterpH`,x=`Site ID.x`, color=`Site ID.x`), size=1)+geom_point(show.legend = FALSE)+scale_y_continuous(limits=c(0,14),breaks=c(1:14)) +labs(title="Soil pH", y="Soil Temperature", x="Site ID")+theme_classic()+John_theme
 ```
 **Figure 20:** 
 
@@ -589,44 +589,40 @@ NEON_MAGs_metagenomes_chemistry_Alaska %>%
 ### Figure 22:
 ```{r, fig.width=12, fig.height=6, fig.align='center'}
 NEON_MAGs_metagenomes_chemistry_Alaska %>%
-     ggplot(aes(x=`Phylum`,y=`soilInWaterpH`, color=`Phylum`), size=1)+geom_point(show.legend = FALSE)+facet_wrap(vars(Site.x), scales="free_y", ncol=3)+scale_y_continuous(limits=c(0,14),breaks =rep(0:14)) +labs(title="Soil pH", y="Soil pH", x="Site")+theme_classic()+John_theme
+     ggplot(aes(x=`Phylum`,y=`soilInWaterpH`, color=`Phylum`), size=1)+geom_point(show.legend = FALSE)+facet_wrap(vars(Site.x), scales="free_y", ncol=3)+scale_y_continuous(limits=c(0,14),breaks =rep(0:14)) +labs(title="Soil pH", y="Soil pH", x="Phylum")+theme_classic()+John_theme
 ```
-**Figure 22:**
-
-
-
-```{r, fig.width=12, fig.height=12, fig.align='center'}
-
-
+### Figure 21:
+```{r, fig.width=12, fig.height=6, fig.align='center'}
 NEON_MAGs_metagenomes_chemistry_Alaska %>%
-     ggplot(aes(x=`Phylum`, fill=`Order`))+geom_bar()+facet_wrap(vars(Site.x), scales="free_y", ncol=3) +labs(title="Soil pH", y="Soil pH", x="Site")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+     ggplot(aes(x=`Phylum`,y=`nlcdClass`, color=`Phylum`), size=1)+geom_point(show.legend = FALSE)+facet_wrap(vars(Site.x), scales="free_y", ncol=3)+labs(title="Vegetation Class", y="Vegetation Class", x="Phylum")+theme_classic()+John_theme
+```
 
-NEON_MAGs_metagenomes_chemistry_TOOL %>%
-     ggplot(aes(y=`soilTemp`,x=`Phylum`, color=`Phylum`), size=1)+geom_point(show.legend=FALSE)+scale_y_continuous(limits=c(0,50)) +labs(title="Soil pH", y="Soil pH", x="Site")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
-  
-  ggplot(data=NEON_MAGs_metagenomes_chemistry_TOOL,aes(y=`soilInWaterpH`,x=`Order`, color=`Phylum`))+geom_point()+scale_y_continuous(limits=c(0,14),breaks =rep(0:14) )+labs(title="Soil pH in Water", y="pH", x="Family")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
-  
-  ggplot(data=NEON_MAGs_metagenomes_chemistry_TOOL,aes(y=`nlcdClass`,x=`Family`, color=`Order`))+geom_point(show.legend=FALSE)+labs(title="Vegetation Class", y="Vegetation Class", x="Family")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+**Figure 23:**
+```{r, fig.width=12, fig.height=6, fig.align='center'}
+NEON_MAGs_metagenomes_chemistry_Alaska %>%
+     ggplot(aes(x=`Phylum`, fill=`Order`))+geom_bar()+facet_wrap(vars(Site.x), scales="free_y", ncol=3) +labs(title="Soil pH", y="n", x="Phylum")+theme_classic()+John_theme
 ```
 
 
-### TOOLIK distribution by Phylum
+
+
+### Figure 24: TOOLIK distribution by Phylum
 ```{r, fig.width = 12, fig.height = 8, fig.align='center'}
 NEON_MAGs_metagenomes_chemistry_TOOL %>% 
   ggplot(aes(x=fct_rev(fct_infreq(Phylum)), fill=Order))+geom_bar()+coord_flip()+labs(title="MAG Count by Phylum at Toolik Field Station ", x="Site", y="MAG Count",fill="Phylum")+theme_classic()
 
 ```
 
-### Figure 19
+### Figure 25:
 ```{r, fig.align='center'}
 NEON_MAGs_metagenomes_chemistry_TOOL %>%
   mutate(`Genome Size (Kbp)`=as.integer(`Total Number of Bases`/1000)) %>%
-  ggplot(aes(x=`Phylum`,y=`Genome Size (Kbp)`,color=`Phylum`))+geom_boxplot(show.legend = FALSE)+scale_y_continuous(limits=c(0,15000), breaks=c(2500,5000,7500,10000,12500,15000))+theme_classic()+labs(title="Phyla Genome Size Distributions", x="Phyla", y="Genome Size (Kbp)")+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+  ggplot(aes(x=`Phylum`,y=`Genome Size (Kbp)`,color=`Phylum`))+geom_boxplot(show.legend = FALSE)+scale_y_continuous(limits=c(0,15000), breaks=c(2500,5000,7500,10000,12500,15000))+theme_classic()+labs(title="Phylum Genome Size Distributions", x="Phylm", y="Genome Size (Kbp)")+John_theme
 ```
 
+Figure: 
 
-
-### Figure 20: 
+### Figure 26: 
 ```{r, fig.height=12, fig.width=12, fig.align='center'}
 ggtree(tree_bac_TOOL_MAGs)  %<+%
   NEON_MAGs_metagenomes_chemistry + 

@@ -15,6 +15,7 @@ output:
 # Setup:
 #### Library
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
+library(viridisLite)
 library(tidyverse)
 library(knitr)
 library(ggtree)
@@ -66,8 +67,9 @@ NEON_MAGs <- read_csv("data/NEON/GOLD_Study_ID_Gs0161344_NEON_2024_4_21.csv") %>
   # separate the Sample Name into Site ID and plot info
   separate(`Sample Name`, c("Site ID","subplot.layer.date"), "_", remove = FALSE,) %>% 
   # separate the plot info into 3 columns
-  separate(`subplot.layer.date`, c("Subplot", "Layer", "Date"), "-") 
+  separate(`subplot.layer.date`, c("Subplot", "Layer", "Date"), "-")
 ```
+
 
 ```{r, message=FALSE, warning=FALSE}
 NEON_metagenomes <- read_tsv("data/NEON/exported_img_data_Gs0161344_NEON.tsv") %>% 
@@ -115,6 +117,8 @@ NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria_Novel <- NEON_MAGs_metagenom
   filter(is.na(Order) | is.na(Family) | is.na(Genus) | is.na(Species))
 #almost are novel only two have species names
 
+
+
 #Toolik
 NEON_MAGs_metagenomes_chemistry_TOOL<- NEON_MAGs_metagenomes_chemistry %>% 
   filter(`Site ID.x` == "TOOL")
@@ -126,6 +130,21 @@ tree_bac_TOOL_MAGs <-drop.tip(tree_bac,tree_bac$tip.label[-match(TOOL_MAGs_label
 
 # Make a vector with the internal node lables
 node_vector_bac_TOOL_MAGS = c(tree_bac_TOOL_MAGs$tip.label,tree_bac_TOOL_MAGs$node.label)
+
+NEON_MAGs_metagenomes_chemistry_Gamma_noblank <- NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria %>% 
+  rename("Orders" = "Order") %>% 
+  rename("Phyla" = "Phylum") %>% 
+  rename("AssemblyType" = "Assembly Type") %>% 
+  rename("WaterpH" ="soilInWaterpH") %>% 
+  rename("Temp" ="soilTemp") %>% 
+  rename("BinCompleteness" = "Bin Completeness") %>% 
+  rename("BinContamination" = "Bin Contamination") %>% 
+  rename("TotalNumberofBases" = "Total Number of Bases") %>% 
+  rename("EcosystemSubtype" = "Ecosystem Subtype") %>%
+  rename("GeneCount" = "Gene Count") %>% 
+  rename("GCassembled" = "GC  * assembled")
+
+
 
 NEON_MAGs_metagenomes_chemistry_TOOL_noblank <- NEON_MAGs_metagenomes_chemistry_TOOL %>% 
   rename("Phyla" = "Phylum") %>% 
@@ -147,6 +166,7 @@ NEON_MAGs_metagenomes_chemistry_TOOL_noblank <- NEON_MAGs_metagenomes_chemistry_
 node_vector_bac = c(tree_bac$tip.label,tree_bac$node.label)
 
 # Search for your Phylum, dont sort differently it will mess up nodes
+#NEON
 phylumss <-NEON_MAGs_metagenomes_chemistry %>%
             count(Phylum, sort=TRUE)
 n=1
@@ -174,6 +194,10 @@ while (n!=29) {
   n=n+1
 } 
 
+#Gamma
+tree_bac_node_Gammaproteobacteria <- Preorder(tree_bac)
+tree_Gammaproteobacteria <- Subtree(tree_bac_node_Gammaproteobacteria, 3048)
+grep("Burkholderiales", node_vector_Gamma, value = TRUE)
 
 # grep("Thermoproteota", node_vector_bac, value = TRUE)
 # match(grep("Thermoproteota", node_vector_bac, value = TRUE), node_vector_bac)
@@ -181,9 +205,9 @@ while (n!=29) {
 # grep("Actinomycetota", node_vector_bac, value = TRUE)
 # match(grep("Actinomycetota", node_vector_bac, value = TRUE), node_vector_bac)
 # 
-grep("Desulfobacterota", node_vector_bac, value = TRUE)
-match(grep("Desulfobacterota", node_vector_bac, value = TRUE), node_vector_bac)
-match(grep("Desulfobacterota_B", node_vector_bac, value = TRUE), node_vector_bac)
+# grep("Desulfobacterota", node_vector_bac, value = TRUE)
+# match(grep("Desulfobacterota", node_vector_bac, value = TRUE), node_vector_bac)
+# match(grep("Desulfobacterota_B", node_vector_bac, value = TRUE), node_vector_bac)
 # 
 # grep("Bacteroidota", node_vector_bac, value = TRUE)
 # match(grep("Bacteroidota", node_vector_bac, value = TRUE), node_vector_bac)
@@ -239,10 +263,6 @@ match(grep("Desulfobacterota_B", node_vector_bac, value = TRUE), node_vector_bac
 grep("Gammaproteobacteria", node_vector_bac_TOOL_MAGS, value = TRUE)
 match(grep("Gammaproteobacteria", node_vector_bac_TOOL_MAGS, value = TRUE), node_vector_bac_TOOL_MAGS)
 
-
-tree_bac_node_Gammaproteobacteria <- Preorder(tree_bac)
-tree_Gammaproteobacteria <- Subtree(tree_bac_node_Gammaproteobacteria, 3048)
-
 ```
 
 #### Plot theme
@@ -286,17 +306,17 @@ while (n!=29) {
   n=n+1
 }
 plottttttt
-
-
 ```
-**Figure 1:** Phylogenetic Tree of all MAGs collected in GOLD Study ID Gs0161344 by the National Ecological Observatory Network with bacterial phyla labels
+**Figure 1:** Phylogenetic Tree of all bacterial MAGs collected in GOLD Study ID Gs0161344 by the National Ecological Observatory Network with phylum labels
 
 &nbsp;
 
-&nbsp;&nbsp;&nbsp;&nbsp;This study's genomic data set was collected from soil samples by the National Ecological Observatory Network (NEON) from locations across the United States in GOLD Study ID  Gs0161344. There were INSERT total MAGs with PERCENT been novel species of bacteria. To make analyses more feasible, this report will only comment on two data subsets, MAGs belonging to the class Gammaproteobacteria, and MAGs belonging found at Toolik Field Station, Alaska USA. 
+&nbsp;&nbsp;&nbsp;&nbsp;This study's genomic data set was collected from soil samples by the National Ecological Observatory Network (NEON) from locations across the United States in GOLD Study ID  Gs0161344. There were 1754 total MAGs with PERCENT been novel species of bacteria. To make analyses more feasible, this report will only comment on two data subsets, MAGs belonging to the class *Gammaproteobacteria*, and MAGs belonging found at Toolik Field Station, Alaska USA. 
 
 &nbsp;
 
+
+### Figure 2:Uprooted maximum-likelyhood phylogentic tree of gammaproteobactria
 ![**Figure 2:** Uprooted maximum-likelyhood phylogentic tree of gammaproteobactria based on 120 concatenated single copy proteins sequences from 780 reference genomes [@liao_reclassification_2020]. Figure adapted from Figure 2 of Liao et al.](/cloud/project/liaoFig2(1).png)
 
 
@@ -311,7 +331,7 @@ plottttttt
 
 
 
-
+### Figure 3: Toolik Field Station, Alaska USA
 ![**Figure 3:** Toolik Field Station, Alaska USA [@noauthor_photo_nodate]](/cloud/project/Toolik_Field_Station.png)
 
 
@@ -338,11 +358,44 @@ tidyverse,knitr, ggtree, TDbook #A Companion Package for the Book "Data Integrat
 ## NEON Study 6 graphs
 
 
+### Figure 4: Phylogenetic treee of all MAGs collected in GOLD Study ID Gs0161344 by the National Ecological Observatory Network with the *Gammaproteobacteria* class of Psedomondata highlighted in blue
+```{r, , fig.height=14, fig.width=12, fig.align='center'}
+ggtree(tree_bac, layout="circular", branch.length="none") +
+    geom_hilight(node=as.integer(phylumss[1,3]), fill=as.character(phylumss[1,4], alpha=.6)) +
+    geom_cladelab(node=as.integer(phylumss[1,3]), label=as.character(phylumss[1,1]),size=10, align=TRUE, angle='auto', offset.text=1, textcolor=phylumss[1,4] ,barsize=1.5, fontsize=5, barcolor=as.character(phylumss[1,4]))+
+    geom_hilight(node=3048, fill="steelblue", alpha=.6) +
+    geom_cladelab(node=3048, label="Gammaproteobacteria", align=TRUE, angle='auto', offset=1,  
+                  offset.text=0.5 , textcolor='steelblue', barcolor='steelblue',barsize=1.5, fontsize=5)
 
-![**Figure 4:** Phylogenetic treee of all MAGs collected in GOLD Study ID Gs0161344 by the National Ecological Observatory Network with the *Gammaproteobacteria* class of Psedomondata highlighted in blue](/cloud/project/images/Plots/Gamma/NEON_MAGS_Gammaproteobacteria_Highlight_with_Label_Circular_Tree.png)
-![**Figure 5:** Phylogenetic tree of all MAGs belonging to the class *Gammaproteobacteria* with Site location and Ecosystem subtype markers. ](/cloud/project/images/Plots/Gamma/NEON_MAGS_Gammaproteobacteria_with_Ecosystem_Subtype_System_Rectangular_Tree.png)
 
-^fix data pt shapes, also make this all mags if possible
+```
+**Figure 4:** Phylogenetic tree of all bacterial MAGs collected in GOLD Study ID Gs0161344 by the National Ecological Observatory Network with the *Gammaproteobacteria* class of *Psedomondata* highlighted in blue
+
+## Figure 5:hylogenetic tree of all MAGs belonging to the class *Gammaproteobacteria* with Site location
+```{r, , fig.height=12, fig.width=12, fig.align='center'}
+ggtree(tree_Gammaproteobacteria)  %<+%
+  NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria + 
+  geom_tippoint(aes(color=`Order`)) + 
+
+# For unknown reasons the following does not like blank spaces in the names
+  geom_facet(panel = "Gene Count", data = NEON_MAGs_metagenomes_chemistry_Gamma_noblank, geom = geom_point, 
+      mapping=aes(x = GeneCount, color=Orders))+
+  geom_facet(panel = "% GC Content ", data = NEON_MAGs_metagenomes_chemistry_Gamma_noblank, geom = geom_col, 
+                aes(x = GCassembled,fill=Orders), orientation = 'y', width = .6, show.legend=FALSE) +
+  theme_tree2(legend.position=c(.1, .7))
+
+
+
+
+
+ggtree(tree_Gammaproteobacteria)  %<+%
+  NEON_MAGs_metagenomes_chemistry + 
+ xlim(0,20)+
+  geom_point(mapping=aes(color=`Site.x`))
+
+```
+
+**Figure 5:** Phylogenetic tree of all MAGs belonging to the class *Gammaproteobacteria* with Gene count and %GC Content. 
 
 
 

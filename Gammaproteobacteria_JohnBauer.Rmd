@@ -582,7 +582,7 @@ ggtree(tree_Gammaproteobacteria) +
 
 ## Gammaproteobacteria Circular Tree -commented out
 ```{r, fig.height=12, fig.width=12}
-ggtree(tree_Gammaproteobacteria, layout="circular")+geom_point2(aes(subset=(node==1444)), shape=23, size=5, fill='steelblue')
+ggtree(tree_Gammaproteobacteria, layout="circular")+geom_point2(aes(subset=(node==159)), shape=23, size=5, fill='steelblue')
    
   
 
@@ -649,10 +649,10 @@ ggtree(tree_bac, layout="circular", branch.length="none") %>%
 
 ## NEON MAGS Gammaproteobacteria Minimized Circular Tree -commented out
 ```{r, fig.height=12, fig.width=12}
-# p <- ggtree(tree_bac, layout="circular", branch.length="none")
-# scaleClade(p, 3048, .2) %>% collapse(3048, 'min', fill="steelblue")  +
-#   geom_cladelab(node=3048, label="Gammaproteobacteria", align=TRUE,  
-#                   offset = 0.2, textcolor='steelblue')
+p <- ggtree(tree_bac, layout="circular", branch.length="none")
+scaleClade(p, 3048, .2) %>% collapse(3048, 'min', fill="steelblue")  +
+  geom_cladelab(node=3048, label="Gammaproteobacteria", align=TRUE,
+                  offset = 0.2, textcolor='steelblue')
 # ggsave(
 #   "NEON_MAGS_Gammaproteobacteria_Minimized_Circular_Tree.png",
 #   plot = last_plot(),

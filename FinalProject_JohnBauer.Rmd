@@ -158,6 +158,22 @@ NEON_MAGs_metagenomes_chemistry_TOOL_noblank <- NEON_MAGs_metagenomes_chemistry_
   rename("GeneCount" = "Gene Count") %>% 
   rename("GCassembled" = "GC  * assembled")
 
+NEON_MAGs_bact_ind <- NEON_MAGs %>% 
+  filter(Domain=="Bacteria") %>% 
+  filter(`Assembly Type`=="Individual")
+NEON_MAGs_bact_ind_Novel <- NEON_MAGs_bact_ind %>% 
+  filter(is.na(Class) | is.na(Order) | is.na(Family) | is.na(Genus) )
+
+NEON_MAGs_metagenomes_chemistry_TOOL_Xanthomonadales <- NEON_MAGs_metagenomes_chemistry_TOOL %>%
+  filter(str_detect(`Order`,"Xanthomonadales"))
+NEON_MAGs_metagenomes_chemistry_TOOL_Burkholderiales <- NEON_MAGs_metagenomes_chemistry_TOOL %>%
+  filter(str_detect(`Order`,"Burkholderiales"))
+NEON_MAGs_metagenomes_chemistry_TOOL_Steroidobacterales <- NEON_MAGs_metagenomes_chemistry_TOOL %>%
+  filter(str_detect(`Order`,"Steroidobacterales"))
+NEON_MAGs_metagenomes_chemistry_Alaska <-NEON_MAGs_metagenomes_chemistry %>%
+  filter(str_detect(Site.x,"Alaska"))
+
+
 ```
 #### Tree Nodes
 ```{r, message=FALSE, warning=FALSE}
@@ -197,7 +213,6 @@ while (n!=29) {
 #Gamma
 tree_bac_node_Gammaproteobacteria <- Preorder(tree_bac)
 tree_Gammaproteobacteria <- Subtree(tree_bac_node_Gammaproteobacteria, 3048)
-grep("Burkholderiales", node_vector_Gamma, value = TRUE)
 
 # grep("Thermoproteota", node_vector_bac, value = TRUE)
 # match(grep("Thermoproteota", node_vector_bac, value = TRUE), node_vector_bac)
@@ -366,52 +381,50 @@ ggtree(tree_bac, layout="circular", branch.length="none") +
     geom_hilight(node=3048, fill="steelblue", alpha=.6) +
     geom_cladelab(node=3048, label="Gammaproteobacteria", align=TRUE, angle='auto', offset=1,  
                   offset.text=0.5 , textcolor='steelblue', barcolor='steelblue',barsize=1.5, fontsize=5)
-
-
 ```
 **Figure 4:** Phylogenetic tree of all bacterial MAGs collected in GOLD Study ID Gs0161344 by the National Ecological Observatory Network with the *Gammaproteobacteria* class of *Psedomondata* highlighted in blue
 
-## Figure 5:hylogenetic tree of all MAGs belonging to the class *Gammaproteobacteria* with Site location
-```{r, , fig.height=12, fig.width=12, fig.align='center'}
-ggtree(tree_Gammaproteobacteria)  %<+%
-  NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria + 
-  geom_tippoint(aes(color=`Order`)) + 
-
-# For unknown reasons the following does not like blank spaces in the names
-  geom_facet(panel = "Gene Count", data = NEON_MAGs_metagenomes_chemistry_Gamma_noblank, geom = geom_point, 
-      mapping=aes(x = GeneCount, color=Orders))+
-  geom_facet(panel = "% GC Content ", data = NEON_MAGs_metagenomes_chemistry_Gamma_noblank, geom = geom_col, 
-                aes(x = GCassembled,fill=Orders), orientation = 'y', width = .6, show.legend=FALSE) +
-  theme_tree2(legend.position=c(.1, .7))
 
 
 
-
-
-ggtree(tree_Gammaproteobacteria)  %<+%
-  NEON_MAGs_metagenomes_chemistry + 
- xlim(0,20)+
-  geom_point(mapping=aes(color=`Site.x`))
-
+### Figure 6:
+```{r, fig.height=12, fig.width=12, fig.align='center'}
+NEON_MAGs_bact_ind %>%
+  ggplot(aes(x=fct_rev(fct_infreq(Phylum)), fill=Site))+geom_bar(position="dodge")+coord_flip()+labs(title="NEON MAG Distribution by Phylum", x="Phylum", y="MAG Count")+theme_classic()
 ```
+**Figure 6:** Overall NEON Site Distribution of MAGs organized by phylum.
 
-**Figure 5:** Phylogenetic tree of all MAGs belonging to the class *Gammaproteobacteria* with Gene count and %GC Content. 
-
-
-
-![**Figure 6:** Overall NEON Site Distribution of MAGs organized by phyla](/cloud/project/images/Plots/Lab9/Overall_MAG_Count_per_Phylum.png)
-
-
-![**Figure 7:** Novel Bacteria MAG NEON Site Distribution. Novel Bacteria were determined from MAGs constructed from individual assemblies. Novel indicates the MAGs could not be placed in an existing group at the species, genus or family level](/cloud/project/images/Plots/Lab9/Total_Novel_Bacteria_per_Site.png)
+### Figure 7:
+```{r,, fig.width = 8, fig.height = 8,fig.align='center'}
+NEON_MAGs_bact_ind_Novel %>% 
+  ggplot(aes(x=fct_rev(fct_infreq(Site)), fill=Site))+geom_bar(show.legend=FALSE)+coord_flip()+labs(title="Total Novel Bacteria per Site", x="Site", y="n")+theme_classic()
+```
+**Figure 7:** Novel Bacteria MAG NEON Site Distribution. Novel Bacteria were determined from MAGs constructed from individual assemblies. Novel indicates the MAGs could not be placed in an existing group at the species, genus or family level
 &nbsp;
 
 &nbsp;&nbsp;&nbsp;&nbsp;The vast majority of bacteria found in this study were determined to be novel species with PERCENT being unable to place phylogenetically at the genus level.
 
 &nbsp;
+## Figure 8:
+```{r,, fig.width = 12, fig.height = 8, fig.align='center'}
+NEON_MAGs_bact_ind %>% 
+  filter(is.na(Class) | is.na(Order) | is.na(Family) | is.na(Genus) ) %>%
+  ggplot(aes(x=fct_rev(`Phylum`), fill=`Phylum`))+geom_bar(show.legend=FALSE)+coord_flip()+labs(title="Novel Genera per Phylum", x="Phylum", y="n")+theme_classic()
+```
+**Figure 8:** Novel Bacteria Distribution by Phyla. Novel Bacteria were determined from MAGs constructed from individual assemblies. Novel indicates the MAGs could not be placed in an existing group at the species, genus or family level.
 
-![**Figure 8:** Novel Bacteria Distribution by Phyla. Novel Bacteria were determined from MAGs constructed from individual assemblies. Novel indicates the MAGs could not be placed in an existing group at the species, genus or family level](/cloud/project/images/Plots/Lab9/Novel_Genera_per_Phylum.png)
 
-![**Figure 9:** Genome Count vs Genome size for all Bacterial NEON MAGs in GOLD Study ID Gs0161344. Bacterial MAGs were selected from individual assemblies.](/cloud/project/images/Plots/Gamma/Gene_Count_vs_Estimated_Mag_Genome_Size_with_phyla.png)
+## Figure 9:
+```{r, fig.width = 12, fig.height = 8, fig.align='center'}
+NEON_MAGs_metagenomes_chemistry_Bacteria <-NEON_MAGs_metagenomes_chemistry %>%
+  filter(Domain=="Bacteria") %>% 
+  mutate(`Genome Size (Kbp)`=as.integer(`Total Number of Bases`/1000)) 
+
+NEON_MAGs_metagenomes_chemistry_Bacteria %>%
+  ggplot(aes(x=`Phylum`,y=`Genome Size (Kbp)`,color=`Phylum`))+geom_boxplot(show.legend = FALSE)+scale_y_continuous(limits=c(0,15000), breaks=c(2500,5000,7500,10000,12500,15000))+theme_classic()+labs(title="Phyla Genome Size Distributions", x="Phyla", y="Genome Size (Kbp)")+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))+
+  ggplot(data=NEON_MAGs_metagenomes_chemistry_Bacteria, aes(x=`Gene Count`, y=`Genome Size (Kbp)`, color=`Phylum`))+geom_point()+labs(title="Gene Count vs Genome Size", x="Gene Count", y="")+scale_y_continuous(limits=c(0,15000), breaks=c(2500,5000,7500,10000,12500,15000))+scale_x_continuous(limits=c(0,15000), breaks=c(2500,5000,7500,10000,12500,15000))+theme_classic()
+```
+**Figure 9:** Genome Count vs Genome size for all Bacterial NEON MAGs in GOLD Study ID Gs0161344. Bacterial MAGs were selected from individual assemblies.
 
 &nbsp;
 
@@ -421,17 +434,48 @@ ggtree(tree_Gammaproteobacteria)  %<+%
 
 ## *Gammaproteobacteria* 8 graphs
 
-![**Figure 10:** Phylogenetic Tree of *Gammaproteobacteria* with Ecosystem Subtype and Number of Bases markers.This tree includes MAG reads from all NEON sites filtered to those annotated as belonging to the class Gammaproteobacteria](/cloud/project/images/Plots/Gamma/NEON_MAGS_Gammaproteobacteria_with_Ecosystem_Subtype_and_Total_Number_of_Bases_Label_Circular_Tree.png)
 
-![**Figure 11:** Distribution of Genome Size for *Gammaproteobacteria* Members.This tree includes MAG reads from all NEON sites filtered to those annotated as belonging to the class Gammaproteobacteria](/cloud/project/images/Plots/Gamma/Gammaproteobacteria_distribution_by_order.png)
+### Figure 10:
+```{r, fig.height=12, fig.width=12,fig.align='center'}
+ggtree(tree_Gammaproteobacteria, layout="circular")  %<+%
+  NEON_MAGs_metagenomes_chemistry + 
+  geom_point2(mapping=aes(color=`Ecosystem Subtype`, size=`Total Number of Bases`))
+```
+**Figure 10:** Phylogenetic Tree of *Gammaproteobacteria* with Ecosystem Subtype and Number of Bases markers.This tree includes MAG reads from all NEON sites filtered to those annotated as belonging to the class Gammaproteobacteria.
 
-![**Figure 12:** Distribution of Genome Size for *Gammaproteobacteria* Members.This tree includes MAG reads from all NEON sites filtered to those annotated as belonging to the class Gammaproteobacteria](/cloud/project/images/Plots/Gamma/Gammaproteobacteria_Gene_Count_vs_Estimated_Mag_Genome_Size_with_Order.png)
+
+### Figure 11:
+```{r, fig.height=12, fig.width=12, fig.align='center'}
+NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria %>%
+  ggplot(aes(x=Family))+geom_bar(aes(fill=Family),position=position_dodge2(width=0.9, preserve="single"),show.legend=FALSE)+coord_flip()+facet_wrap(vars(Order), scales="free_y", ncol=4)+labs(title="Distribution of Gammaproteobacteria MAGs by Order", x="Family", y="n")+theme_classic()
+```
+**Figure 11:** Distribution of Genome Size for *Gammaproteobacteria* Members.This tree includes MAG reads from all NEON sites filtered to those annotated as belonging to the class Gammaproteobacteria.
+
+
+### Figure 12:
+```{r, fig.height=12, fig.width=12, fig.align='center'}
+NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria %>%
+  mutate(`Genome Size (Kbp)`=as.integer(`Total Number of Bases`/1000)) %>%
+  ggplot(aes(x=`Order`,y=`Genome Size (Kbp)`,color=`Order`))+geom_boxplot(show.legend = FALSE)+scale_y_continuous(limits=c(0,15000), breaks=c(2500,5000,7500,10000,12500,15000))+theme_classic()+labs(title="Gammaproteobacteria Genome Size Distributions", x="Order", y="Genome Size (Kbp)")+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+```
+**Figure 12:** Distribution of Genome Size for *Gammaproteobacteria* Members.This tree includes MAG reads from all NEON sites filtered to those annotated as belonging to the class Gammaproteobacteria
 &nbsp;
 
 &nbsp;&nbsp;&nbsp;&nbsp;NEON MAGs assigned to the *Gammaproteobacteria* class were found in all ecosystem subtypes (Fig. 10). Unlike the larger NEON data set, the distribution of genome size of *Gammaproteobacteria* members was fairly narrow with members averaging between 2000 and 5000 kbp (Fig. 12). With the exception of *Burkholderiales*,*Steroidobacterales*, and *Xanthomonadales*, this was largely due to the fewer MAGs in each order(Fig.10). The vast majority of *Gammaproteobacteria* annotated in this study were novel species with only two bacteria belonging to the *Xanthomonadales* order assigned as *Stenotrophomonas stenotrophomonas* sp024519465. *Steroidobacterales* had by far the most annontated members, while *Burkholderiales* had the most family member groups (Fig. 11).        
 &nbsp;
 
-![**Figure 13:**](/cloud/project/images/Plots/Gamma/Gammaproteobacteria_Temp_pH_NLCD_Ecosub.png)
+### Figure 13:
+```{r, fig.height=12, fig.width=12, fig.align='center'}
+NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria %>%
+     ggplot(aes(y=`soilTemp`,x=`Family`, color=`Order`), size=1)+geom_point(show.legend=FALSE)+scale_y_continuous(limits=c(0,50)) +labs(title="Soil Temperature", y="Soil Temperature", x="Family")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))+
+  
+  ggplot(data=NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria,aes(y=`soilInWaterpH`,x=`Family`, color=`Order`))+geom_point()+scale_y_continuous(limits=c(0,14),breaks =rep(0:14) )+labs(title="Soil pH in Water", y="pH", x="Family")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))+
+  
+  ggplot(data=NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria,aes(y=`nlcdClass`,x=`Family`, color=`Order`))+geom_point(show.legend=FALSE)+labs(title="Vegetation Class", y="Vegetation Class", x="Family")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))+
+  
+  ggplot(data=NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria,aes(y=`Ecosystem Subtype`,x=`Family`, color=`Order`,))+geom_point()+labs(title="Ecosystem Subtype", y="Ecosystem Subtype", x="Family")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+```
+**Figure 13:**
 &nbsp;
 
 &nbsp;&nbsp;&nbsp;&nbsp;Members of *Gammaproteobacteria* were found in a variety of ecosystem conditions. The soil pH of all *Gammaproteobacteria* samples was largely neutral to mildly acidic with lowest pH around 4 (Fig. 4). Overall, the vegetation class of sedge and grassland herbaceous and contained the least amount of family groups in *Gammproteobacteria* (Fig. 13). This is not too surprising for sedge herbaceous as this vegetation class is only found in one Alaskan NEON site (Sup. Fig. 1). However, grassland herbaceous vegetation is present in 5 out of the 13 sample sites (Sup. Fig 2). Interestingly, despite being the *Gammaproteobacteria* order with the most MAGs and existing in a variety of vegetation classes, soil pH and temperatures, no members of the *Steroidobacterales* order were found in tropical forest or desert ecosystems sampled in this study(Fig. 13). These ecosystem subtypes correspond to NEON sites in Puerto Rico and Arizona, USA, respectively (Sup.Fig 2).    
@@ -521,51 +565,44 @@ ggtree(tree_bac_TOOL_MAGs, layout="circular", branch.length="none") +
                   offset.text=0.5 , textcolor='black', barcolor='steelblue',barsize=1.5, fontsize=5)
 ```
 
-## Figure 19 TOOLIK distribution by Phylum
+### Figure 19 TOOLIK distribution by Phylum
 ```{r, fig.width = 12, fig.height = 8, fig.align='center'}
 NEON_MAGs_metagenomes_chemistry_TOOL %>% 
   ggplot(aes(x=fct_rev(fct_infreq(Phylum)), fill=Order))+geom_bar()+coord_flip()+labs(title="MAG Count by Phylum at Toolik Field Station ", x="Site", y="MAG Count",fill="Phylum")+theme_classic()
 
 ```
-## NEON Site Sample Temperatures and pH
+### Figure 20: NEON Site Sample Temperatures and pH
 ```{r, fig.align='center'}
 NEON_MAGs_metagenomes_chemistry %>%
      ggplot(aes(y=`soilTemp`,x=`Site ID.x`, color=`Site ID.x`), size=1)+geom_point(show.legend = FALSE)+scale_y_continuous(limits=c(0,50),breaks = c(10,20,30,40,50)) +labs(title="Soil Temperature", y="Soil Temperature", x="Site ID")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))+
      ggplot(data=NEON_MAGs_metagenomes_chemistry,aes(y=`soilInWaterpH`,x=`Site ID.x`, color=`Site ID.x`), size=1)+geom_point(show.legend = FALSE)+scale_y_continuous(limits=c(0,14),breaks=c(1:14)) +labs(title="Soil pH", y="Soil Temperature", x="Site ID")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
 ```
+**Figure 20:** 
+
+### Figure 21:
+```{r, fig.width=12, fig.height=6, fig.align='center'}
+NEON_MAGs_metagenomes_chemistry_Alaska %>%
+     ggplot(aes(x=`Phylum`,y=`soilTemp`, color=`Phylum`), size=1)+geom_point(show.legend=FALSE)+facet_wrap(vars(Site.x), scales="free_y", ncol=3)+scale_y_continuous(limits=c(0,10)) +labs(title="Soil Temperature", y="Soil Temperature", x="Phylum")+theme_classic()+John_theme
+```
+**Figure 21:**
+
+### Figure 22:
+```{r, fig.width=12, fig.height=6, fig.align='center'}
+NEON_MAGs_metagenomes_chemistry_Alaska %>%
+     ggplot(aes(x=`Phylum`,y=`soilInWaterpH`, color=`Phylum`), size=1)+geom_point(show.legend = FALSE)+facet_wrap(vars(Site.x), scales="free_y", ncol=3)+scale_y_continuous(limits=c(0,14),breaks =rep(0:14)) +labs(title="Soil pH", y="Soil pH", x="Site")+theme_classic()+John_theme
+```
+**Figure 22:**
 
 
 
 ```{r, fig.width=12, fig.height=12, fig.align='center'}
-NEON_MAGs_metagenomes_chemistry_TOOL_Xanthomonadales <- NEON_MAGs_metagenomes_chemistry_TOOL %>%
-  filter(str_detect(`Order`,"Xanthomonadales"))
-NEON_MAGs_metagenomes_chemistry_TOOL_Burkholderiales <- NEON_MAGs_metagenomes_chemistry_TOOL %>%
-  filter(str_detect(`Order`,"Burkholderiales"))
-NEON_MAGs_metagenomes_chemistry_TOOL_Steroidobacterales <- NEON_MAGs_metagenomes_chemistry_TOOL %>%
-  filter(str_detect(`Order`,"Steroidobacterales"))
-NEON_MAGs_metagenomes_chemistry_Alaska <-NEON_MAGs_metagenomes_chemistry %>%
-  filter(str_detect(Site.x,"Alaska"))
 
-
-#ALL NEON TEMP
-NEON_MAGs_metagenomes_chemistry %>%
-     ggplot(aes(y=`soilTemp`,x=`Site.x`, color=`Phylum`), size=1)+geom_point(position=position_dodge2(width=1, preserve="single"))+scale_y_continuous(limits=c(0,50),breaks = c(10,20,30,40,50)) +labs(title="Soil Temperature", y="Soil Temperature", x="Family")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
-#ALL NEON pH
-NEON_MAGs_metagenomes_chemistry %>%
-     ggplot(aes(y=`soilInWaterpH`,x=`Site.x`, color=`Phylum`), size=1)+geom_point()+scale_y_continuous(limits=c(0,14),breaks=c(1:14)) +labs(title="Soil Temperature", y="Soil Temperature", x="Site")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
-
-#ALASKAN TEMP
-NEON_MAGs_metagenomes_chemistry_Alaska %>%
-     ggplot(aes(x=`Phylum`,y=`soilTemp`, color=`Phylum`), size=1)+geom_point(show.legend=FALSE)+facet_wrap(vars(Site.x), scales="free_y", ncol=3)+scale_y_continuous(limits=c(0,10)) +labs(title="Soil Temperature", y="Soil Temperature", x="Site")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
-#ALASKAN PH
-NEON_MAGs_metagenomes_chemistry_Alaska %>%
-     ggplot(aes(x=`Phylum`,y=`soilInWaterpH`, color=`Phylum`), size=1)+geom_point()+facet_wrap(vars(Site.x), scales="free_y", ncol=3)+scale_y_continuous(limits=c(0,14),breaks =rep(0:14)) +labs(title="Soil pH", y="Soil pH", x="Site")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
 
 NEON_MAGs_metagenomes_chemistry_Alaska %>%
      ggplot(aes(x=`Phylum`, fill=`Order`))+geom_bar()+facet_wrap(vars(Site.x), scales="free_y", ncol=3) +labs(title="Soil pH", y="Soil pH", x="Site")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
 
 NEON_MAGs_metagenomes_chemistry_TOOL %>%
-     ggplot(aes(y=`soilTemp`,x=`Phylum`, color=`Phylum`), size=1)+geom_point(show.legend=FALSE)+scale_y_continuous(limits=c(0,50)) +labs(title="Soil pH", y="Soil pHe", x="Site")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+     ggplot(aes(y=`soilTemp`,x=`Phylum`, color=`Phylum`), size=1)+geom_point(show.legend=FALSE)+scale_y_continuous(limits=c(0,50)) +labs(title="Soil pH", y="Soil pH", x="Site")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
   
   ggplot(data=NEON_MAGs_metagenomes_chemistry_TOOL,aes(y=`soilInWaterpH`,x=`Order`, color=`Phylum`))+geom_point()+scale_y_continuous(limits=c(0,14),breaks =rep(0:14) )+labs(title="Soil pH in Water", y="pH", x="Family")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
   
@@ -573,14 +610,14 @@ NEON_MAGs_metagenomes_chemistry_TOOL %>%
 ```
 
 
-## TOOLIK distribution by Phylum
+### TOOLIK distribution by Phylum
 ```{r, fig.width = 12, fig.height = 8, fig.align='center'}
 NEON_MAGs_metagenomes_chemistry_TOOL %>% 
   ggplot(aes(x=fct_rev(fct_infreq(Phylum)), fill=Order))+geom_bar()+coord_flip()+labs(title="MAG Count by Phylum at Toolik Field Station ", x="Site", y="MAG Count",fill="Phylum")+theme_classic()
 
 ```
 
-## Figure 19
+### Figure 19
 ```{r, fig.align='center'}
 NEON_MAGs_metagenomes_chemistry_TOOL %>%
   mutate(`Genome Size (Kbp)`=as.integer(`Total Number of Bases`/1000)) %>%
@@ -1585,6 +1622,7 @@ ggtree(tree_bac_TOOL_MAGs)  %<+%
 <!-- ``` -->
 
 # Supplemental Figures:
+
 ## Supplemental Figure 1: NEON Site vs Vegetation subclass
 ```{r}
 NEON_MAGs_metagenomes_chemistry %>%
@@ -1599,7 +1637,31 @@ NEON_MAGs_metagenomes_chemistry %>%
 ```
 
 
+## Figure 5:hylogenetic tree of all MAGs belonging to the class *Gammaproteobacteria* with Site location
+```{r, , fig.height=12, fig.width=12, fig.align='center'}
+ggtree(tree_Gammaproteobacteria)  %<+%
+  NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria + 
+  geom_tippoint(aes(color=`Order`)) + 
 
+# For unknown reasons the following does not like blank spaces in the names
+  geom_facet(panel = "Gene Count", data = NEON_MAGs_metagenomes_chemistry_Gamma_noblank, geom = geom_point, 
+      mapping=aes(x = GeneCount, color=Orders))+
+  geom_facet(panel = "% GC Content ", data = NEON_MAGs_metagenomes_chemistry_Gamma_noblank, geom = geom_col, 
+                aes(x = GCassembled,fill=Orders), orientation = 'y', width = .6, show.legend=FALSE) +
+  theme_tree2(legend.position=c(.1, .7))
+
+
+
+
+
+ggtree(tree_Gammaproteobacteria)  %<+%
+  NEON_MAGs_metagenomes_chemistry + 
+ xlim(0,20)+
+  geom_point(mapping=aes(color=`Site.x`))
+
+```
+
+**Figure 5:** Phylogenetic tree of all MAGs belonging to the class *Gammaproteobacteria* with Gene count and %GC Content. 
 
 ![**Figure 1:**](/cloud/project/images/Plots/Gamma/NEON_MAGS_Gammaproteobacteria_Highlight_Circular_Tree.png)
 

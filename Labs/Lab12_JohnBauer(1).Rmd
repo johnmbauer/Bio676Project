@@ -1,0 +1,264 @@
+---
+title: "Lab12_JohnBauer"
+author: "John Bauer"
+date: "2024-04-12"
+output: 
+  html_document:
+    toc: true
+    toc_depth: 4
+    Theme: yeti
+    Highlight: haddock
+    code_folding: hide
+---
+```{r}
+library(tidyverse)
+library(knitr)
+```
+
+```{r}
+NEON_MAGs <- read_csv("/cloud/project/data/NEON/GOLD_Study_ID_Gs0161344_NEON_2024_4_21.csv") %>% 
+  # remove columns that are not needed for data analysis
+  select(-c(`GOLD Study ID`, `Bin Methods`, `Created By`, `Date Added`, `Bin Lineage`)) %>% 
+  # create a new column with the Assembly Type
+  mutate("Assembly Type" = case_when(`Genome Name` == "NEON combined assembly" ~ `Genome Name`,
+                            TRUE ~ "Individual")) %>% 
+  mutate_at("Assembly Type", str_replace, "NEON combined assembly", "Combined") %>% 
+  mutate_at("GTDB-Tk Taxonomy Lineage", str_replace, "d__", "") %>%  
+  mutate_at("GTDB-Tk Taxonomy Lineage", str_replace, "p__", "") %>% 
+  mutate_at("GTDB-Tk Taxonomy Lineage", str_replace, "c__", "") %>% 
+  mutate_at("GTDB-Tk Taxonomy Lineage", str_replace, "o__", "") %>% 
+  mutate_at("GTDB-Tk Taxonomy Lineage", str_replace, "f__", "") %>% 
+  mutate_at("GTDB-Tk Taxonomy Lineage", str_replace, "g__", "") %>% 
+  mutate_at("GTDB-Tk Taxonomy Lineage", str_replace, "s__", "") %>%
+  separate(`GTDB-Tk Taxonomy Lineage`, c("Domain", "Phylum", "Class", "Order", "Family", "Genus", "Species"), ";", remove = FALSE) %>% 
+  mutate_at("Domain", na_if,"") %>% 
+  mutate_at("Phylum", na_if,"") %>% 
+  mutate_at("Class", na_if,"") %>% 
+  mutate_at("Order", na_if,"") %>% 
+  mutate_at("Family", na_if,"") %>% 
+  mutate_at("Genus", na_if,"") %>% 
+  mutate_at("Species", na_if,"") %>% 
+  
+  # Get rid of the the common string "Soil microbial communities from "
+  mutate_at("Genome Name", str_replace, "Terrestrial soil microbial communities from ", "") %>% 
+  # Use the first `-` to split the column in two
+  separate(`Genome Name`, c("Site","Sample Name"), " - ") %>% 
+  # Get rid of the the common string "S-comp-1"
+  mutate_at("Sample Name", str_replace, "-comp-1", "") %>%
+  # separate the Sample Name into Site ID and plot info
+  separate(`Sample Name`, c("Site ID","subplot.layer.date"), "_", remove = FALSE,) %>% 
+  # separate the plot info into 3 columns
+  separate(`subplot.layer.date`, c("Subplot", "Layer", "Date"), "-") 
+```
+
+
+```{r}
+# NEON_MAGs <- read_csv("~/Bio 676/Lab12/data/GOLD_Study_ID_Gs0161344_NEON_edArchaea.csv") %>% 
+#   # remove columns that are not needed for data analysis
+#   select(-c(`GOLD Study ID`, `Bin Methods`, `Created By`, `Date Added`)) %>% 
+#   # create a new column with the Assembly Type
+#   mutate("Assembly Type" = case_when(`Genome Name` == "NEON combined assembly" ~ `Genome Name`,
+#                             TRUE ~ "Individual")) %>% 
+#   mutate_at("Assembly Type", str_replace, "NEON combined assembly", "Combined") %>% 
+#   separate(`GTDB-Tk Taxonomy Lineage`, c("Domain", "Phylum", "Class", "Order", "Family", "Genus"), "; ", remove = FALSE) %>% 
+#   # Get rid of the the common string "Soil microbial communities from "
+#   mutate_at("Genome Name", str_replace, "Terrestrial soil microbial communities from ", "") %>% 
+#   # Use the first `-` to split the column in two
+#   separate(`Genome Name`, c("Site","Sample Name"), " - ") %>% 
+#   # Get rid of the the common string "S-comp-1"
+#   mutate_at("Sample Name", str_replace, "-comp-1", "") %>%
+#   # separate the Sample Name into Site ID and plot info
+#   separate(`Sample Name`, c("Site ID","subplot.layer.date"), "_", remove = FALSE,) %>% 
+#   # separate the plot info into 3 columns
+#   separate(`subplot.layer.date`, c("Subplot", "Layer", "Date"), "-")
+
+NEON_metagenomes <- read_tsv("/cloud/project/data/NEON/exported_img_data_Gs0161344_NEON.tsv") %>% 
+  rename(`Genome Name` = `Genome Name / Sample Name`) %>% 
+  filter(str_detect(`Genome Name`, 're-annotation', negate = T)) %>% 
+  filter(str_detect(`Genome Name`, 'WREF plot', negate = T)) 
+
+
+NEON_metagenomes <- NEON_metagenomes %>% 
+  # Get rid of the the common string "Soil microbial communities from "
+  mutate_at("Genome Name", str_replace, "Terrestrial soil microbial communities from ", "") %>% 
+  # Use the first `-` to split the column in two
+  separate(`Genome Name`, c("Site","Sample Name"), " - ") %>% 
+  # Get rid of the the common string "-comp-1"
+  mutate_at("Sample Name", str_replace, "-comp-1", "") %>%
+  # separate the Sample Name into Site ID and plot info
+  separate(`Sample Name`, c("Site ID","subplot.layer.date"), "_", remove = FALSE,) %>% 
+  # separate the plot info into 3 columns
+  separate(`subplot.layer.date`, c("Subplot", "Layer", "Date"), "-") 
+
+NEON_chemistry <- read_tsv("/cloud/project/data/NEON/neon_plot_soilChem1_metadata.tsv") %>% 
+  # remove -COMP from genomicsSampleID
+  mutate_at("genomicsSampleID", str_replace, "-COMP", "")
+
+kable(
+  NEON_chemistry_description <- read_tsv("/cloud/project/data/NEON/neon_soilChem1_metadata_descriptions.tsv") 
+)
+```
+# Excerises
+
+## Tidyverse Excercises
+
+```{r}
+band_members
+
+band_instruments
+# drops any row in the second data set that does not match a row in the first data set.
+band_members %>%
+  left_join(band_instruments, by="name")
+# drops any row in the first data set that does not match a row in the second data set.
+band_members %>%
+  right_join(band_instruments, by="name")
+#drops any row in either data set that does not have a match in both data sets
+band_members %>%
+  inner_join(band_instruments, by="name")
+#retains every row from both data sets; it is the only join guaranteed to retain all of the original data
+band_members %>%
+  full_join(band_instruments, by="name")
+#join by two specified columns
+table1 %>% 
+  left_join(table3, by = c("country", "year"))
+#join by columns with different names
+#For each element,
+#    Write the name of the column that appears in the first data frame
+#    Write an equals sign
+#    Write the name of the matching column that appears in the second data set.
+band_members %>% 
+  left_join(band_instruments2, by = c(name = "artist"))
+#tables with multiple same name columns that were not joined on will be labeled x,y
+table4a %>% 
+  left_join(table4b, by = "country")
+# set suffix
+table4a %>% 
+  left_join(table4b, by = "country", suffix = c("_cases", "_pop"))
+```
+
+## Exercise 1
+Create some tables with just a few columns to work on the basics of table joins by making a new data frame selecting
+    In NEON_MAGs the columns Sample Name, Site ID, GTDB-Tk Taxonomy Lineage
+    In NEON_metagenomes the columns Sample Name, Site ID, Ecosystem Subtype
+    In NEON_chemistry the columns genomicsSampleID, siteID, nlcdClass
+```{r}
+#In NEON_MAGs the columns Sample Name, Site ID, GTDB-Tk Taxonomy Lineage
+NEON_MAGs_Short <- NEON_MAGs %>%
+  select(c(`Sample Name`,`Site ID`,`GTDB-Tk Taxonomy Lineage`))
+#In NEON_metagenomes the columns Sample Name, Site ID, Ecosystem Subtype
+NEON_metagenomes_Short <- NEON_metagenomes %>%
+  select(c(`Sample Name`, `Site ID`, `Ecosystem Subtype`))
+#In NEON_chemistry the columns genomicsSampleID, siteID, nlcdClass
+NEON_chemistry_Short <- NEON_chemistry %>%
+  select(c(`genomicsSampleID`, `siteID`, `nlcdClass`))
+```
+
+## Excercise 2
+Now filter the above NEON_MAGs, NEON_metagenomes and NEON_chemistry to contain just the data for your project site
+```{r}
+NEON_MAGs_Short_TOOL <-NEON_MAGs_Short %>%
+  filter(str_detect(`Site ID`,"TOOL"))
+NEON_metagenomes_Short_TOOL <-NEON_metagenomes_Short %>%
+  filter(str_detect(`Site ID`,"TOOL"))
+NEON_chemistry_Short_TOOL <-NEON_chemistry_Short %>%
+  filter(str_detect(`siteID`,"TOOL"))
+```
+
+## Excercise 3
+Do a left join of the NEON MAGs with NEON metagenomes by the Sample Name and show the resulting table. Notice what happens when 2 columns have the same name. Did you get the number of rows you expected?
+```{r}
+NEON_MAGs_Short %>%
+  left_join(NEON_metagenomes_Short, by="Sample Name" )
+```
+## Exercise 4
+Using the data from your site do a left join of the NEON chemistry with NEON metagenomes from above by the Sample Name and genomicsSampleID columns and show the resulting table. Use by = c("Sample Name" = "genomicsSampleID")). Did you get the number of rows you expected?
+```{r}
+NEON_metagenomes_Short_TOOL %>%
+  left_join(NEON_chemistry_Short_TOOL,by = c("Sample Name" = "genomicsSampleID"))
+```
+
+## Exercise 5
+Does it matter with these tables if your do a left, right or full join. Show the resulting tables
+```{r}
+NEON_metagenomes_Short_TOOL %>%
+  left_join(NEON_chemistry_Short_TOOL,by = c("Sample Name" = "genomicsSampleID"))
+NEON_metagenomes_Short_TOOL %>%
+  right_join(NEON_chemistry_Short_TOOL,by = c("Sample Name" = "genomicsSampleID"))
+NEON_metagenomes_Short_TOOL %>%
+  full_join(NEON_chemistry_Short_TOOL,by = c("Sample Name" = "genomicsSampleID"))
+```
+
+## Exercise 6
+Do a left join of the NEON chemistry with NEON metagenomes by site ID columns and show the resulting table. Did you get the number of rows you expected?
+```{r}
+NEON_chemistry_Short %>%
+  left_join(NEON_metagenomes_Short, by =c("siteID"="Site ID"))
+
+```
+
+## Exercise 7
+Join the NEON MAG, metagenome and chemistry dataframes into a single data frame. What happens to the metagenome and chemistry information on the rows with the NEON coassembly?
+
+Chemistry data for coassembly rows is largely left blank
+metagenome data is all the same for coassembly rows
+```{r}
+NEON_chemistry_7 <-NEON_chemistry %>%
+  full_join(NEON_metagenomes, by =c("genomicsSampleID"="Sample Name")) %>%
+  full_join(NEON_MAGs, by= c("genomicsSampleID"="Sample Name"))
+NEON_chemistry_7
+NEON_chemistry_7 %>%
+  filter(str_detect(`Assembly Type`, "Combined"))
+```
+
+## Exercise 8
+Filter the above table to contain data for just your project taxonomic group. Make a boxplot of the soil temperatures for each sample at the sites.
+```{r}
+NEON_chemistry_8 <-NEON_chemistry_7 %>%
+  filter(str_detect(`GTDB-Tk Taxonomy Lineage`,"Gammaproteobacteria"))
+NEON_chemistry_8 %>%
+  ggplot(aes(x=fct_infreq(siteID), y=soilTemp))+geom_boxplot()+labs(title="Sample Soil Temperatures at each site", x="Site ID", y="Soil Temp (C)")+theme_classic()
+```
+
+## Exercise 9
+Make a scatterplot of Ecosystem Subtype vs temperature. Use the Order as the color for the points.
+```{r, fig.width = 6, fig.height = 6}
+NEON_chemistry_8 %>%
+   ggplot(aes(x=fct_infreq(`Ecosystem Subtype`), y=soilTemp, color=Order))+geom_point()+labs(title="Sample Soil Temperatures vs Ecosystem Subtype", x="Ecosystem Subtype", y="Soil Temp (C)")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+```
+
+## Exercise 10
+Make a scatterplots of soilInCaClpH vs ncldClass (National Land Cover Database) terms. Use the Family as the color for the points.
+```{r, fig.width = 6, fig.height = 8}
+NEON_chemistry_8 %>%
+   ggplot(aes(x=`nlcdClass`,y=`soilInCaClpH`, color=Family))+geom_point()+labs(title="Sample Soil Temperatures vs National Land Cover Class", x="Land Cover Class", y="Soil pH in CaCl")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+```
+
+## Exercise 11
+Exploring the data is an important part of data analysis. Humans are great at visually recognizing patterns. Make 3 other graphs specific to your project.
+```{r, fig.width = 12, fig.height = 12}
+NEON_chemistry_11 <- NEON_chemistry_7 %>%
+  filter(str_detect(siteID,"TOOL"))
+NEON_chemistry_11
+```
+
+### Graph1
+```{r, fig.width = 12, fig.height = 12}
+NEON_chemistry_11 %>%
+   ggplot(aes(x=`Phylum`, fill=Class))+geom_bar()+coord_flip()+facet_wrap(vars(nlcdClass), scales="free_y", ncol=3)+labs(title="Toolik Field Station Phylogeny vs National Land Cover Class", x="Land Cover Class", y="n")+theme_classic()
+```
+
+### Graph2
+```{r}
+NEON_chemistry_8 %>%
+     ggplot(aes(y=`soilTemp`,x=`soilInWaterpH`, color=Order))+geom_point()+labs(title="Gammaproteobacteria Sample Soil Temperature vs pH in Water", y="Soil Temperature", x="Soil pH in Water")+theme_classic()
+```
+
+### Graph3
+```{r, , fig.width = 6, fig.height = 8}
+NEON_chemistry_8 %>%
+   ggplot(aes(y=`Elevation In Meters`, x=Order, color=Order))+geom_boxplot(show.legend = FALSE)+labs(title="Gammaproteobacteria MAGs vs Elevation", x="Order", y="Elevation (m)")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+  
+```
+
+
+

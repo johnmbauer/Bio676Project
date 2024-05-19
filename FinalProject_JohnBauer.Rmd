@@ -660,48 +660,48 @@ NEON_MAGs_metagenomes_chemistry %>%
 ### Figure 22:
 ```{r, fig.width=12, fig.height=6, fig.align='center'}
 NEON_MAGs_metagenomes_chemistry_Alaska %>%
-     ggplot(aes(x=`Phylum`,y=`soilTemp`, color=`Phylum`), size=1)+geom_point(show.legend=FALSE)+facet_wrap(vars(Site.x), scales="free_y", ncol=3)+scale_y_continuous(limits=c(0,10)) +labs(title="Soil Temperature", y="Soil Temperature", x="Phylum")+theme_classic()+John_theme
+     ggplot(aes(x=`Phylum`,y=`soilTemp`, color=`Phylum`), size=1)+geom_point(show.legend=FALSE)+facet_wrap(vars(Site.x), scales="free_y", ncol=3)+scale_y_continuous(limits=c(0,10)) +labs(y="Soil Temperature", x="Phylum")+theme_classic()+John_theme+theme(strip.text = element_text(size=13))
 ```
-**Figure 22:**
+**Figure 22:** **Soil temperatures**
 
 ### Figure 23:
 ```{r, fig.width=12, fig.height=6, fig.align='center'}
 NEON_MAGs_metagenomes_chemistry_Alaska %>%
-     ggplot(aes(x=`Phylum`,y=`soilInWaterpH`, color=`Phylum`), size=1)+geom_point(show.legend = FALSE)+facet_wrap(vars(Site.x), scales="free_y", ncol=3)+scale_y_continuous(limits=c(0,14),breaks =rep(0:14)) +labs(title="Soil pH", y="Soil pH", x="Phylum")+theme_classic()+John_theme
+     ggplot(aes(x=`Phylum`,y=`soilInWaterpH`, color=`Phylum`), size=1)+geom_point(show.legend = FALSE)+facet_wrap(vars(Site.x), scales="free_y", ncol=3)+scale_y_continuous(limits=c(0,14),breaks =rep(0:14)) +labs(y="Soil pH", x="Phylum")+theme_classic()+John_theme+theme(strip.text = element_text(size=13))
 ```
-**Figure 23:**
+**Figure 23:** **Sample soil pH in water** 
 
 ### Figure 24:
 ```{r, fig.width=12, fig.height=6, fig.align='center'}
 NEON_MAGs_metagenomes_chemistry_Alaska %>%
-     ggplot(aes(x=`Phylum`,y=`nlcdClass`, color=`Phylum`), size=1)+geom_point(show.legend = FALSE)+facet_wrap(vars(Site.x), scales="free_y", ncol=3)+labs(title="Vegetation Class", y="Vegetation Class", x="Phylum")+theme_classic()+John_theme
+     ggplot(aes(x=`Phylum`,y=`nlcdClass`, color=`Phylum`), size=1)+geom_point(show.legend = FALSE)+facet_wrap(vars(Site.x), scales="free_y", ncol=3)+labs(y="Vegetation Class", x="Phylum")+theme_classic()+John_theme+theme(strip.text = element_text(size=10))
 ```
-**Figure 24: **
+**Figure 24:** **Sample National Land Class Vegetation Class** 
 
 ### Figure 25:
-```{r, fig.width=12, fig.height=6, fig.align='center'}
+```{r, fig.width=14, fig.height=6, fig.align='center'}
 NEON_MAGs_metagenomes_chemistry_Alaska %>%
-     ggplot(aes(x=`Phylum`, fill=`Order`))+geom_bar()+facet_wrap(vars(Site.x), scales="free_y", ncol=3) +labs(title="Soil pH", y="n", x="Phylum")+theme_classic()+John_theme
+     ggplot(aes(x=`Phylum`, fill=`Order`))+geom_bar()+facet_wrap(vars(Site.x), scales="free_y", ncol=3) +labs(y="MAGs (n)", x="Phylum")+theme_classic()+John_theme+theme(strip.text = element_text(size=10), legend.title=element_text(size=15), legend.text=element_text(size=10, face='italic'))
 ```
-**Figure 25:**
+**Figure 25:** **MAGs found at each Alaskan NEON Site.**   
 
 
 
 ### Figure 26: TOOLIK distribution by Phylum
 ```{r, fig.width = 12, fig.height = 8, fig.align='center'}
 NEON_MAGs_metagenomes_chemistry_TOOL %>% 
-  ggplot(aes(x=fct_rev(fct_infreq(Phylum)), fill=Order))+geom_bar()+coord_flip()+labs(title="MAG Count by Phylum at Toolik Field Station ", x="Site", y="MAG Count",fill="Phylum")+theme_classic()
+  ggplot(aes(x=fct_rev(fct_infreq(Phylum)), fill=Order))+geom_bar()+coord_flip()+labs(x="Site", y="MAG Count (n)",fill="Order")+theme_classic()+theme(axis.text.x=element_text(color="black"),axis.title=element_text(size = 15), axis.text.y=element_text(color="black",face='italic'), legend.title=element_text(size=15),legend.text=element_text(size=10))+scale_y_continuous(limits=c(0,50),breaks = c(0,10,20,30,40,50))
 
 ```
-**Figure 26:**
+**Figure 26:** **MAG Count by Phylum at Toolik Field Station**
 
 ### Figure 27:
 ```{r, fig.align='center'}
 NEON_MAGs_metagenomes_chemistry_TOOL %>%
   mutate(`Genome Size (Kbp)`=as.integer(`Total Number of Bases`/1000)) %>%
-  ggplot(aes(x=`Phylum`,y=`Genome Size (Kbp)`,color=`Phylum`))+geom_boxplot(show.legend = FALSE)+scale_y_continuous(limits=c(0,15000), breaks=c(2500,5000,7500,10000,12500,15000))+theme_classic()+labs(title="Phylum Genome Size Distributions", x="Phylm", y="Genome Size (Kbp)")+John_theme
+  ggplot(aes(x=`Phylum`,y=`Genome Size (Kbp)`,color=`Phylum`))+geom_boxplot(show.legend = FALSE)+scale_y_continuous(limits=c(0,15000), breaks=c(2500,5000,7500,10000,12500,15000))+theme_classic()+labs(x="Phylum", y="Genome Size (Kbp)")+John_theme
 ```
-**Figure 27:** 
+**Figure 27:** **Genome Size Distributions at Toolik Field Station**
 
 ### Figure 28: 
 ```{r, fig.height=12, fig.width=12, fig.align='center'}
@@ -710,31 +710,31 @@ ggtree(tree_bac_TOOL_MAGs)  %<+%
   geom_tippoint(aes(colour=`Phylum`)) + 
 
 # For unknown reasons the following does not like blank spaces in the names
-  geom_facet(panel = "Gene Count", data = NEON_MAGs_metagenomes_chemistry_TOOL_noblank, geom = geom_point, 
+  geom_facet(panel = "Gene Count (n)", data = NEON_MAGs_metagenomes_chemistry_TOOL_noblank, geom = geom_point, 
       mapping=aes(x = GeneCount, color=Phyla))+
   geom_facet(panel = "% GC Content ", data = NEON_MAGs_metagenomes_chemistry_TOOL_noblank, geom = geom_col, 
                 aes(x = GCassembled,fill=Phyla), orientation = 'y', width = .6, show.legend=FALSE) +
-  theme_tree2(legend.position=c(.1, .7))
+  theme_tree2(legend.position=c(.1, .7),strip.text=element_text(size=15),axis.text=element_text(color = 'black'))
 
 ```
-**Figure 28:**
+**Figure 28:** **Genome content of bacteria found at Toolik Field Station.** Left Panel: Phylogenetic tree of all MAGs found at Toolik Field Station, Alaska USA with markers for MAG phylum. Middle Panel: Gene Count of all Mags found at Toolik Field Station, Alaska USA. Points colored by MAG phylum. Right Panel: % GC Content of all MAGs found at Toolik Field Station, Alaska USA. Bar colored by MAG phylum.
 
 ### Figure 29: Steroidobacterales
 ```{r,fig.height=6, fig.width=6, fig.align='center'}
 NEON_MAGs_metagenomes_chemistry_TOOL_Steroidobacterales %>%
-ggplot( aes(x=`Genus`,y=`Genome Size (Kbp)`))+geom_boxplot(show.legend = FALSE)+scale_y_continuous(limits=c(0,15000), breaks=c(2500,5000,7500,10000,12500,15000))+theme_classic()+labs(title="C", x="Genus", y="Genome Size (Kbp)")+John_theme+
+ggplot( aes(x=`Genus`,y=`Genome Size (Kbp)`,color=Genus))+geom_boxplot(show.legend = FALSE)+scale_y_continuous(limits=c(0,15000), breaks=c(2500,5000,7500,10000,12500,15000))+theme_classic()+labs(title="A", x="Genus", y="Genome Size (Kbp)")+John_theme+theme(title = element_text(size=15))+
 #genus count
-  ggplot(data=NEON_MAGs_metagenomes_chemistry_TOOL_Steroidobacterales,aes(x=Genus))+geom_bar(show.legend=FALSE)+labs(title="D", x="Genus", y="n")+theme_classic()+John_theme
+  ggplot(data=NEON_MAGs_metagenomes_chemistry_TOOL_Steroidobacterales,aes(x=Genus,fill=Genus))+geom_bar(show.legend=FALSE)+labs(title="B", x="Genus", y="MAGs (n)")+theme_classic()+John_theme+theme(title = element_text(size=15))
   
 ```
-**Figure 29:** ***Steroidobacterales***
+**Figure 29:** ***Steroidobacterales*** A) Boxplot of sample genome size (kbp) in the **Steroidobacterales** family at Toolik Field Station, Alaska USA. B) Barplot of MAGs for each genus in the **Steroidobacterales** family found at Toolik Field Station, Alaska USA. 
 
 ### Figure 30: Burkholderiales
 ```{r,fig.height=6, fig.width=6, fig.align='center'}
 NEON_MAGs_metagenomes_chemistry_TOOL_Burkholderiales  %>%
-  ggplot(aes(x=Genus,fill=`Family`))+geom_bar()+labs(title="Genus Distribution", x="Genus", y="n")+theme_classic()+John_theme
+  ggplot(aes(x=Genus,fill=`Family`))+geom_bar()+labs(x="Genus", y="MAGs (n)")+theme_classic()+John_theme+theme(legend.title = element_text(size=15),legend.text = element_text(size=10, face='italic'))+scale_y_continuous(limits=c(0,5),breaks=rep(0:5))
 ```
-**Figure 30:** ***Burkholderiales***
+**Figure 30:** **Genus distribution of** ***Burkholderiales*** **is wide spread at Toolik Field Station, Alaska USA.** Barplot of MAGs in **Burkholderiales** Genera at Toolik Field Station, Alaska USA. NA represent novel genera in **Burkholderiales**
 
 
 

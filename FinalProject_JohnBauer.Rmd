@@ -381,22 +381,14 @@ while (n!=29) {
 }
 plottttttt
 ```
-**Figure 1:** Phylogenetic Tree of all bacterial MAGs collected in GOLD Study ID Gs0161344 by the National Ecological Observatory Network with phylum labels
+**Figure 1:** Phylogenetic Tree of all bacterial MAGs collected in GOLD Study ID Gs0161344 by the National Ecological Observatory Network with phylum labels.
 
 
 ### Figure 2: Sankey plot of all NEON Individual assembly MAGs
 ```{r,fig.height=20, fig.width=8,fig.align='center'}
 knitr::include_url("data/lab14/sankey-NEON_MAG_ind_pavian.txt.html")
 ```
-**Figure 2:** Sankey plot of all NEON Individual assembly MAGs
-
-
-
-
-
-
-
-
+**Figure 2:** Sankey plot of all NEON Individual assembly MAGs.
 
 &nbsp;
 
@@ -404,11 +396,8 @@ knitr::include_url("data/lab14/sankey-NEON_MAG_ind_pavian.txt.html")
 
 &nbsp;
 
-
-### Figure 2:Uprooted maximum-likelyhood phylogentic tree of gammaproteobactria
-![**Figure 2:** Uprooted maximum-likelyhood phylogentic tree of gammaproteobactria based on 120 concatenated single copy proteins sequences from 780 reference genomes [@liao_reclassification_2020]. Figure adapted from Figure 2 of Liao et al.](/cloud/project/liaoFig2(1).png)
-
-
+### Figure 3:Uprooted maximum-likelyhood phylogentic tree of gammaproteobactria
+![**Figure 3:** Uprooted maximum-likelyhood phylogentic tree of gammaproteobactria based on 120 concatenated single copy proteins sequences from 780 reference genomes [@liao_reclassification_2020]. Figure adapted from Figure 2 of Liao et al.](/cloud/project/liaoFig2(1).png)
 
 &nbsp;
 
@@ -416,18 +405,13 @@ knitr::include_url("data/lab14/sankey-NEON_MAG_ind_pavian.txt.html")
 
 &nbsp;
 
+### Figure 4: Toolik Field Station, Alaska USA
 
+<center>
+![**Figure 4:** Toolik Field Station, Alaska USA [@noauthor_photo_nodate]](/cloud/project/Toolik_Field_Station.png)
+</center>
 
-
-
-### Figure 3: Toolik Field Station, Alaska USA
-![**Figure 3:** Toolik Field Station, Alaska USA [@noauthor_photo_nodate]](/cloud/project/Toolik_Field_Station.png)
-
-
-
-
-
-
+&nbsp;
 
 &nbsp;&nbsp;&nbsp;&nbsp;Located 400 miles north from Fairbanks, Alaska at the foot of the Brooks mountain range, biodiversity at Toolik Field Station is heavily influenced by its harsh winters where temperatures can reach -50⁰F. It is home to a variety of fauna including caribou, loons, voles, and polar bears. Located above the northern tree line, the vegetation in the tundra here mainly consists of birch, willow, sedges and grass. The site contains a large range of soil conditions, including layers of permafrost, created by glacial action [@NEON_collection_2023].   
 
@@ -447,7 +431,7 @@ tidyverse,knitr, ggtree, TDbook #A Companion Package for the Book "Data Integrat
 ## NEON Study 6 graphs
 
 
-### Figure 4: Phylogenetic treee of all MAGs collected in GOLD Study ID Gs0161344 by the National Ecological Observatory Network with the *Gammaproteobacteria* class of Psedomondata highlighted in blue
+### Figure 5: Phylogenetic tree with the *Gammaproteobacteria* class of Psedomondata highlighted in blue
 ```{r, , fig.height=14, fig.width=12, fig.align='center'}
 ggtree(tree_bac, layout="circular", branch.length="none") +
     geom_hilight(node=as.integer(phylumss[1,3]), fill=as.character(phylumss[1,4], alpha=.6)) +
@@ -456,7 +440,7 @@ ggtree(tree_bac, layout="circular", branch.length="none") +
     geom_cladelab(node=3048, label="Gammaproteobacteria", align=TRUE, angle='auto', offset=1,  
                   offset.text=0.5 , textcolor='steelblue', barcolor='steelblue',barsize=1.5, fontsize=5)
 ```
-**Figure 4:** Phylogenetic tree of all bacterial MAGs collected in GOLD Study ID Gs0161344 by the National Ecological Observatory Network with the *Gammaproteobacteria* class of *Psedomondata* highlighted in blue
+**Figure 5:** Phylogenetic tree of all bacterial MAGs collected in GOLD Study ID Gs0161344 by the National Ecological Observatory Network with the *Gammaproteobacteria* class of *Pseudomondata* highlighted in blue.
 
 
 
@@ -464,28 +448,28 @@ ggtree(tree_bac, layout="circular", branch.length="none") +
 ### Figure 6:
 ```{r, fig.height=12, fig.width=12, fig.align='center'}
 NEON_MAGs_bact_ind %>%
-  ggplot(aes(x=fct_rev(fct_infreq(Phylum)), fill=Site))+geom_bar(position="dodge")+coord_flip()+labs(title="NEON MAG Distribution by Phylum", x="Phylum", y="MAG Count")+theme_classic()
+  ggplot(aes(x=fct_rev(fct_infreq(Phylum)), fill=`Site ID`))+geom_bar(position="dodge")+coord_flip()+labs(title="NEON MAG Distribution by Phylum", x="Phylum", y="NEON MAGs (n)")+theme_classic()+theme(axis.text.x=element_text(color="black"),axis.title.x=element_text(size = 15), axis.text.y=element_text(color="black"),axis.title.y=element_text(size = 15), legend.title=element_text(size=15), legend.text=element_text(size=10))+ scale_y_continuous(limits=c(0,100),breaks = c(0,10,20,30,40,50,60,70,80,90,100))                                                                                                                                 
 ```
-**Figure 6:** Overall NEON Site Distribution of MAGs organized by phylum.
+**Figure 6:** Overall NEON Site Distribution of MAGs collected in GOLD Study ID Gs0161344 organized by phylum.
 
 ### Figure 7:
-```{r,, fig.width = 8, fig.height = 8,fig.align='center'}
+```{r,, fig.width = 6, fig.height = 4,fig.align='center'}
 NEON_MAGs_bact_ind_Novel %>% 
-  ggplot(aes(x=fct_rev(fct_infreq(Site)), fill=Site))+geom_bar(show.legend=FALSE)+coord_flip()+labs(title="Total Novel Bacteria per Site", x="Site", y="n")+theme_classic()
+  ggplot(aes(x=fct_rev(fct_infreq(`Site ID`)), fill=`Site ID`))+geom_bar(show.legend=FALSE)+coord_flip()+labs(title="Total Novel Bacteria per Site", x="Site ID", y="Total Novel Bacteria (n)")+theme_classic()+theme(axis.text.x=element_text(color="black"),axis.title.x=element_text(size = 15), axis.text.y=element_text(color="black"))
 ```
-**Figure 7:** Novel Bacteria MAG NEON Site Distribution. Novel Bacteria were determined from MAGs constructed from individual assemblies. Novel indicates the MAGs could not be placed in an existing group at the species, genus or family level
+**Figure 7:** Novel Bacteria MAG NEON Site Distribution. Novel Bacteria were determined from MAGs constructed from individual assemblies. Novel indicates the MAGs could not be placed in an existing group at the species, genus or family level.
 &nbsp;
 
 &nbsp;&nbsp;&nbsp;&nbsp;The vast majority of bacteria found in this study were determined to be novel species with PERCENT being unable to place phylogenetically at the genus level.
 
 &nbsp;
 ## Figure 8:
-```{r,, fig.width = 12, fig.height = 8, fig.align='center'}
+```{r,, fig.width = 12, fig.height = 6, fig.align='center'}
 NEON_MAGs_bact_ind %>% 
   filter(is.na(Class) | is.na(Order) | is.na(Family) | is.na(Genus) ) %>%
-  ggplot(aes(x=fct_rev(`Phylum`), fill=`Phylum`))+geom_bar(show.legend=FALSE)+coord_flip()+labs(title="Novel Genera per Phylum", x="Phylum", y="n")+theme_classic()
+  ggplot(aes(x=fct_rev(`Phylum`), fill=`Phylum`))+geom_bar(show.legend=FALSE)+coord_flip()+labs(title="Novel Genera per Phylum", x="Phylum", y="Novel Genera (n)")+theme_classic()+theme(axis.text.x=element_text(color="black"),axis.title.x=element_text(size = 15), axis.text.y=element_text(color="black"))+scale_y_continuous(limits = c(0,150), breaks = c(0,10,20,30,40,50,60,70,80,90,100,110,120,130,140,150))
 ```
-**Figure 8:** Novel Bacteria Distribution by Phyla. Novel Bacteria were determined from MAGs constructed from individual assemblies. Novel indicates the MAGs could not be placed in an existing group at the species, genus or family level.
+**Figure 8:** Novel Bacteria Distribution by Phyla. Novel bacteria were determined from MAGs constructed from individual assemblies in GOLD Study ID Gs0161344. Novel indicates the MAGs could not be placed in an existing group at the species, genus or family level.
 
 
 ## Figure 9:
@@ -495,10 +479,10 @@ NEON_MAGs_metagenomes_chemistry_Bacteria <-NEON_MAGs_metagenomes_chemistry %>%
   mutate(`Genome Size (Kbp)`=as.integer(`Total Number of Bases`/1000)) 
 
 NEON_MAGs_metagenomes_chemistry_Bacteria %>%
-  ggplot(aes(x=`Phylum`,y=`Genome Size (Kbp)`,color=`Phylum`))+geom_boxplot(show.legend = FALSE)+scale_y_continuous(limits=c(0,15000), breaks=c(2500,5000,7500,10000,12500,15000))+theme_classic()+labs(title="Phyla Genome Size Distributions", x="Phyla", y="Genome Size (Kbp)")+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))+
-  ggplot(data=NEON_MAGs_metagenomes_chemistry_Bacteria, aes(x=`Gene Count`, y=`Genome Size (Kbp)`, color=`Phylum`))+geom_point()+labs(title="Gene Count vs Genome Size", x="Gene Count", y="")+scale_y_continuous(limits=c(0,15000), breaks=c(2500,5000,7500,10000,12500,15000))+scale_x_continuous(limits=c(0,15000), breaks=c(2500,5000,7500,10000,12500,15000))+theme_classic()
+  ggplot(aes(x=`Phylum`,y=`Genome Size (Kbp)`,color=`Phylum`))+geom_boxplot(show.legend = FALSE)+scale_y_continuous(limits=c(0,15000), breaks=c(0,2500,5000,7500,10000,12500,15000))+theme_classic()+labs(title="A", x="Phylum", y="Genome Size (Kbp)")+John_theme+
+  ggplot(data=NEON_MAGs_metagenomes_chemistry_Bacteria, aes(x=`Gene Count`, y=`Genome Size (Kbp)`, color=`Phylum`))+geom_point()+labs(title="B", x="Gene Count (n)", y="")+scale_y_continuous(limits=c(0,15000), breaks=c(0,2500,5000,7500,10000,12500,15000))+scale_x_continuous(limits=c(0,15000), breaks=c(0,2500,5000,7500,10000,12500,15000))+theme_classic()+theme_classic()+theme(axis.text.x=element_text(color="black"),axis.title.x=element_text(size = 15), axis.text.y=element_text(color="black"), legend.title=element_text(size=15),legend.text=element_text(size=10))
 ```
-**Figure 9:** Genome Count vs Genome size for all Bacterial NEON MAGs in GOLD Study ID Gs0161344. Bacterial MAGs were selected from individual assemblies.
+**Figure 9:** A) Boxplot of MAG genome size (kbp) for all bacterial phyla found in GOLD Study ID Gs0161344. B) Scatter plot of MAG Gene count vs genome size (kbp) for all bacterial MAGs in GOLD Study ID Gs0161344. MAGs are colored by phylum. 
 
 &nbsp;
 
@@ -508,25 +492,25 @@ NEON_MAGs_metagenomes_chemistry_Bacteria %>%
 
 ## *Gammaproteobacteria* 8 graphs
 
-### Figure 2: Sankey plot of Individual Assemebly *Gammmaproteobacteria* MAGs
+### Figure 10: Sankey plot of Individual Assemebly *Gammmaproteobacteria* MAGs.
 ```{r,fig.height=20, fig.width=8,fig.align='center'}
 knitr::include_url("data/lab14/sankey-NEON_MAG_ind_Gpro.txt.html")
 ```
-**Figure 2:** Sankey plot of individual assembly *Gammmaproteobacteria* MAGs
+**Figure 2:** Sankey plot of individual assembly *Gammmaproteobacteria* MAGs in GOLD Study ID Gs0161344.
 
-### Figure 10:
+### Figure 11: Phylogenetic Tree of *Gammaproteobacteria* MAGs with total number of bases and ecosystem subtype markers labels.
 ```{r, fig.height=12, fig.width=12,fig.align='center'}
 ggtree(tree_Gammaproteobacteria, layout="circular")  %<+%
-  NEON_MAGs_metagenomes_chemistry + 
-  geom_point2(mapping=aes(color=`Ecosystem Subtype`, size=`Total Number of Bases`))
+  NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria + 
+  geom_point2(mapping=aes(color=`Ecosystem Subtype`, size=`Total Number of Bases`))+theme( legend.title=element_text(size=15),legend.text=element_text(size=10))
 ```
-**Figure 10:** Phylogenetic Tree of *Gammaproteobacteria* with Ecosystem Subtype and Number of Bases markers.This tree includes MAG reads from all NEON sites filtered to those annotated as belonging to the class Gammaproteobacteria.
+**Figure 10:** Phylogenetic Tree of *Gammaproteobacteria* with Ecosystem Subtype and Number of Bases markers. This tree includes MAG in GOLD Study ID Gs0161344 filtered to those annotated as belonging to the class Gammaproteobacteria.
 
 
 ### Figure 11:
 ```{r, fig.height=12, fig.width=12, fig.align='center'}
 NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria %>%
-  ggplot(aes(x=Family))+geom_bar(aes(fill=Family),position=position_dodge2(width=0.9, preserve="single"),show.legend=FALSE)+coord_flip()+facet_wrap(vars(Order), scales="free_y", ncol=4)+labs(title="Distribution of Gammaproteobacteria MAGs by Order", x="Family", y="n")+theme_classic()
+  ggplot(aes(x=Family))+geom_bar(aes(fill=Family),position=position_dodge2(width=0.9, preserve="single"),show.legend=FALSE)+coord_flip()+facet_wrap(vars(Order), scales="free_y", ncol=4)+labs(title="Distribution of Gammaproteobacteria MAGs by Order", x="Family", y="MAGs (n)")+theme_classic()+theme(axis.text.x=element_text(color="black"),axis.title.x=element_text(size = 15), axis.text.y=element_text(color="black"), legend.title=element_text(size=15),legend.text=element_text(size=10),strip.text = element_text(size=15, face = "italic"))+scale_y_continuous(limits=c(0,75), breaks=c(0,15,30,45,60))
 ```
 **Figure 11:** Distribution of Genome Size for *Gammaproteobacteria* Members.This tree includes MAG reads from all NEON sites filtered to those annotated as belonging to the class Gammaproteobacteria.
 
@@ -535,7 +519,7 @@ NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria %>%
 ```{r, fig.height=12, fig.width=12, fig.align='center'}
 NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria %>%
   mutate(`Genome Size (Kbp)`=as.integer(`Total Number of Bases`/1000)) %>%
-  ggplot(aes(x=`Order`,y=`Genome Size (Kbp)`,color=`Order`))+geom_boxplot(show.legend = FALSE)+scale_y_continuous(limits=c(0,15000), breaks=c(2500,5000,7500,10000,12500,15000))+theme_classic()+labs(title="Gammaproteobacteria Genome Size Distributions", x="Order", y="Genome Size (Kbp)")+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+  ggplot(aes(x=`Order`,y=`Genome Size (Kbp)`,color=`Order`))+geom_boxplot(show.legend = FALSE)+scale_y_continuous(limits=c(0,15000), breaks=c(2500,5000,7500,10000,12500,15000))+theme_classic()+labs(title="Gammaproteobacteria Genome Size Distributions", x="Order", y="Genome Size (Kbp)")+John_theme
 ```
 **Figure 12:** Distribution of Genome Size for *Gammaproteobacteria* Members.This tree includes MAG reads from all NEON sites filtered to those annotated as belonging to the class Gammaproteobacteria
 &nbsp;

@@ -121,7 +121,8 @@ NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria_Novel <- NEON_MAGs_metagenom
 
 #Toolik
 NEON_MAGs_metagenomes_chemistry_TOOL<- NEON_MAGs_metagenomes_chemistry %>% 
-  filter(`Site ID.x` == "TOOL")
+  filter(`Site ID.x` == "TOOL") %>%
+  mutate(`Genome Size (Kbp)`=as.integer(`Total Number of Bases`/1000))
 NEON_MAGs_metagenomes_chemistry_TOOL_Novel <- NEON_MAGs_metagenomes_chemistry_TOOL %>%
   filter(is.na(Order) | is.na(Family) | is.na(Genus) | is.na(Species))
 #almost are novel only two have species names
@@ -170,6 +171,7 @@ NEON_MAGs_metagenomes_chemistry_TOOL_Burkholderiales <- NEON_MAGs_metagenomes_ch
   filter(str_detect(`Order`,"Burkholderiales"))
 NEON_MAGs_metagenomes_chemistry_TOOL_Steroidobacterales <- NEON_MAGs_metagenomes_chemistry_TOOL %>%
   filter(str_detect(`Order`,"Steroidobacterales"))
+
 NEON_MAGs_metagenomes_chemistry_Alaska <-NEON_MAGs_metagenomes_chemistry %>%
   filter(str_detect(Site.x,"Alaska"))
 
@@ -279,6 +281,63 @@ grep("Gammaproteobacteria", node_vector_bac_TOOL_MAGS, value = TRUE)
 match(grep("Gammaproteobacteria", node_vector_bac_TOOL_MAGS, value = TRUE), node_vector_bac_TOOL_MAGS)
 
 ```
+### Sankey Setup
+```{r}
+NEON_MAGs_ind <- NEON_MAGs %>% 
+  filter(`Assembly Type` == "Individual") 
+NEON_MAGs_co <- NEON_MAGs %>% 
+  filter(`Assembly Type` == "Combined") 
+
+# Select the GTDB Taxonomic lineage and separate into taxonomic levels
+sankey_data <- NEON_MAGs_co %>% 
+  select(`GTDB-Tk Taxonomy Lineage`) %>% 
+  # NAs are likely Archaea
+  replace_na(list(`GTDB-Tk Taxonomy Lineage` = 'Archaea')) %>% 
+  # Pavian format requires p__ etc
+  separate(`GTDB-Tk Taxonomy Lineage`, c("Domain", "Phylum", "Class", "Order", "Family", "Genus", "Species"), "; ")
+
+# Fill in the NAs with the taxonomic the higher taxonomic level to the left
+sankey_data[] <- t(apply(sankey_data, 1, zoo::na.locf))
+
+# Put the data into a format that can be read by the Sankey App
+
+sankey_data <- sankey_data %>% 
+  unite(col = "classification", c(Domain, Phylum, Class, Order, Family, Genus, Species), sep='; ') %>% 
+  mutate_at("classification", str_replace, "Archaea", "d__Archaea") %>% 
+  mutate_at("classification", str_replace, "Bacteria", "d__Bacteria") %>%  
+  mutate_at("classification", str_replace, "; ", "|p__") %>% 
+  mutate_at("classification", str_replace, "; ", "|c__") %>% 
+  mutate_at("classification", str_replace, "; ", "|o__") %>% 
+  mutate_at("classification", str_replace, "; ", "|f__") %>% 
+  mutate_at("classification", str_replace, "; ", "|g__") %>% 
+  mutate_at("classification", str_replace, "; ", "|s__")  
+
+# Create format for Pavian with counts for each taxonomic level
+sankey_data_s <- sankey_data
+sankey_data_g <- sankey_data
+sankey_data_f <- sankey_data
+sankey_data_o <- sankey_data
+sankey_data_c <- sankey_data
+sankey_data_p <- sankey_data
+sankey_data_d <- sankey_data
+
+sankey_data_g$classification <- sub("\\|s__.*", "", sankey_data_g$classification)  
+sankey_data_f$classification <- sub("\\|g__.*", "", sankey_data_f$classification)  
+sankey_data_o$classification <- sub("\\|f__.*", "", sankey_data_o$classification)  
+sankey_data_c$classification <- sub("\\|o__.*", "", sankey_data_c$classification)  
+sankey_data_p$classification <- sub("\\|c__.*", "", sankey_data_p$classification)  
+sankey_data_d$classification <- sub("\\|p__.*", "", sankey_data_d$classification)  
+
+sankey_data_allTaxa <- bind_rows(sankey_data_s, sankey_data_g, sankey_data_f, sankey_data_o, sankey_data_c, sankey_data_p, sankey_data_d) %>% 
+  mutate(classification = as.factor(classification)) %>% 
+  count(classification) %>% 
+# rename for Pavian format
+  rename(`#SampleID` = `classification`) %>% 
+  rename(`Metaphlan2_Analysis` = `n`) 
+
+# Write file to input to Pavian Sankey
+write_tsv(sankey_data_allTaxa, "data/NEON/NEON_MAG_co_pavian.txt")
+```
 
 #### Plot theme
 ```{r}
@@ -323,6 +382,14 @@ while (n!=29) {
 plottttttt
 ```
 **Figure 1:** Phylogenetic Tree of all bacterial MAGs collected in GOLD Study ID Gs0161344 by the National Ecological Observatory Network with phylum labels
+
+
+### Figure 2:
+```{r}
+knitr::include_url("data/lab14/sankey-NEON_MAG_ind_pavian.txt.html")
+```
+
+
 
 &nbsp;
 
@@ -636,7 +703,22 @@ ggtree(tree_bac_TOOL_MAGs)  %<+%
   theme_tree2(legend.position=c(.1, .7))
 
 ```
+### Figure 27: Steroidobacterales
+```{r,fig.height=6, fig.width=6, fig.align='center'}
+NEON_MAGs_metagenomes_chemistry_TOOL_Steroidobacterales %>%
+ggplot( aes(x=`Genus`,y=`Genome Size (Kbp)`))+geom_boxplot(show.legend = FALSE)+scale_y_continuous(limits=c(0,15000), breaks=c(2500,5000,7500,10000,12500,15000))+theme_classic()+labs(title="C", x="Genus", y="Genome Size (Kbp)")+John_theme+
+#genus count
+  ggplot(data=NEON_MAGs_metagenomes_chemistry_TOOL_Steroidobacterales,aes(x=Genus))+geom_bar(show.legend=FALSE)+labs(title="D", x="Genus", y="n")+theme_classic()+John_theme
+  
+```
+**Figure 27:**
 
+### Figure 28:Burkholderiales
+```{r,fig.height=6, fig.width=6, fig.align='center'}
+NEON_MAGs_metagenomes_chemistry_TOOL_Burkholderiales  %>%
+  ggplot(aes(x=Genus,fill=`Family`))+geom_bar()+labs(title="Genus Distribution", x="Genus", y="n")+theme_classic()+John_theme
+```
+**Figure 28:**
 
 ![**Figure 1:**](/cloud/project/images/Plots/Toolik/Toolik_Sample_Soil_Temperature_vs_pH_in_Water.png)
 

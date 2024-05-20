@@ -361,21 +361,21 @@ John_theme <-theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1, color="b
 
 # Abstract:
 
-&nbsp;&nbsp;&nbsp;&nbsp;As global temperatures rise due to industrial pollution; it is important to monitor the ecosystems humanity depends on for industrial and agriculture production to identify beneficial agents like nitrogen fixating bacteria, as well as harmful one like phytopathogens. The soil bacterium MAGs collected and annotated in GOLD Study ID Gs0161344 represent a poll of soil bacterium populations across the United States. This data can be used to track bacterial population changes across ecosystem subtypes and help identify bacteria with climate change resistant properties. The MAGs collected in this study are a treasure trove of genomic data and may help identify climate change resistant and nitrogen fixating bacteria.
+&nbsp;&nbsp;&nbsp;&nbsp;As global temperatures rise due to industrial pollution; it is important to monitor the ecosystems humanity depends on for industrial and agriculture production to identify beneficial agents like nitrogen fixating bacteria, as well as harmful one like phytopathogens. The soil bacterium MAGs collected and annotated in GOLD Study ID Gs0161344 represent a poll of soil bacterium populations across the United States. This data can be used to track bacterial population changes across ecosystem subtypes and help identify bacteria with climate change resistant properties. This report focuses on a subset of bacterial MAGs collected at Toolik Field Station and/or annotated as belonging to the class *Gammmaproteobacteria*. Several potentially beneficial bacteria genera were identified in this subset, including *Steroidobacteraceae*, *Caballeronia*, *Paraburkholderia*, and *Trinickia*.
 
 # Introduction:
 
-&nbsp;&nbsp;&nbsp;&nbsp;Carbon emissions from industrial activity has led to numerous changes to the global climate that threaten the ecosystems humanity depends on for industrial agriculture. Rising temperatures has caused the melting of glaciers and permafrost releasing bacterial species that have been dormant for millennium [@wu_permafrost_2022]. Additionally, The higher green house gas atmospheric content has lead to the acidification of the soil [@ferdush_consequences_2023] The changing climate has also lead to species migration. With the recent passing of the 1.5 Celsius average global temperature milestone set in Paris Agreement of 2015, it is imperative that society adapt to our changing world [@mcculloch_300_2024]. 
+&nbsp;&nbsp;&nbsp;&nbsp;Carbon emissions from industrial activity have led to numerous changes to the global climate that threaten the ecosystems humanity depends on for industrial agriculture. Rising temperatures has caused the melting of glaciers and permafrost releasing bacterial species that have been dormant for millennium [@wu_permafrost_2022]. Additionally, the higher green house gas atmospheric content has lead to the acidification of soil [@ferdush_consequences_2023]. The changing climate has also lead to species migration. With the recent passing of the 1.5 Celsius average global temperature change milestone set in the Paris Agreement of 2015, it is imperative that society adapt to our changing world [@mcculloch_300_2024]. 
 
 &nbsp;
 
 
-&nbsp;&nbsp;&nbsp;&nbsp;In the face of climate and antibiotic challenges, plants have developed symbiotic relationships with bacteria. For example, members of the *Burkholderia* family have been shown to help fix nitrogen in the rhizosphere of corn plants, promoting their growth.  Thus, it has been proposed that humanity's crops could be better insulated to ecological changes by employing such bacteria in our fertilizer [@su_nitrogen_2024]. While several beneficial bacterial species have identified, the vast majority of the bacterial kingdom remains sequenced. Additionally, with their ability to rapidly evolve in the face of ecological challenges, new species with more robust tolerances to climate change influences will likely only grow with time. Thus, soil bacterium represent a vast untapped resource of climate change resistant proteins and nitrogen fixators. Data collection effort by organizations like the National Ecological Observatory Network, provide a valuable genomic resource for phylogenetic analyses to determine the identities of potential beneficial bacteria as well as monitoring the population changes caused by a changing climate.
+&nbsp;&nbsp;&nbsp;&nbsp;In the face of climate and antibiotic challenges, plants have developed symbiotic relationships with bacteria. For example, members of the *Burkholderia* family have been shown to help fix nitrogen in the rhizosphere of corn plants, promoting their growth.  Thus, it has been proposed that humanity's crops could be better insulated to ecological changes by employing such bacteria in our fertilizer [@su_nitrogen_2024]. While several beneficial bacterial species have been identified, the vast majority of the bacteria remains unsequenced. Additionally, with their ability to rapidly evolve in the face of ecological challenges, new species with more robust tolerances to climate change influences will likely only grow with time. Thus, soil bacterium represent a vast untapped resource of climate change resistant proteins and nitrogen fixators. Data collection effort by organizations like the National Ecological Observatory Network, provide a valuable genomic resource for phylogenetic analyses to determine the identities of potential beneficial bacteria as well as monitoring the population changes caused by a changing climate.
 
 &nbsp;
 
 
-&nbsp;&nbsp;&nbsp;&nbsp;This study's genomic data set was collected from soil samples by the National Ecological Observatory Network (NEON) from locations across the United States in GOLD Study ID  Gs0161344. There were 1710 total bacterial MAGs with 22% being individual or combined assemblies of novel species of bacteria. To make analyses more feasible, this report will only comment on two data subsets, MAGs belonging to the class *Gammaproteobacteria*, and MAGs belonging found at Toolik Field Station, Alaska USA. 
+&nbsp;&nbsp;&nbsp;&nbsp;This study's genomic data set was collected from soil samples by the National Ecological Observatory Network (NEON) from locations across the United States in GOLD Study ID  Gs0161344. There were 1710 total bacterial MAGs with 22% being individual or combined assemblies of novel species of bacteria. To make analyses more feasible, this report will only comment on two data subsets, MAGs belonging to the class *Gammaproteobacteria*, and MAGs found at Toolik Field Station, Alaska USA. 
 
 &nbsp;
 
@@ -384,7 +384,7 @@ John_theme <-theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1, color="b
 
 &nbsp;
 
-&nbsp;&nbsp;&nbsp;&nbsp;The class Gammaproteobacteria, under the phylum Pseudomondata, is made up of around 381 genera that thrive in marine, terrestial, and eukaryotic host ecosystems [@liao_reclassification_2020]. Historically, this class has be defined phylogenetically by 16s rRNA sequence homology [@williams_proposal_2013]. Some notable members of this class include *Escherichia coli*, *Vibrio fischeri*, *Pseudomonas aeruginosa*, *Pseudomonas putida* , and *Xanthomonas axonopodis pv. citri* [@webster_comparative_2020]. This class has great diversity of morphologies with rod, cocci, spirilla, and filaments all represented [@williams_phylogeny_2010]. Additionally, species in class display a variety of trophisms including chemoautotrophs and photoautotrophs [@gao_phylogenomics_2009].
+&nbsp;&nbsp;&nbsp;&nbsp;The class **Gammaproteobacteria*, under the phylum *Pseudomondata*, is made up of around 381 genera that thrive in marine, terrestial, and eukaryotic host ecosystems [@liao_reclassification_2020]. Historically, this class has be defined phylogenetically by 16s rRNA sequence homology [@williams_proposal_2013]. Some notable members of this class include *Escherichia coli*, *Vibrio fischeri*, *Pseudomonas aeruginosa*, *Pseudomonas putida* , and *Xanthomonas axonopodis pv. citri* [@webster_comparative_2020]. This class has a great diversity of morphologies with rod, cocci, spirilla, and filaments all represented [@williams_phylogeny_2010]. Additionally, species in this class display a variety of trophisms including chemoautotrophs and photoautotrophs [@gao_phylogenomics_2009].
 
 &nbsp;
 
@@ -398,7 +398,7 @@ John_theme <-theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1, color="b
 
 &nbsp;&nbsp;&nbsp;&nbsp;Located 400 miles north from Fairbanks, Alaska at the foot of the Brooks mountain range, biodiversity at Toolik Field Station is heavily influenced by its harsh winters where temperatures can reach -50⁰F. It is home to a variety of fauna including caribou, loons, voles, and polar bears. Located above the northern tree line, the vegetation in the tundra here mainly consists of birch, willow, sedges and grass. The site contains a large range of soil conditions, including layers of permafrost, created by glacial action [@NEON_collection_2023].   
 
-&nbsp;&nbsp;&nbsp;&nbsp;This study examines the genomic content and environmental conditions of bacteria found at the Toolik Field station to help establish a reference population for future comparisons of bacterial population changes.  
+&nbsp;&nbsp;&nbsp;&nbsp;This study examines the genomic content and environmental conditions of bacteria found at the Toolik Field station to help establish a reference population for future comparisons of bacterial population changes. This study additionally focuses on *Gammaproteobacteria* found at all NEON sample collection sites.  
 
 # Methods:
 
@@ -486,11 +486,11 @@ NEON_MAGs_metagenomes_chemistry_Bacteria %>%
 
 &nbsp;
 
-&nbsp;&nbsp;&nbsp;&nbsp;Terrestrial bacteria are known to have large genomes encoding thousands genes. This is due in larger part to the diverse environment they are exposed to. Their larger genomes allow for the expression of multiple metabolic phenotypes that allow them to adapt to environmental challenges. NEON samples analyzed in this study had a broad spread of genome sizes with the minimum genome and maximum genomes sizes being 753 from the phylum Chloroflexota and 12,584 kbp from the phylum Actinomycetota, respectively (Fig. 8). There was a linear relationship between gene count and genome for all NEON samples, with a rough 1,000 bp per gene ratio (Fig. 8B).
+&nbsp;&nbsp;&nbsp;&nbsp;Terrestrial bacteria are known to have large genomes encoding thousands genes. This is due in larger part to the diverse environment they are exposed to. Their larger genomes allow for the expression of multiple metabolic phenotypes that allow them to adapt to environmental challenges. NEON samples analyzed in this study had a broad spread of genome sizes with the minimum genome and maximum genomes sizes being 753kbp from the phylum Chloroflexota and 12,584 kbp from the phylum Actinomycetota, respectively (Fig. 8). There was a linear relationship between gene count and genome for all NEON samples, with a rough 1,000 bp per gene ratio (Fig. 8B).
 
 &nbsp;
 
-## *Gammaproteobacteria* Samples 
+## *Gammaproteobacteria*:
 
 ### Figure 9: 
 ```{r, , fig.height=14, fig.width=12, fig.align='center'}
@@ -538,7 +538,7 @@ NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria %>%
 **Figure 13:** **Genome Size (kbp) of *Gammaproteobacteria* Members between 2500-5000 Kbp with large variation in *Burkholderiales*.** Boxplots includes MAG reads from all NEON sites filtered to those annotated as belonging to the class *Gammaproteobacteria*.
 &nbsp;
 
-&nbsp;&nbsp;&nbsp;&nbsp;NEON MAGs assigned to the *Gammaproteobacteria* class were found in all ecosystem subtypes (Fig. 11). Unlike the larger NEON data set, the distribution of genome size of *Gammaproteobacteria* members was fairly narrow with members averaging between 2000 and 5000 kbp (Fig. 13). With the exception of *Burkholderiales*,*Steroidobacterales*, and *Xanthomonadales*, this was largely due to the fewer MAGs in each order(Fig.12). The vast majority of *Gammaproteobacteria* annotated in this study were novel species with only two bacteria belonging to the *Xanthomonadales* order assigned as *Stenotrophomonas stenotrophomonas* sp024519465. *Steroidobacterales* had by far the most annontated members, while *Burkholderiales* had the most family member groups (Fig. 10,12).        
+&nbsp;&nbsp;&nbsp;&nbsp;NEON MAGs assigned to the *Gammaproteobacteria* class were found in all ecosystem subtypes (Fig. 11). Unlike the larger NEON data set, the distribution of genome size of *Gammaproteobacteria* members was fairly narrow with members averaging between 2000 and 5000 kbp (Fig. 13). With the exception of *Burkholderiales*,*Steroidobacterales*, and *Xanthomonadales*, this was largely due to the fewer MAGs in each order (Fig.12). The vast majority of *Gammaproteobacteria* annotated in this study were novel species with only two bacteria belonging to the *Xanthomonadales* order assigned as *Stenotrophomonas stenotrophomonas* sp024519465. *Steroidobacterales* had by far the most annontated members, while *Burkholderiales* had the most family member groups (Fig. 10,12).        
 &nbsp;
 
 ### Figure 14:
@@ -555,7 +555,7 @@ NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria %>%
 **Figure 14:** **Ecological Conditions of Gammaproteobacteria Samples.** A) Scatterplot of sample soil temperature vs *Gammaproteobacteria* families found in GOLD Study ID Gs0161344. Points are colored by order group. B) Scatterplot of sample soil pH in water vs *Gammaproteobacteria* families found in GOLD Study ID Gs0161344. Points are colored by order group. C) Scatterplot of sample National Land Cover Database Vegetation Type vs *Gammaproteobacteria* families found in GOLD Study ID Gs0161344. Points are colored by order group. D) Scatterplot of sample ecosystem subtype vs *Gammaproteobacteria* families found in GOLD Study ID Gs0161344. Points are colored by order group. 
 &nbsp;
 
-&nbsp;&nbsp;&nbsp;&nbsp;Members of *Gammaproteobacteria* were found in a variety of ecosystem conditions. Gammabacteria were found in temperatures spanning 2-28 Celsius (Fig. 14A). The soil pH of all *Gammaproteobacteria* samples was largely neutral to mildly acidic with lowest pH around 4 (Fig. 14B). Overall, the vegetation class of sedge and grassland herbaceous and contained the least amount of family groups in *Gammproteobacteria* (Fig. 14C). This is not too surprising for sedge herbaceous as this vegetation class is only found in one Alaskan NEON site (Sup. Fig. 1). However, grassland herbaceous vegetation is present in 5 out of the 13 sample sites (Sup. Fig 2). Interestingly, despite being the *Gammaproteobacteria* order with the most MAGs and existing in a variety of vegetation classes, soil pH and temperatures, no members of the *Steroidobacterales* order were found in tropical forest or desert ecosystems sampled in this study(Fig. 14). These ecosystem subtypes correspond to NEON sites in Puerto Rico and Arizona, USA, respectively (Sup.Fig 2).    
+&nbsp;&nbsp;&nbsp;&nbsp;Members of *Gammaproteobacteria* were found in a variety of ecosystem conditions. *Gammabacteria* were found in temperatures spanning 2-28 Celsius (Fig. 14A). The soil pH of all *Gammaproteobacteria* samples was largely neutral to mildly acidic with lowest pH around 4 (Fig. 14B). Overall, the vegetation class of sedge and grassland herbaceous contained the least amount of family groups in *Gammproteobacteria* (Fig. 14C). This is not too surprising for sedge herbaceous as this vegetation class is only found in one Alaskan NEON site (Sup. Fig. 1). However, grassland herbaceous vegetation is present in 5 out of the 13 sample sites (Sup. Fig 2). Interestingly, despite being the *Gammaproteobacteria* order with the most MAGs and existing in a variety of vegetation classes, soil pH and temperatures, no members of the *Steroidobacterales* order were found in the tropical forest or desert ecosystems sampled in this study (Fig. 14). These ecosystem subtypes correspond to NEON sites in Puerto Rico and Arizona, USA, respectively (Sup.Fig 2).    
 
 &nbsp;
 
@@ -593,7 +593,7 @@ NEON_MAGs_metagenomes_chemistry_Bog %>%
 
 &nbsp;
 
-&nbsp;&nbsp;&nbsp;&nbsp;Members in the order *Steriobacterales* were further examined to see if their high population is correlated with genome size or sample location. Only the *Steroidobacteraceae* family was found under the order. This family contain 7 genera with the genus *BOG-1198* accounting for 30 of the 50 of *Steriobacterales* MAGs (figs. 15A). Once again the distribution of genome size appears correlated to the total MAG counts for each genera in the *Steroidobacteraceae* family, with the higher populations corresponding to larger deviation in genome size (Fig. 15C,D). Given that *BOG-*1198* accounted for a majority of *Steriobacterales* MAGs, the genus was further examined. Members of this genus were found in several ecosystem subtypes and sample sites located in the northern United States (Fig. 16). The majority individual Assemblies of *Steroidobacteraceae BOG-1198* MAGs were found at one of the three Alaskan sample sites (Fig. 16B). Note that all combined assembly MAGs were given the shrubland ecosystem subtype. A third of all *BOG-1198* MAGs were combined assemblies.    
+&nbsp;&nbsp;&nbsp;&nbsp;Members in the order *Steriobacterales* were further examined to see if their high population is correlated with genome size or sample location. Only the *Steroidobacteraceae* family was found under the order. This family contain 7 genera with the genus *BOG-1198* accounting for 30 of the 50 of *Steriobacterales* MAGs (figs. 15A). Once again the distribution of genome size appears correlated to the total MAG counts for each genera in the *Steroidobacteraceae* family, with the higher populations corresponding to larger deviation in genome size (Fig. 15C,D). Given that *BOG-*1198* accounted for a majority of *Steriobacterales* MAGs, the genus was further examined. Members of this genus were found in several ecosystem subtypes and sample sites located in the northern United States (Fig. 16). The majority of individual assemblies of *Steroidobacteraceae BOG-1198* MAGs were found at one of the three Alaskan sample sites (Fig. 16B). Note that all combined assembly MAGs were given the shrubland ecosystem subtype and NA site ID. A third of all *BOG-1198* MAGs were combined assemblies.    
 
 
 &nbsp;
@@ -630,11 +630,11 @@ ggplot(data=NEON_MAGs_metagenomes_chemistry_Burkholderiaceae, aes(x=`Ecosystem S
 
 &nbsp;
 
-&nbsp;&nbsp;&nbsp;&nbsp;Members of the order *Burkholderiales* were also examined further at the genus level to determine if their broader diversity corresponded to the variety of ecosystems they were found in. Indeed, members of this order were found across the United States in several different ecosystem subtypes(Fig. 17A,B). Individually assembled members of the *Burkholderiaceae* including the genera *Caballeronia*, *Herbaspirillum*, and *Paraburkholderi*, were found mainly temperate forests with some members also found in tundra and and Boreal forest/Taiga subtypes (Fig. 17, 18A). Interestingly, genera genome size distribution appears not to be correlated to the amount genera members. Despite only having 4 MAGs from the Niwot Ridge site in Colorado the *Herbaspirillum* genera contained a broad range of genome sizes (fig. 17C). The *Caballeronia* genera, containing 5 MAGs, had a much tighter distribution of genome size (Fig. 17C). Also of note is the appearance of the *Trinicki* genera in the Wind River Experimental Forest in Washington (Fig. 17,18).
+&nbsp;&nbsp;&nbsp;&nbsp;Members of the order *Burkholderiales* were also examined further at the genus level to determine if their broader diversity corresponded to the variety of ecosystems they were found in. Indeed, members of this order were found across the United States in several different ecosystem subtypes (Fig. 17A,B). Individually assembled members of the *Burkholderiaceae* including the genera *Caballeronia*, *Herbaspirillum*, and *Paraburkholderi*, were found mainly temperate forests with some members also found in tundra and and Boreal forest/Taiga subtypes (Fig. 17, 18A). Interestingly, genera genome size distribution appears not to be correlated to the amount genera members. Despite only having 4 MAGs from the Niwot Ridge site in Colorado the *Herbaspirillum* genera contained a broad range of genome sizes (fig. 17C). The *Caballeronia* genera, containing 5 MAGs, had a much tighter distribution of genome size (Fig. 17C). Also of note is the appearance of the *Trinicki* genera in the Wind River Experimental Forest in Washington (Fig. 17,18).
 
 &nbsp;
 
-## Toolik Field Station Samples
+## Toolik Field Station:
 
 ### Figure 19:
 ```{r,fig.height=20, fig.width=8,fig.align='center'}
@@ -666,7 +666,7 @@ NEON_MAGs_metagenomes_chemistry_TOOL %>%
 **Figure 21:** **MAGs found at Toolik Field Station dominated by** ***Actinomycetota*** **and** ***Pseudomondota*** **and** ***Acidobacteriota*** **members.** Stacked barplot of bacterial Phlya found at Toolik Field Station, Alaska USA in GOLD Study ID Gs0161344. Bars are colored by Order groups. 
 
 &nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;The majority of MAGs collected at Toolik Field Station belonged to the *Actinomycelota* and *Pseudomonadota* phyla (Fig. 20,21). Inside *Actinomycelota*, MAGs belonging to the order Thermoleophilia dominated (Fig. 21). The phylum* Pseudomonadota* was almost equally divided into *Alpha* and *Gamma* *Proteobacteria* (Fig. 21). The phylum *Acidobacteriota* was also frequently found at Toolik, with the vast majority of its MAGs belonging to the order Terriglobia (Fig. 21).
+&nbsp;&nbsp;&nbsp;&nbsp;The majority of MAGs collected at Toolik Field Station belonged to the *Actinomycelota* and *Pseudomonadota* phyla (Fig. 20,21). Inside *Actinomycelota*, MAGs belonging to the order *Thermoleophilia* dominated (Fig. 21). The phylum *Pseudomonadota* was almost equally divided into *Alpha* and *Gamma* *Proteobacteria* (Fig. 21). The phylum *Acidobacteriota* was also frequently found at Toolik, with the majority of its MAGs belonging to the order *Terriglobia* (Fig. 21).
 &nbsp;
 
 ### Figure 22:
@@ -714,7 +714,7 @@ NEON_MAGs_metagenomes_chemistry_Alaska %>%
 **Figure 26:** **Phyla MAGs distribution differs at each Alaskan NEON Site.** Stacked barplot of Phyla at Alaskan NEON Sites in GOLD Study ID Gs0161344 . Left Panel: Caribou Creek Watershed, Alaska USA. Middle Panel: Healy, Denali National Park, Alaska USA. Right Panel: Toolik Field Station, Alaska USA. Bars are colored by Order group.   
 
 &nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;Given the significant distance between the three Alaskan sites and the rest of the NEON collection sites, the ecological conditions of all Alaskan MAGs were first examined together to see if phylogenetic distribution was more correlated with ecological conditions than geographic position in North America. As expected, the three Alaskan sites had the lowest sample temperatures recorded in this study (Fig. 22A).  Similarly, their soil pH was among the lowest in the study (Fig. 22B). However, when examining their phyla side by side at these conditions it became clear at the phyla level that the three sites had similar temperatures, pH, and phyla distribution (Fig 23,24). The Alaskan sites did vary in vegetation class with Toolik consisting of three scrub types, Healy of just dwarf Scrub, and Caribou Creek of forest and scrub.  Toolik Field station had the most MAGs and phyla represented followed by Healy (Fig. 26), indicating that scrub vegetation classes may host greater bacterial populations in Alaska than forest.
+&nbsp;&nbsp;&nbsp;&nbsp;Given the significant distance between the three Alaskan sites and the rest of the NEON collection sites, the ecological conditions of all Alaskan MAGs were first examined together to see if phylogenetic distribution was more correlated with ecological conditions than geographic position in North America. As expected, the three Alaskan sites had the lowest sample temperatures recorded in this study (Fig. 22A).  Similarly, their soil pH was among the lowest in the study (Fig. 22B). However, when examining their phyla side by side at these conditions it became clear at the phyla level that the three sites had similar temperature, pH, and phyla distribution (Fig 23,24). The Alaskan sites did vary in vegetation class with Toolik consisting of three scrub types, Healy of just dwarf scrub, and Caribou Creek of forest and scrub.  Toolik Field station had the most MAGs and phyla represented followed by Healy (Fig. 26), indicating that scrub vegetation classes may host greater bacterial populations in Alaska than forest.
 
 &nbsp;
 ### Figure 27:
@@ -745,6 +745,7 @@ ggtree(tree_bac_TOOL_MAGs)  %<+%
 &nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;The genome size of MAGs collected at Toolik Field Station reflected those of the overall GOLD study with the trend of greater representation correlating with greater variation in phyla genome size (Fig. 27,28).  This was especially evident for the phyla *Patescibacteria*, *Armatimonadota*, *Gemmatimonadota* and *Verrucomicrobiota* which had low representation in Toolik MAGs (Fig.28). The genomes at Toolik had a spread of gene counts with *Chloroflexota* and *Pseudomonadota* species at the low and high end of the spectrum, respectively (Fig.28). This variation was not reflected in genome GC content with the average %GC around 60% (Fig.28).
 &nbsp;
+
 ### Figure 29:
 ```{r, fig.width = 12, fig.height = 8, fig.align='center'}
 NEON_MAGs_metagenomes_chemistry_TOOL %>%
@@ -795,16 +796,20 @@ NEON_MAGs_metagenomes_chemistry_TOOL_Burkholderiales  %>%
 
 &nbsp;
 
-&nbsp;&nbsp;&nbsp;&nbsp;Several notable genera in *Burkholderiales* relevant to bacterial biocontrol were found in this study, *Caballeronia*, *Paraburkholderia*, *Trinickia*. The genera *Caballeronia* and *Paraburkhoderia* have been reported to contain nitrogen fixating bacteria that may be useful for improving crop yields [@estrada-de_los_santos_whole_2018]. Agricultural nitrogen sources usually come in the form of chemical fertilizer that can be washed into the local watershed by precipitation. Bacteria like those in the *Caballeronia* and *Paraburkholderia* genera, are being investigated for the possibility of increasing crop nitrogen resources through the augmentation of traditional fertilizing methods with their introduction to crop rhizospheres.  However, these two genera were found in Caribou Creek Alaska and Yellowstone, Wyoming. Temperatures at these locations range from temperate to cold. While this study’s *Caballeronia* and *Paraburkholderia* MAGs may contain species useful for nitrogen fixation, they may also be vulnerable to increases soil temperature caused by climate change. The genera *Trinickia* has been reported to contain both plant growth promoting and pathogenic bacteria species (@estrada-de_los_santos_whole_2018). More investigation into the *Trinickia* population at Wind River, Washington in needed to determine if this study’s MAGs are potentially agriculturally beneficial. 
+&nbsp;&nbsp;&nbsp;&nbsp;Several notable genera in *Burkholderiales* relevant to bacterial nitrogen fixation were found in this study, *Caballeronia*, *Paraburkholderia*, *Trinickia*. The genera *Caballeronia* and *Paraburkhoderia* have been reported to contain nitrogen fixating bacteria that may be useful for improving crop yields [@estrada-de_los_santos_whole_2018]. Agricultural nitrogen sources usually come in the form of chemical fertilizer that can be washed into the local watershed by precipitation. Bacteria like those in the *Caballeronia* and *Paraburkholderia* genera, are being investigated for the possibility of increasing crop nitrogen resources through the augmentation of traditional fertilizing methods with their introduction to crop rhizospheres.  However, these two genera were found in Caribou Creek Alaska and Yellowstone, Wyoming. Temperatures at these locations range from temperate to cold. While this study’s *Caballeronia* and *Paraburkholderia* MAGs may contain species useful for nitrogen fixation, they may also be vulnerable to increases soil temperature caused by climate change. The genera *Trinickia* has been reported to contain both plant growth promoting and pathogenic bacteria species (@estrada-de_los_santos_whole_2018). More investigation into the *Trinickia* population at Wind River, Washington in needed to determine if this study’s MAGs are potentially agriculturally beneficial. 
 
 
 
 ## Toolik Field Station 
-&nbsp;&nbsp;&nbsp;&nbsp;MAGs collected at Toolik Field Station in this study largely did not differ phylogenetically from those collected at the other Alaskan sites.  All three sites had similar soil temperatures and pH but differed in vegetation classes. This difference may have contributed to the higher overall MAG totals at Toolik. Those MAGs were dominated by those from the *Actinomycelota* and *Pseudomonadota* phyla. Notably, Toolik differed from the other Alaskan sites with a large population of *Acidobacteriota* MAGs (Fig. 27). Interesting, the **Acidobacteriota* * MAGs found at Toolik had a fairly tight distribution of total genes and genome size, especially compared to *Actinomycelota* and *Pseudomonadota* (Fig. 27,28). This may indicate that this phylum’s genome is more conserved at Toolik than the other two dominate phyla. More sampling of bacteria from similar ecosystems in outside the United States may help prove if the phylogenetic distribution seen at Alaskan sites can be attributed to ecosystem subtype or geographic latitudinal differences.  
+&nbsp;&nbsp;&nbsp;&nbsp;MAGs collected at Toolik Field Station in this study largely did not differ phylogenetically from those collected at the other Alaskan sites.  All three sites had similar soil temperatures and pH but differed in vegetation classes. This difference may have contributed to the higher overall MAG totals at Toolik. Those MAGs were dominated by those from the *Actinomycelota* and *Pseudomonadota* phyla. Notably, Toolik differed from the other Alaskan sites with a large population of *Acidobacteriota* MAGs (Fig. 27). Interesting, the *Acidobacteriota* MAGs found at Toolik had a fairly tight distribution of total genes and genome size, especially compared to *Actinomycelota* and *Pseudomonadota* (Fig. 27,28). This may indicate that this phylum’s genome is more conserved at Toolik than the other two dominant phyla. More sampling of bacteria from similar ecosystems in outside the United States may help prove if the phylogenetic distribution seen at Alaskan sites can be attributed to ecosystem subtype or geographic latitudinal differences.  
 
 &nbsp;
 
 &nbsp;&nbsp;&nbsp;&nbsp;Disappointingly, no genera known for their biocontrol properties were found at Toolik Field Station. However, as temperatures and climates fluctuate with rising global temperatures it will be interesting to see if the *Caballeronia*, *Paraburkholderia*, and *Trinickia* genera found in Caribou Creek Alaska, Yellowstone, Wyoming, and Wind River, Washington begin to appear in the thawing permafrost at Toolik. Given the genus *Steroidobacteraceae BOG-1198*’s ability to survive in more temperate climates, it would not be surprising if its representation at Toolik increased in future studies.  
+
+&nbsp;
+
+&nbsp;&nbsp;&nbsp;&nbsp;In summary,  this study is representative of bacterial populations and soil conditions across the United States. The *Gammaproteobacteria* found in GOLD Study ID Gs0161344 warrant further investigation as they may contain bacteria that are beneficial for agricultural production and climate change resistance. Lastly, the bacterial phyla found at Toolik Field Station may be correlated to the vegetation found at the site. 
 
 # Supplemental Figures and tables:
 
@@ -827,37 +832,39 @@ datatable(NEON_MAGs_metagenomes_chemistry_TOOL)
 
 ## Figures
 
-### Supplemental Figure 1: NEON Site vs Vegetation subclass
+### Supplemental Figure 1:
 ```{r}
 NEON_MAGs_metagenomes_chemistry %>%
   ggplot(aes(y=`Site.x`, x=nlcdClass))+geom_point()+labs(title="NEON Site Vegetation Classes", y="Site", x="Vegetation Class")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
 ```
+**Supplemental Figure 1: NEON Site vs Vegetation subclass.**
 
-
-### Supplemental Figure 2: NEON Site vs Ecosystem subclass
+### Supplemental Figure 2:
 ```{r}
 NEON_MAGs_metagenomes_chemistry %>%
   ggplot(aes(y=`Site.x`, x=`Ecosystem Subtype`))+geom_point()+labs(title="NEON Site Ecosystem Subtypes", y="Site", x="Ecosystem Subtype")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
 ```
+**Supplemental Figure 2: NEON Site vs Ecosystem subclass.**
 
-
-### Supplemental Figure 3: NEON SITE vs Site ID
+### Supplemental Figure 3:
 ```{r}
 NEON_MAGs_metagenomes_chemistry %>%
   ggplot(aes(x=`Site ID.x`,y=Site.x))+geom_point()+labs("NEON Site IDs", y="Site",x="Site ID")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
 ```
+**Supplemental Figure 3: NEON SITE vs Site ID.**
 
-
-### Supplemental Figure 4: Sankey plot of all NEON Combined assembly MAGs
+### Supplemental Figure 4:
 ```{r,fig.height=20, fig.width=8,fig.align='center'}
 knitr::include_url("data/lab14/sankey-NEON_MAG_co_pavian.txt.html")
 ```
-**Supplemental Figure 4:** Sankey plot of all NEON combined assembly MAGs
+**Supplemental Figure 4: Sankey plot of all NEON combined assembly MAGs**
 
-### Supplemental Figure 5: Sankey plot of all NEON combined assembly *Gammmaproteobacteria* MAGs
+### Supplemental Figure 5: 
 ```{r,fig.height=20, fig.width=8,fig.align='center'}
 knitr::include_url("data/lab14/sankey-NEON_MAG_co_Gpro(1).html")
 ```
+**Supplemental Figure 5: Sankey plot of all NEON combined assembly *Gammmaproteobacteria* MAGs**
+
 # Code
 ## Lab 8
 ```{r}
@@ -866,9 +873,9 @@ library(knitr)
 library(DT)
 ```
 
-# Examples
+Examples
 
-## Example #1
+Example #1
 ```{r}
   iris_setosa <- iris %>% 
   filter(Species=="setosa") %>% 
@@ -883,7 +890,7 @@ datatable(
     filter(Sepal.Length>5))
 ```
 
-## Example #2 NEON
+Example #2 NEON
 ```{r}
 NEON_MAGs <- read_csv("/cloud/project/data/NEON/GOLD_Study_ID_Gs0161344_NEON_2024_4_21.csv")
 head(NEON_MAGs)
@@ -929,9 +936,9 @@ datatable(NEON_MAGs_Ind_Tax_Sample %>%
             count(Site, sort = TRUE))
 ```
 
-# Challenges
+Challenges
 
-## Challenge #1
+Challenge #1
 Use view(iris) to see the whole data table. Subset the table based on a different species than was used in the example. Display the table using DT::datatable
 ```{r}
 #view(iris)
@@ -939,7 +946,7 @@ datatable(iris %>%
             filter(Species=="virginica"))
 ```
 
-## Challenge #2
+Challenge #2
 Display using DT::datatable the NEON MAGs from the individual assemblies that have at least 1 16S rRNA
 ```{r}
 datatable(NEON_MAGs_Ind %>%
@@ -947,7 +954,7 @@ datatable(NEON_MAGs_Ind %>%
 
 ```
 
-## Chalenge #3
+Chalenge #3
 Display a table of the MAGs from Lower Teakettle with only the columns for the Genome Name, GTDB-Tk Taxonomy Lineage, and estimated MAG genome size.
 ```{r}
 datatable(NEON_MAGs_Ind_Tax %>%
@@ -956,7 +963,7 @@ datatable(NEON_MAGs_Ind_Tax %>%
             select(c("Genome Name","GTDB-Tk Taxonomy Lineage","Estimated Genome Size (Kbp)")))
 ```
 
-## Challenge #4
+Challenge #4
 Display a table with the Class counts at LBJ National Grasslands
 ```{r}
 datatable(NEON_MAGs_Ind_Tax_Sample %>%
@@ -964,7 +971,7 @@ datatable(NEON_MAGs_Ind_Tax_Sample %>%
           count(Class, sort=TRUE))
 ```
 
-## Challenge #5
+Challenge #5
 Display a table with the counts for the Phylum Actinobacteriota at each Site
 ```{r}
 datatable(NEON_MAGs_Ind_Tax_Sample %>%
@@ -983,9 +990,9 @@ library(viridisLite)
 
 ```
 
-# Example
+Examples
 
-## Example #1
+Example #1
 
 ```{r}
 ggplot(data=iris,aes(x=Sepal.Length, y=Sepal.Width))+geom_point(aes(color=Species, shape=Species))+labs(title="Iris Sepal Length vs Wide", x="Sepal Length", y="Sepal Width", color="Plant Species", shape="Plant Species") 
@@ -1001,7 +1008,7 @@ ggplot(data=iris,aes(x=Sepal.Length, y=Sepal.Width))+geom_point(aes(color="speci
 ggplot(data=iris,aes(x=Sepal.Length, y=Sepal.Width))+geom_point(aes(color="species", shape=Species))+scale_color_viridis_d()+labs(title="Iris Sepal Length vs Wide", x="Sepal Length", y="Sepal Width", color="Plant Species", shape="Plant Species") 
 ```
 
-## Example #2
+Example #2
 
 ```{r}
 pdf("images/iris_example_plot1.pdf", width=6, height=3)
@@ -1016,7 +1023,7 @@ dev.off()
 ```
 ![Iris example plot](images/iris_example_plot2.png)
 
-## Example #3
+Example #3
 
 ```{r}
 ggplotly(ggplot(data=iris, aes(x=Sepal.Length, y=Sepal.Width, color=Species))+geom_point())
@@ -1025,7 +1032,7 @@ p <- ggplot(data=iris, aes(x=Sepal.Length, y=Sepal.Width, color=Species))+geom_p
 ggplotly(p)
 ```
 
-## Example #4 NEON Single Bar Plot
+Example #4 NEON Single Bar Plot
 
 ```{r}
 #Format data set
@@ -1086,7 +1093,7 @@ NEON_MAGs_bact_ind %>%
 
 ```
 
-## Example #5 NEON Multiple Bar plots
+Example #5 NEON Multiple Bar plots
 
 ```{r, fig.width = 8, fig.height = 15}
 # NEON_MAGs_bact_ind %>%
@@ -1105,7 +1112,7 @@ NEON_MAGs_bact_ind %>%
 
 ```
 
-## Example #6 NEON Histogram and Boxplot
+Example #6 NEON Histogram and Boxplot
 ```{r, fig.width = 8, fig.height = 8}
 NEON_MAGs_bact_ind %>% 
   ggplot(aes(x=`Total Number of Bases`))+geom_histogram(bins=50)
@@ -1120,9 +1127,9 @@ NEON_MAGs_bact_ind %>%
 
 ```
 
-# Exercises
+Exercises
 
-## Exercise #1
+Exercise #1
 
 What are the overall class MAG counts?
 ```{r, fig.width = 8, fig.height = 8}
@@ -1132,7 +1139,7 @@ NEON_MAGs_bact_ind %>%
 
 ```
 
-## Exercise #2
+Exercise #2
 
 What are the MAG counts for each subplot. Color by site ID.
 ```{r, fig.width = 12, fig.height = 8}
@@ -1142,7 +1149,7 @@ NEON_MAGs_bact_ind %>%
 
 ```
 
-## Exercise #3
+Exercise #3
 
 How many novel bacteria were discovered (Show that number of NAs for each taxonomic level)?
 ```{r, fig.width = 8, fig.height = 8}
@@ -1153,7 +1160,7 @@ NEON_MAGs_bact_ind %>%
 
 ```
 
-## Exercise #4
+Exercise #4
 
 How many novel bacterial MAGs are high quality vs medium quality?
 ```{r, fig.width = 4, fig.height = 4}
@@ -1164,7 +1171,7 @@ NEON_MAGs_bact_ind %>%
 
 ```
 
-## Exercise #5
+Exercise #5
 What phyla have novel bacterial genera?
 ```{r, fig.width = 12, fig.height = 8}
 NEON_MAGs_bact_ind %>% 
@@ -1174,7 +1181,7 @@ NEON_MAGs_bact_ind %>%
 
 ```
 
-## Exercise #6
+Exercise #6
 
 Make a stacked bar plot of the total number of MAGs at each site using Phylum as the fill.
 ```{r, fig.width = 12, fig.height = 8}
@@ -1183,7 +1190,7 @@ NEON_MAGs_bact_ind %>%
 
 
 ```
-## Exercise #7
+Exercise #7
 
 Using facet_wrap make plots of the total number of MAGs at each site for each phylum (e.g. similar to the example above but using the site ID and separating each graph by phylum.)
 ```{r, fig.width = 12, fig.height = 8}
@@ -1193,7 +1200,7 @@ NEON_MAGs_bact_ind %>%
 
 ```
 
-## Exercise #8
+Exercise #8
 
 What is the relationship between MAGs genome size and the number of genes? Color by Phylum.
 ```{r, fig.width = 8, fig.height = 8}
@@ -1203,7 +1210,7 @@ NEON_MAGs_bact_ind %>%
 
 ```
 
-## Exercise #9
+Exercise #9
 
 What is the relationship between scaffold count and MAG completeness?
 ```{r, fig.width = 8, fig.height = 8}
@@ -1223,23 +1230,23 @@ library(knitr)
 library(DT)
 
 ```
-# Exercise 1
+Exercise 1
 
-## NEON Site: Toolik Field Station
+NEON Site: Toolik Field Station
 
 ![Toolik Field Station [@noauthor_photo_nodate]](Toolik_Field_Station.png)
 
 Located 400 miles north from Fairbanks, Alaska at the foot of the Brooks mountain range, biodiversity at Toolik Field Station is heavily influenced by its harsh winters where temperatures can reach -50⁰F. It is home to a variety of fauna including caribou, loons, voles, and polar bears. Located above the northern tree line, the vegetation in the tundra here mainly consists of birch, willow, sedges and grass. The site contains a large range of soil conditions, including layers of permafrost, created by glacial action [@NEON_collection_2023].   
 
-# Exercise 2
+Exercise 2
 
-## Gammaproteobacteria
+Gammaproteobacteria
 
 ![Uprooted maximum-likelyhood phylogentic tree of gammaproteobactria based on 120 concatenated single copy proteins sequences from 780 reference genomes [@liao_reclassification_2020]. Figure adapted from Figure 2 of Liao et al.](liaoFig2.png)
 
 The class Gammaproteobacteria, under the phylum Proteobacteria, is made up of around 381 genera that thrive in marine, terrestial, and eukaryotic host ecosystems [@liao_reclassification_2020]. Historically, this class has be defined phylogenetically by 16s rRNA sequence homology [@williams_proposal_2013]. Some notable members of this class include *Escherichia coli*, *Vibrio fischeri*, and *Pseudomonas aeruginosa*. This class has great diversity of morphologies with rod, cocci, spirilla, and filaments all represented [@williams_phylogeny_2010]. Additionally, species in class display a variety of trophisms including chemoautotrophs and photoautotrophs [@gao_phylogenomics_2009].
 
-# Exercise 3
+Exercise 3
 
 ```{r}
 NEON_MAGs <- read_csv("data/NEON/GOLD_Study_ID_Gs0161344_NEON_2024_4_21.csv") %>% 
@@ -1286,42 +1293,42 @@ NEON_MAGs_GPROTEO <- NEON_MAGs %>%
   filter(str_detect(`Class`, 'Gammaproteobacteria'))
 
 ```
-## Toolik Field Station MAGs
+Toolik Field Station MAGs
 ```{r}
 datatable(NEON_MAGs_Toolik)
 ```
 
-### Taxonomic Breakdown by Phylum of Toolik Field Station MAGs
+Taxonomic Breakdown by Phylum of Toolik Field Station MAGs
 ```{r}
 datatable(NEON_MAGs_Toolik %>%
           count(Phylum))
 ```
 
-### Taxonomic Breakdown by Class of Toolik Field Station MAGs
+Taxonomic Breakdown by Class of Toolik Field Station MAGs
 ```{r}
 datatable(NEON_MAGs_Toolik %>%
           count(Class))
 ```
 
-### Taxonomic Breakdown by Order of Toolik Field Station MAGs
+Taxonomic Breakdown by Order of Toolik Field Station MAGs
 ```{r}
 datatable(NEON_MAGs_Toolik %>%
           count(Order))
 ```
 
-### Taxonomic Breakdown by Family of Toolik Field Station MAGs
+Taxonomic Breakdown by Family of Toolik Field Station MAGs
 ```{r}
 datatable(NEON_MAGs_Toolik %>%
           count(Family))
 ```
 
-### Taxonomic Breakdown by Genus of Toolik Field Station MAGs
+Taxonomic Breakdown by Genus of Toolik Field Station MAGs
 ```{r}
 datatable(NEON_MAGs_Toolik %>%
           count(Genus))
 ```
 
-## Taxonomic Breakdown of Toolik Field Station MAGs in Graphical form
+Taxonomic Breakdown of Toolik Field Station MAGs in Graphical form
 ```{r, fig.width = 12, fig.height = 12}
 NEON_MAGs_Toolik %>% #Phylum into Order
   ggplot(aes(x=fct_rev(fct_infreq(Phylum)), fill=Class))+geom_bar()+coord_flip()+labs(title="Taxonomic Breakdown by Phylum of Toolik Field Station MAGs", x="Phylum", y="n", fill="Class")+theme_classic()
@@ -1337,7 +1344,7 @@ NEON_MAGs_Toolik %>%   #Family into Genus
 
 ```
 
-## Gammaproteobacteria Site Locations:
+Gammaproteobacteria Site Locations:
 
 ```{r, fig.width = 8, fig.height =4}
 NEON_MAGs_GPROTEO %>% #Site Locations
@@ -1348,7 +1355,7 @@ datatable(NEON_MAGs_GPROTEO)
 
 ```
 
-# Exercise 4
+Exercise 4
 ```{r}
 NEON_metagenomes <- read_tsv("data/NEON/exported_img_data_Gs0161344_NEON.tsv") %>% 
   select(-c(`Domain`, `Sequencing Status`, `Sequencing Center`)) %>% 
@@ -1464,9 +1471,9 @@ kable(
   NEON_chemistry_description <- read_tsv("/cloud/project/data/NEON/neon_soilChem1_metadata_descriptions.tsv") 
 )
 ```
-# Excerises
+Excerises
 
-## Tidyverse Excercises
+Tidyverse Excercises
 
 ```{r}
 band_members
@@ -1502,7 +1509,7 @@ table4a %>%
   left_join(table4b, by = "country", suffix = c("_cases", "_pop"))
 ```
 
-## Exercise 1
+Exercise 1
 Create some tables with just a few columns to work on the basics of table joins by making a new data frame selecting
     In NEON_MAGs the columns Sample Name, Site ID, GTDB-Tk Taxonomy Lineage
     In NEON_metagenomes the columns Sample Name, Site ID, Ecosystem Subtype
@@ -1519,7 +1526,7 @@ NEON_chemistry_Short <- NEON_chemistry %>%
   select(c(`genomicsSampleID`, `siteID`, `nlcdClass`))
 ```
 
-## Excercise 2
+Excercise 2
 Now filter the above NEON_MAGs, NEON_metagenomes and NEON_chemistry to contain just the data for your project site
 ```{r}
 NEON_MAGs_Short_TOOL <-NEON_MAGs_Short %>%
@@ -1530,20 +1537,20 @@ NEON_chemistry_Short_TOOL <-NEON_chemistry_Short %>%
   filter(str_detect(`siteID`,"TOOL"))
 ```
 
-## Excercise 3
+Excercise 3
 Do a left join of the NEON MAGs with NEON metagenomes by the Sample Name and show the resulting table. Notice what happens when 2 columns have the same name. Did you get the number of rows you expected?
 ```{r}
 NEON_MAGs_Short %>%
   left_join(NEON_metagenomes_Short, by="Sample Name" )
 ```
-## Exercise 4
+Exercise 4
 Using the data from your site do a left join of the NEON chemistry with NEON metagenomes from above by the Sample Name and genomicsSampleID columns and show the resulting table. Use by = c("Sample Name" = "genomicsSampleID")). Did you get the number of rows you expected?
 ```{r}
 NEON_metagenomes_Short_TOOL %>%
   left_join(NEON_chemistry_Short_TOOL,by = c("Sample Name" = "genomicsSampleID"))
 ```
 
-## Exercise 5
+Exercise 5
 Does it matter with these tables if your do a left, right or full join. Show the resulting tables
 ```{r}
 NEON_metagenomes_Short_TOOL %>%
@@ -1554,7 +1561,7 @@ NEON_metagenomes_Short_TOOL %>%
   full_join(NEON_chemistry_Short_TOOL,by = c("Sample Name" = "genomicsSampleID"))
 ```
 
-## Exercise 6
+Exercise 6
 Do a left join of the NEON chemistry with NEON metagenomes by site ID columns and show the resulting table. Did you get the number of rows you expected?
 ```{r}
 NEON_chemistry_Short %>%
@@ -1562,7 +1569,7 @@ NEON_chemistry_Short %>%
 
 ```
 
-## Exercise 7
+Exercise 7
 Join the NEON MAG, metagenome and chemistry dataframes into a single data frame. What happens to the metagenome and chemistry information on the rows with the NEON coassembly?
 
 Chemistry data for coassembly rows is largely left blank
@@ -1576,7 +1583,7 @@ NEON_chemistry_7 %>%
   filter(str_detect(`Assembly Type`, "Combined"))
 ```
 
-## Exercise 8
+Exercise 8
 Filter the above table to contain data for just your project taxonomic group. Make a boxplot of the soil temperatures for each sample at the sites.
 ```{r}
 NEON_chemistry_8 <-NEON_chemistry_7 %>%
@@ -1585,21 +1592,21 @@ NEON_chemistry_8 %>%
   ggplot(aes(x=fct_infreq(siteID), y=soilTemp))+geom_boxplot()+labs(title="Sample Soil Temperatures at each site", x="Site ID", y="Soil Temp (C)")+theme_classic()
 ```
 
-## Exercise 9
+Exercise 9
 Make a scatterplot of Ecosystem Subtype vs temperature. Use the Order as the color for the points.
 ```{r, fig.width = 6, fig.height = 6}
 NEON_chemistry_8 %>%
    ggplot(aes(x=fct_infreq(`Ecosystem Subtype`), y=soilTemp, color=Order))+geom_point()+labs(title="Sample Soil Temperatures vs Ecosystem Subtype", x="Ecosystem Subtype", y="Soil Temp (C)")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
 ```
 
-## Exercise 10
+Exercise 10
 Make a scatterplots of soilInCaClpH vs ncldClass (National Land Cover Database) terms. Use the Family as the color for the points.
 ```{r, fig.width = 6, fig.height = 8}
 NEON_chemistry_8 %>%
    ggplot(aes(x=`nlcdClass`,y=`soilInCaClpH`, color=Family))+geom_point()+labs(title="Sample Soil Temperatures vs National Land Cover Class", x="Land Cover Class", y="Soil pH in CaCl")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
 ```
 
-## Exercise 11
+Exercise 11
 Exploring the data is an important part of data analysis. Humans are great at visually recognizing patterns. Make 3 other graphs specific to your project.
 ```{r, fig.width = 12, fig.height = 12}
 NEON_chemistry_11 <- NEON_chemistry_7 %>%
@@ -1607,19 +1614,19 @@ NEON_chemistry_11 <- NEON_chemistry_7 %>%
 NEON_chemistry_11
 ```
 
-### Graph1
+Graph1
 ```{r, fig.width = 12, fig.height = 12}
 NEON_chemistry_11 %>%
    ggplot(aes(x=`Phylum`, fill=Class))+geom_bar()+coord_flip()+facet_wrap(vars(nlcdClass), scales="free_y", ncol=3)+labs(title="Toolik Field Station Phylogeny vs National Land Cover Class", x="Land Cover Class", y="n")+theme_classic()
 ```
 
-### Graph2
+Graph2
 ```{r}
 NEON_chemistry_8 %>%
      ggplot(aes(y=`soilTemp`,x=`soilInWaterpH`, color=Order))+geom_point()+labs(title="Gammaproteobacteria Sample Soil Temperature vs pH in Water", y="Soil Temperature", x="Soil pH in Water")+theme_classic()
 ```
 
-### Graph3
+Graph3
 ```{r, , fig.width = 6, fig.height = 8}
 NEON_chemistry_8 %>%
    ggplot(aes(y=`Elevation In Meters`, x=Order, color=Order))+geom_boxplot(show.legend = FALSE)+labs(title="Gammaproteobacteria MAGs vs Elevation", x="Order", y="Elevation (m)")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
@@ -1716,7 +1723,7 @@ sankey_data_allTaxa <- bind_rows(sankey_data_s, sankey_data_g, sankey_data_f, sa
 write_tsv(sankey_data_allTaxa, "NEON_MAG_ind_pavian.txt")
 ```
 
-## Individual Sankey
+Individual Sankey
 
 ```{r}
 knitr::include_url("images/lab14/sankey-NEON_MAG_ind_pavian.txt.html")
@@ -1725,15 +1732,15 @@ knitr::include_url("images/lab14/sankey-NEON_MAG_ind_pavian.txt.html")
 
 ![]("~/cloud/project/images/lab14/sankey-NEON_MAG_ind_pavian.png")
 
-## Combined Sankey
+Combined Sankey
 
 ```{r}
 knitr::include_url("images/lab14/sankey-NEON_MAG_co_pavian.txt.html")
 ```
 
-# Exercises
+Exercises
 
-## Exercise 1
+Exercise 1
 
 ```{r}
 NEON_MAGs_ind_GPro <- NEON_MAGs %>% 
@@ -1796,7 +1803,7 @@ write_tsv(sankey_data_allTaxa, "NEON_MAG_ind_Gpro.txt")
 knitr::include_url("images/lab14/sankey-NEON_MAG_ind_Gpro.txt.html")
 ```
 
-## Exercise 2
+Exercise 2
 
 ```{r}
 NEON_MAGs_co_GPro <- NEON_MAGs %>% 
@@ -1858,7 +1865,7 @@ write_tsv(sankey_data_allTaxa, "NEON_MAG_co_Gpro.txt")
 knitr::include_url("images/lab14/sankey-NEON_MAG_co_Gpro.txt.html")
 ```
 
-## Exercise 3
+Exercise 3
 
 ```{r}
 NEON_MAGs_Toolik <- NEON_MAGs %>% 
@@ -1920,7 +1927,7 @@ knitr::include_url("images/lab14/sankey-NEON_MAG_Toolik.txt.html")
 ```
 
 ## Lab 15
-### Gammaproteobacteria Tree
+Gammaproteobacteria Tree
 ```{r}
 library(tidyverse)
 library(knitr)
@@ -1999,7 +2006,7 @@ NEON_MAGs_metagenomes_chemistry <- NEON_MAGs %>%
 tree_arc <- read.tree("data/NEON/gtdbtk.ar53.decorated.tree")
 tree_bac <- read.tree("data/NEON/gtdbtk.bac120.decorated.tree")
 ```
-## Gammaproteobacteria Tree
+Gammaproteobacteria Tree
 ```{r, fig.height=12, fig.width=12}
 # Make a vector with the internal node lables
 node_vector_bac = c(tree_bac$tip.label,tree_bac$node.label)
@@ -2014,7 +2021,7 @@ ggtree(tree_Gammaproteobacteria) +
   geom_tiplab(size=3) +
   xlim(0,20)
 ```
-## Gammaproteobacteria Circular Tree
+Gammaproteobacteria Circular Tree
 ```{r, fig.height=12, fig.width=12}
 ggtree(tree_Gammaproteobacteria, layout="circular") + 
   geom_tiplab(aes(angle=angle))+
@@ -2154,9 +2161,9 @@ match(grep("Gammaproteobacteria", node_vector_bac_TOOL_MAGS, value = TRUE), node
 grep("Pseudomonadota", node_vector_bac_TOOL_MAGS, value = TRUE)
 match(grep("Pseudomonadota", node_vector_bac_TOOL_MAGS, value = TRUE), node_vector_bac_TOOL_MAGS)
 ```
-# Trees
+Trees
 
-## Gammmaproteobacteria Rectangular Tree
+ Gammmaproteobacteria Rectangular Tree
 ```{r, fig.height=12, fig.width=12}
 ggtree(tree_Gammaproteobacteria) +
   geom_tiplab(size=3) +
@@ -2168,7 +2175,7 @@ ggtree(tree_Gammaproteobacteria) +
 ```
 
 ## Gammaproteobacteria Graphs
-# Library
+Library
 ```{r}
 library(tidyverse)
 library(knitr)
@@ -2188,7 +2195,7 @@ library(ggplot2)
 # library(ggeasy) #https://jonocarroll.github.io/ggeasy/
 library(DT)
 ```
-## NEON_MAGs
+NEON_MAGs
 ```{r, message=FALSE, warning=FALSE}
 NEON_MAGs <- read_csv("data/NEON/GOLD_Study_ID_Gs0161344_NEON_2024_4_21.csv") %>% 
   # remove columns that are not needed for data analysis
@@ -2227,7 +2234,7 @@ NEON_MAGs <- read_csv("data/NEON/GOLD_Study_ID_Gs0161344_NEON_2024_4_21.csv") %>
 
 
 ```
-## NEON_metagenomes + NEON_chemistry for gamma and toolik, Tree_bac 
+NEON_metagenomes + NEON_chemistry for gamma and toolik, Tree_bac 
 ```{r, message=FALSE, warning=FALSE}
 NEON_metagenomes <- read_tsv("data/NEON/exported_img_data_Gs0161344_NEON.tsv") %>% 
   select(-c(`Domain`, `Sequencing Status`, `Sequencing Center`)) %>% 
@@ -2286,7 +2293,7 @@ tree_bac_TOOL_MAGs <-drop.tip(tree_bac,tree_bac$tip.label[-match(TOOL_MAGs_label
 
 ```
 
-## Finding notables
+Finding notables
 ```{r}
 #finding notable gammaproteobacteria
 datatable(NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria %>%
@@ -2303,8 +2310,8 @@ datatable (NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria_Novel %>%
 
 ```
 
-## Toolik Graphs
-## Library
+##Toolik Graphs
+Library
 ```{r}
 library(tidyverse)
 library(knitr)
@@ -2323,7 +2330,7 @@ library(ggstar)
 #library(ggeasy) #https://jonocarroll.github.io/ggeasy/
 library(DT)
 ```
-## NEON_MAGs
+NEON_MAGs
 ```{r, message=FALSE, warning=FALSE}
 NEON_MAGs <- read_csv("data/NEON/GOLD_Study_ID_Gs0161344_NEON_2024_4_21.csv") %>% 
   # remove columns that are not needed for data analysis
@@ -2360,7 +2367,7 @@ NEON_MAGs <- read_csv("data/NEON/GOLD_Study_ID_Gs0161344_NEON_2024_4_21.csv") %>
   separate(`subplot.layer.date`, c("Subplot", "Layer", "Date"), "-") 
 ```
 
-## NEON_metagenomes + NEON_chemistry for gamma and toolik, Tree_bac 
+NEON_metagenomes + NEON_chemistry for gamma and toolik, Tree_bac 
 ```{r, message=FALSE, warning=FALSE}
 NEON_metagenomes <- read_tsv("data/NEON/exported_img_data_Gs0161344_NEON.tsv") %>% 
   select(-c(`Domain`, `Sequencing Status`, `Sequencing Center`)) %>% 
@@ -2405,7 +2412,7 @@ NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria_Novel <- NEON_MAGs_metagenom
 
 ```
 
-## Finding notables
+Finding notables
 ```{r}
 #finding notable gammaproteobacteria
 datatable(NEON_MAGs_metagenomes_chemistry_TOOL %>%

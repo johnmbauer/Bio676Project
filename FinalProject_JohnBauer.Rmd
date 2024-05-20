@@ -278,12 +278,12 @@ tree_Gammaproteobacteria <- Subtree(tree_bac_node_Gammaproteobacteria, 3048)
 # grep("Gammaproteobacteria", node_vector_bac_TOOL_MAGS, value = TRUE)
 # match(grep("Gammaproteobacteria", node_vector_bac_TOOL_MAGS, value = TRUE), node_vector_bac_TOOL_MAGS)
 
-grep("Gammaproteobacteria", node_vector_bac_TOOL_MAGS, value = TRUE)
-match(grep("Gammaproteobacteria", node_vector_bac_TOOL_MAGS, value = TRUE), node_vector_bac_TOOL_MAGS)
+# grep("Gammaproteobacteria", node_vector_bac_TOOL_MAGS, value = TRUE)
+# match(grep("Gammaproteobacteria", node_vector_bac_TOOL_MAGS, value = TRUE), node_vector_bac_TOOL_MAGS)
 
 ```
 ### Sankey Setup
-```{r}
+```{r,echo=FALSE,message=FALSE,warning=FALSE}
 NEON_MAGs_ind <- NEON_MAGs %>% 
   filter(`Assembly Type` == "Individual") 
 NEON_MAGs_co <- NEON_MAGs %>% 
@@ -359,14 +359,7 @@ John_theme <-theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1, color="b
 
 &nbsp;&nbsp;&nbsp;&nbsp;In the face of climate and antibiotic challenges, plants have developed symbiotic relationships with bacteria. PLANT BACTERIA BIOCONTROL EX. PLANT NITROGEN RELATION. Thus, it has been proposed that humanity's crops could be better insulated to ecological changes by exploiting these relationships. While several beneficial bacterial species have identified, the vast majority of the bacterial kingdom remains sequenced. Additionally, with their ability to rapidly evolve in the face of ecological challenges, new species with more robust tolerances to climate change influences will only grow with time. Thus, soil bacterium represent a vast untapped resource of climate change resistant proteins, biocontrol agents, and nitrogen fixators. Data collection effort by organizations like the National Ecological Observatory Network, provide a valuable genomic resource for phylogenetic analyses to determine the identities potential beneficial bacteria as well as monitoring the population changes caused by a changing climate.
 
-
-
-
-
-
-
-
-
+&nbsp;
 
 ### Figure 1:
 ```{r,fig.height=14, fig.width=12, fig.align='center'}
@@ -384,7 +377,7 @@ plottttttt
 ```
 **Figure 1:** **Phylogenetic Tree of all bacterial MAGs.** Tree constructed from samples collected in GOLD Study ID Gs0161344 by the National Ecological Observatory Network.
 
-
+&nbsp;
 ### Figure 2:
 ```{r,fig.height=20, fig.width=8,fig.align='center'}
 knitr::include_url("data/lab14/sankey-NEON_MAG_ind_pavian.txt.html")
@@ -429,8 +422,7 @@ tidyverse,knitr, ggtree, TDbook #A Companion Package for the Book "Data Integrat
 , ggimage, rphylopic, treeio, tidytree, ape, TreeTools, phytools, ggnewscale, ggtreeExtra, ggstar, DT (GGTREE SOURCES)
 
 # Results:
-## GOLD Study NEON Samples 
-
+## GOLD Study
 
 ### Figure 5: 
 ```{r, , fig.height=14, fig.width=12, fig.align='center'}
@@ -443,7 +435,7 @@ ggtree(tree_bac, layout="circular", branch.length="none") +
 ```
 **Figure 5:** **Phylogenetic tree of all bacterial MAGs.** Tree contails all bacterial samples collected in GOLD Study ID Gs0161344 by the National Ecological Observatory Network with the *Gammaproteobacteria* class of *Pseudomondata* highlighted in blue.
 
-
+&nbsp;
 
 
 ### Figure 6:
@@ -452,6 +444,7 @@ NEON_MAGs_bact_ind %>%
   ggplot(aes(x=fct_rev(fct_infreq(Phylum)), fill=`Site ID`))+geom_bar(position="dodge")+coord_flip()+labs(x="Phylum", y="NEON MAGs (n)")+theme_classic()+theme(axis.text.x=element_text(color="black"),axis.title.x=element_text(size = 15), axis.text.y=element_text(color="black",face = 'italic'),axis.title.y=element_text(size = 15), legend.title=element_text(size=15), legend.text=element_text(size=10))+ scale_y_continuous(limits=c(0,100),breaks = c(0,10,20,30,40,50,60,70,80,90,100))                                                                                                                                 
 ```
 **Figure 6:** **NEON MAG distribution by phylum.** NEON site distribution of MAGs collected in GOLD Study ID Gs0161344 organized by phylum.
+&nbsp;
 
 ### Figure 7:
 ```{r,, fig.width = 6, fig.height = 4,fig.align='center'}
@@ -471,6 +464,7 @@ NEON_MAGs_bact_ind %>%
   ggplot(aes(x=fct_rev(`Phylum`), fill=`Phylum`))+geom_bar(show.legend=FALSE)+coord_flip()+labs(x="Phylum", y="Novel Genera (n)")+theme_classic()+theme(axis.text.x=element_text(color="black"),axis.title.x=element_text(size = 15), axis.text.y=element_text(color="black",face = 'italic'))+scale_y_continuous(limits = c(0,150), breaks = c(0,10,20,30,40,50,60,70,80,90,100,110,120,130,140,150))
 ```
 **Figure 8:** **Novel bacteria predominately found in the phylum** ***Actinomycetota.*** Novel bacteria were determined from MAGs constructed from individual assemblies in GOLD Study ID Gs0161344. Novel indicates the MAGs could not be placed in an existing group at the species, genus or family level.
+&nbsp;
 
 ### Figure 9:
 ```{r, fig.width = 12, fig.height = 8, fig.align='center'}
@@ -492,20 +486,22 @@ NEON_MAGs_metagenomes_chemistry_Bacteria %>%
 
 ## *Gammaproteobacteria* Samples 
 
-### Figure 10: Sankey plot of Individual Assemebly *Gammmaproteobacteria* MAGs.
+### Figure 10:
 ```{r,fig.height=20, fig.width=8,fig.align='center'}
 knitr::include_url("data/lab14/sankey-NEON_MAG_ind_Gpro.txt.html")
 ```
 **Figure 10:** **Sankey plot of individual assembly *Gammmaproteobacteria* MAGs** All samples found in GOLD Study ID Gs0161344.
+&nbsp;
 
-### Figure 11: Phylogenetic Tree of *Gammaproteobacteria* MAGs with total number of bases and ecosystem subtype markers labels.
-```{r, fig.height=12, fig.width=12,fig.align='center'}
+### Figure 11: 
+```{r, fig.height=12, fig.width=12,fig.align='center',message=FALSE,echo=FALSE,warning=FALSE}
 ggtree(tree_Gammaproteobacteria, layout="circular")  %<+%
   NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria + 
   geom_point2(mapping=aes(color=`Ecosystem Subtype`, size=`Total Number of Bases`))+theme( legend.title=element_text(size=15),legend.text=element_text(size=10))
 ```
 **Figure 11:** **Phylogenetic Tree of** ***Gammaproteobacteria.*** Marker size is based on total number of bases in MAG. Markers colored by ecosystem subtype.Tree includes MAGs in GOLD Study ID Gs0161344 filtered to those annotated as belonging to the class *Gammaproteobacteria*.
 
+&nbsp;
 
 ### Figure 12:
 ```{r, fig.height=12, fig.width=12, fig.align='center'}
@@ -514,6 +510,7 @@ NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria %>%
 ```
 **Figure 12:** **Distribution of *Gammaproteobacteria* MAGs by order.** Barplot of *Gammaproteobacteria* families organized into panels by order. Barplot includes MAG reads from all NEON sites in GOLD Study ID Gs0161344 filtered to those annotated as belonging to the class *Gammaproteobacteria*.
 
+&nbsp;
 
 ### Figure 13:
 ```{r, fig.height=8, fig.width=6, fig.align='center'}
@@ -528,7 +525,7 @@ NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria %>%
 &nbsp;
 
 ### Figure 14:
-```{r, fig.height=12, fig.width=12, fig.align='center'}
+```{r, fig.height=12, fig.width=12, fig.align='center', echo=FALSE,message=FALSE,warning=FALSE}
 NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria %>%
      ggplot(aes(y=`soilTemp`,x=`Family`, color=`Order`), size=1)+geom_point(show.legend=FALSE)+scale_y_continuous(limits=c(0,50)) +labs(title="A", y="Soil Temperature", x="")+theme_classic()+John_theme+theme(title=element_text(size=20))+
   
@@ -562,9 +559,9 @@ NEON_MAGs_metagenomes_chemistry_Steroidobacterales  %>%
 ```
 **Figure 15:** ***Steroidobacteraceae*** **members are found in a variet of ecosystems but are overwhelmimg represented by the genus** ***Bog-1198***. A) Dotplot of ecosystem subtype each genus of *Steroidobacteraceae* was found in. B) Dotplot of the NEON sites each genus of *Steroidobacteraceae* was found in. C) Boxplot of MAG genome sizes (kbp) for *Steroidobacteraceae* genera. D) Barplot of *Steroidobacteraceae* genera MAGs. All samples belong to the GOLD Study ID Gs0161344.
 
-
+&nbsp;
 ### Figure 16:
-```{r,fig.height=8, fig.width=8, fig.align='center'}
+```{r,fig.height=8, fig.width=8, fig.align='center',echo=FALSE,message=FALSE,warning=FALSE}
 NEON_MAGs_metagenomes_chemistry_Bog <-NEON_MAGs_metagenomes_chemistry_Steroidobacterales  %>%
   filter(str_detect(Genus,"Bog-1198"))
 
@@ -600,7 +597,7 @@ NEON_MAGs_metagenomes_chemistry_Burkholderiales  %>%
 ```
 **Figure 17:** ***Burkholderiales*** **members are found in a variety of ecosystems and have a broad distribution of genome size.** A) Scatter plot of sample ecosystem subtype vs *Burkholderiales* genera. P B) Scatter plot of NEON site ID vs *Burkholderiales* genera. C) Box plot of *Burkholderiales* genera genome sizes (kbp) D) Bar plot of *Burkholderiales* genera MAGs. All plots colored by family group. All samples from GOLD Study ID Gs0161344.
 
-
+&nbsp;
 ### Figure 18:
 ```{r, fig.width=10, fig.align='center'}
 NEON_MAGs_metagenomes_chemistry_Burkholderiaceae <- NEON_MAGs_metagenomes_chemistry_Burkholderiales  %>%
@@ -627,7 +624,7 @@ ggplot(data=NEON_MAGs_metagenomes_chemistry_Burkholderiaceae, aes(x=`Ecosystem S
 knitr::include_url("data/lab14/sankey-NEON_MAG_Toolik.txt.html")
 ```
 **Figure 19:** **Sankey plot of all MAGs from Toolik Field Station, Alaska USA.** Samples collected in GOLD Study ID Gs0161344.
-
+&nbsp;
 
 ### Figure 20:
 ```{r, fig.height=14, fig.width=12, fig.align='center'}
@@ -641,59 +638,75 @@ ggtree(tree_bac_TOOL_MAGs, layout="circular", branch.length="none") +
 ```
 **Figure 20:** **Phylogenetic tree of all MAGs collected at Toolik Field Station, Alaska USA.** *Gammaproteobacteria* class of *Pseudomondata* highlighted in blue. Samples collected in GOLD Study ID Gs0161344 by the National Ecological Observatory Network at Toolik Field Station, Alaska USA. 
 
+&nbsp;
+
 ### Figure 21:
-```{r, fig.width = 12, fig.height = 8, fig.align='center'}
+```{r, fig.width = 12, fig.height = 8, fig.align='center',echo=FALSE,message=FALSE,warning=FALSE}
 NEON_MAGs_metagenomes_chemistry_TOOL %>% 
   ggplot(aes(x=fct_rev(fct_infreq(Phylum)), fill=Order))+geom_bar()+coord_flip()+labs(x="Phylum", y="MAG Count (n)",fill="Order")+theme_classic()+theme(axis.title=element_text(size = 15),axis.text.y=element_text(color="black",face='italic'), axis.text.x=element_text(color="black"),legend.text = element_text(size=10, face='italic'),legend.title = element_text(size=15))
 
 ```
 **Figure 21:** **MAGs found at Toolik Field Station dominated by** ***Actinomycetota*** **and** ***Pseudomondota*** **and** ***Acidobacteriota*** **members.** Stacked barplot of bacterial Phlya found at Toolik Field Station, Alaska USA in GOLD Study ID Gs0161344. Bars are colored by Order groups. 
 
-### Figure 21:
-```{r, fig.align='center'}
+&nbsp;
+
+### Figure 22:
+```{r, fig.align='center', echo=FALSE,message=FALSE,warning=FALSE}
 NEON_MAGs_metagenomes_chemistry %>%
      ggplot(aes(y=`soilTemp`,x=`Site ID.x`, color=`Site ID.x`), size=1)+geom_point(show.legend = FALSE)+scale_y_continuous(limits=c(0,50),breaks = c(10,20,30,40,50)) +labs(title="A", y="Soil Temperature (Celcius)", x="Site ID")+theme_classic()+theme(title=element_text(size=15),axis.title=element_text(size = 15),axis.text.y=element_text(color="black"), axis.text.x=element_text(color="black", angle=45, vjust=1, hjust=1))+
      ggplot(data=NEON_MAGs_metagenomes_chemistry,aes(y=`soilInWaterpH`,x=`Site ID.x`, color=`Site ID.x`), size=1)+geom_point(show.legend = FALSE)+scale_y_continuous(limits=c(0,14),breaks=c(1:14)) +labs(title="B", y="Soil pH", x="Site ID")+theme_classic()+theme(title=element_text(size=15),axis.title=element_text(size = 15),axis.text.y=element_text(color="black"), axis.text.x=element_text(color="black", angle=45, vjust=1, hjust=1))
 ```
-**Figure 21:** **Toolik Field Station has some of the lowest sample temperatures but average sample pHs compared to other NEON sites.** A) Scatterplot of sample soil temperatures at each NEON site. B) Scatterplot of sample soil pHs in water at each NEON site. Points colored by Site ID. All samples from GOLD Study ID Gs0161344.
+**Figure 22:** **Toolik Field Station has some of the lowest sample temperatures but average sample pHs compared to other NEON sites.** A) Scatterplot of sample soil temperatures at each NEON site. B) Scatterplot of sample soil pHs in water at each NEON site. Points colored by Site ID. All samples from GOLD Study ID Gs0161344.
 
-### Figure 22:
-```{r, fig.width=12, fig.height=6, fig.align='center'}
-NEON_MAGs_metagenomes_chemistry_Alaska %>%
-     ggplot(aes(x=`Phylum`,y=`soilTemp`, color=`Phylum`), size=1)+geom_point(show.legend=FALSE)+facet_wrap(vars(Site.x), scales="free_y", ncol=3)+scale_y_continuous(limits=c(0,10)) +labs(y="Soil Temperature (Celcius)", x="Phylum")+theme_classic()+John_theme+theme(strip.text = element_text(size=13))
-```
-**Figure 22:** **Similar soil temperature and phyla found at Alaskan NEON Sites** Scatter plot of sample temperature in Celsius vs phyla at Alaskan NEON sites in GOLD Study ID Gs0161344. Left Panel: Caribou Creek Watershed, Alaska USA. Middle Panel: Healy, Denali National Park, Alaska USA. Right Panel: Toolik Field Station, Alaska USA. Points are colored by Phylum.
+&nbsp;
 
 ### Figure 23:
 ```{r, fig.width=12, fig.height=6, fig.align='center'}
 NEON_MAGs_metagenomes_chemistry_Alaska %>%
-     ggplot(aes(x=`Phylum`,y=`soilInWaterpH`, color=`Phylum`), size=1)+geom_point(show.legend = FALSE)+facet_wrap(vars(Site.x), scales="free_y", ncol=3)+scale_y_continuous(limits=c(0,14),breaks =rep(0:14)) +labs(y="Soil pH", x="Phylum")+theme_classic()+John_theme+theme(strip.text = element_text(size=13))
+     ggplot(aes(x=`Phylum`,y=`soilTemp`, color=`Phylum`), size=1)+geom_point(show.legend=FALSE)+facet_wrap(vars(Site.x), scales="free_y", ncol=3)+scale_y_continuous(limits=c(0,10)) +labs(y="Soil Temperature (Celcius)", x="Phylum")+theme_classic()+John_theme+theme(strip.text = element_text(size=13))
 ```
-**Figure 23:** **Similar soil pH and phyla found at Alaskan NEON Sites** Scatter plot of sample soil pH in water vs phyla at Alaskan NEON sites in GOLD Study ID Gs0161344. Left Panel: Caribou Creek Watershed, Alaska USA. Middle Panel: Healy, Denali National Park, Alaska USA. Right Panel: Toolik Field Station, Alaska USA. Points are colored by Phylum.
+**Figure 23:** **Similar soil temperature and phyla found at Alaskan NEON Sites** Scatter plot of sample temperature in Celsius vs phyla at Alaskan NEON sites in GOLD Study ID Gs0161344. Left Panel: Caribou Creek Watershed, Alaska USA. Middle Panel: Healy, Denali National Park, Alaska USA. Right Panel: Toolik Field Station, Alaska USA. Points are colored by Phylum.
+
+&nbsp;
 
 ### Figure 24:
 ```{r, fig.width=12, fig.height=6, fig.align='center'}
 NEON_MAGs_metagenomes_chemistry_Alaska %>%
-     ggplot(aes(x=`Phylum`,y=`nlcdClass`, color=`Phylum`), size=1)+geom_point(show.legend = FALSE)+facet_wrap(vars(Site.x), scales="free_y", ncol=3)+labs(y="Vegetation Class", x="Phylum")+theme_classic()+John_theme+theme(strip.text = element_text(size=10))
+     ggplot(aes(x=`Phylum`,y=`soilInWaterpH`, color=`Phylum`), size=1)+geom_point(show.legend = FALSE)+facet_wrap(vars(Site.x), scales="free_y", ncol=3)+scale_y_continuous(limits=c(0,14),breaks =rep(0:14)) +labs(y="Soil pH", x="Phylum")+theme_classic()+John_theme+theme(strip.text = element_text(size=13))
 ```
-**Figure 24:** **Vegetation Class differs but similar phyla found at Alaskan NEON Sites** Scatter plot of National Land Class Vegetation Class vs Phyla at Alaskan NEON Sites in GOLD Study ID Gs0161344. Left Panel: Caribou Creek Watershed, Alaska USA. Middle Panel: Healy, Denali National Park, Alaska USA. Right Panel: Toolik Field Station, Alaska USA. Points are colored by Phylum.   
+**Figure 24:** **Similar soil pH and phyla found at Alaskan NEON Sites** Scatter plot of sample soil pH in water vs phyla at Alaskan NEON sites in GOLD Study ID Gs0161344. Left Panel: Caribou Creek Watershed, Alaska USA. Middle Panel: Healy, Denali National Park, Alaska USA. Right Panel: Toolik Field Station, Alaska USA. Points are colored by Phylum.
+
+&nbsp;
 
 ### Figure 25:
+```{r, fig.width=12, fig.height=6, fig.align='center'}
+NEON_MAGs_metagenomes_chemistry_Alaska %>%
+     ggplot(aes(x=`Phylum`,y=`nlcdClass`, color=`Phylum`), size=1)+geom_point(show.legend = FALSE)+facet_wrap(vars(Site.x), scales="free_y", ncol=3)+labs(y="Vegetation Class", x="Phylum")+theme_classic()+John_theme+theme(strip.text = element_text(size=10))
+```
+**Figure 25:** **Vegetation Class differs but similar phyla found at Alaskan NEON Sites** Scatter plot of National Land Class Vegetation Class vs Phyla at Alaskan NEON Sites in GOLD Study ID Gs0161344. Left Panel: Caribou Creek Watershed, Alaska USA. Middle Panel: Healy, Denali National Park, Alaska USA. Right Panel: Toolik Field Station, Alaska USA. Points are colored by Phylum.   
+
+&nbsp;
+
+### Figure 26:
 ```{r, fig.width=14, fig.height=6, fig.align='center'}
 NEON_MAGs_metagenomes_chemistry_Alaska %>%
      ggplot(aes(x=`Phylum`, fill=`Order`))+geom_bar()+facet_wrap(vars(Site.x), scales="free_y", ncol=3) +labs(y="MAGs (n)", x="Phylum")+theme_classic()+John_theme+theme(strip.text = element_text(size=10), legend.title=element_text(size=15), legend.text=element_text(size=10, face='italic'))
 ```
-**Figure 25:** **Phyla MAGs distribution differs at each Alaskan NEON Site.** Stacked barplot of Phyla at Alaskan NEON Sites in GOLD Study ID Gs0161344 . Left Panel: Caribou Creek Watershed, Alaska USA. Middle Panel: Healy, Denali National Park, Alaska USA. Right Panel: Toolik Field Station, Alaska USA. Bars are colored by Order group.   
+**Figure 26:** **Phyla MAGs distribution differs at each Alaskan NEON Site.** Stacked barplot of Phyla at Alaskan NEON Sites in GOLD Study ID Gs0161344 . Left Panel: Caribou Creek Watershed, Alaska USA. Middle Panel: Healy, Denali National Park, Alaska USA. Right Panel: Toolik Field Station, Alaska USA. Bars are colored by Order group.   
 
-### Figure 26:
+&nbsp;
+
+### Figure 27:
 ```{r, fig.align='center'}
 NEON_MAGs_metagenomes_chemistry_TOOL %>%
   mutate(`Genome Size (Kbp)`=as.integer(`Total Number of Bases`/1000)) %>%
   ggplot(aes(x=`Phylum`,y=`Genome Size (Kbp)`,color=`Phylum`))+geom_boxplot(show.legend = FALSE)+scale_y_continuous(limits=c(0,15000), breaks=c(2500,5000,7500,10000,12500,15000))+theme_classic()+labs(x="Phylum", y="Genome Size (Kbp)")+John_theme
 ```
-**Figure 26:** **Genome Size Distributions at Toolik Field Station are inline with those of the wider Gold Study.** Boxplot of Phyla genome sizes (kbp) found at Toolik Field Station, Alaska USA in GOLD Study ID Gs0161344. 
+**Figure 27:** **Genome Size Distributions at Toolik Field Station are inline with those of the wider Gold Study.** Boxplot of Phyla genome sizes (kbp) found at Toolik Field Station, Alaska USA in GOLD Study ID Gs0161344. 
 
-### Figure 27:
+&nbsp;
+
+### Figure 28:
 ```{r, fig.height=12, fig.width=12, fig.align='center'}
 ggtree(tree_bac_TOOL_MAGs)  %<+%
   NEON_MAGs_metagenomes_chemistry + 
@@ -707,18 +720,22 @@ ggtree(tree_bac_TOOL_MAGs)  %<+%
   theme_tree2(legend.position=c(.1, .7),strip.text=element_text(size=15),axis.text=element_text(color = 'black'))
 
 ```
-**Figure 27:** **Genome content of bacteria found at Toolik Field Station.** Left Panel: Phylogenetic tree of all MAGs found at Toolik Field Station, Alaska USA with markers for MAG phylum. Middle Panel: Gene Count of all Mags found at Toolik Field Station, Alaska USA. Points colored by MAG phylum. Right Panel: % GC Content of all MAGs found at Toolik Field Station, Alaska USA. Bar colored by MAG phylum. All samples from in GOLD Study ID Gs0161344.
+**Figure 28:** **Genome content of bacteria found at Toolik Field Station.** Left Panel: Phylogenetic tree of all MAGs found at Toolik Field Station, Alaska USA with markers for MAG phylum. Middle Panel: Gene Count of all Mags found at Toolik Field Station, Alaska USA. Points colored by MAG phylum. Right Panel: % GC Content of all MAGs found at Toolik Field Station, Alaska USA. Bar colored by MAG phylum. All samples from in GOLD Study ID Gs0161344.
 
-### Figure 28:
+&nbsp;
+
+### Figure 29:
 ```{r, fig.width = 12, fig.height = 8, fig.align='center'}
 NEON_MAGs_metagenomes_chemistry_TOOL %>%
   filter(Class=="Gammaproteobacteria") %>%
   ggplot(aes(x=fct_rev(fct_infreq(Order)), fill=Family))+geom_bar()+coord_flip()+labs(x="Order", y="MAG Count (n)",fill="Family")+theme_classic()+theme(axis.text.x=element_text(color="black"),axis.title=element_text(size = 15), axis.text.y=element_text(color="black",face='italic'), legend.title=element_text(size=15),legend.text=element_text(size=10))+scale_y_continuous(limits=c(0,50),breaks = c(0,10,20,30,40,50))
 
 ```
-**Figure 28:** ***Gammabacteria*** **at Toolik Field Station fall into** ***Steroidobacterales*** **or** ***Burkholderiales*** **families.** Stacked Barplot of *Gammaproteobacteria* MAGs found at Toolik Field Station, Alaska USA in GOLD Study ID Gs0161344. Bars colored by family group.
+**Figure 29:** ***Gammabacteria*** **at Toolik Field Station fall into** ***Steroidobacterales*** **or** ***Burkholderiales*** **families.** Stacked Barplot of *Gammaproteobacteria* MAGs found at Toolik Field Station, Alaska USA in GOLD Study ID Gs0161344. Bars colored by family group.
 
-### Figure 29:
+&nbsp;
+
+### Figure 30:
 ```{r,fig.height=6, fig.width=6, fig.align='center'}
 NEON_MAGs_metagenomes_chemistry_TOOL_Steroidobacterales %>%
 ggplot( aes(x=`Genus`,y=`Genome Size (Kbp)`,color=Genus))+geom_boxplot(show.legend = FALSE)+scale_y_continuous(limits=c(0,15000), breaks=c(2500,5000,7500,10000,12500,15000))+theme_classic()+labs(title="A", x="Genus", y="Genome Size (Kbp)")+John_theme+theme(title = element_text(size=15))+
@@ -726,18 +743,16 @@ ggplot( aes(x=`Genus`,y=`Genome Size (Kbp)`,color=Genus))+geom_boxplot(show.lege
   ggplot(data=NEON_MAGs_metagenomes_chemistry_TOOL_Steroidobacterales,aes(x=Genus,fill=Genus))+geom_bar(show.legend=FALSE)+labs(title="B", x="Genus", y="MAGs (n)")+theme_classic()+John_theme+theme(title = element_text(size=15))
   
 ```
-**Figure 29:** **Distribution of** ***Steroidobacterales*** **genera at Toolik Field Station, Alaska USA.** A) Boxplot of sample genome size (kbp) in the *Steroidobacterales* family at Toolik Field Station, Alaska USA. B) Barplot of MAGs for each genus in the *Steroidobacterales* family found at Toolik Field Station, Alaska USA. All samples from GOLD Study ID Gs0161344
+**Figure 30:** **Distribution of** ***Steroidobacterales*** **genera at Toolik Field Station, Alaska USA.** A) Boxplot of sample genome size (kbp) in the *Steroidobacterales* family at Toolik Field Station, Alaska USA. B) Barplot of MAGs for each genus in the *Steroidobacterales* family found at Toolik Field Station, Alaska USA. All samples from GOLD Study ID Gs0161344
 
-### Figure 30:
+&nbsp;
+
+### Figure 31:
 ```{r,fig.height=6, fig.width=6, fig.align='center'}
 NEON_MAGs_metagenomes_chemistry_TOOL_Burkholderiales  %>%
   ggplot(aes(x=Genus,fill=`Family`))+geom_bar()+labs(x="Genus", y="MAGs (n)")+theme_classic()+John_theme+theme(legend.title = element_text(size=15),legend.text = element_text(size=10, face='italic'))+scale_y_continuous(limits=c(0,5),breaks=rep(0:5))
 ```
-**Figure 30:** **Genus distribution of** ***Burkholderiales*** **is wide spread at Toolik Field Station, Alaska USA.** Barplot of MAGs in *Burkholderiales* Genera at Toolik Field Station, Alaska USA. Bars colored by family group. NA represent novel genera in *Burkholderiales*. All samples from GOLD Study ID Gs0161344.
-
-
-
-![**Figure 1:**](/cloud/project/images/Plots/Toolik/Toolik_Sample_Elevation_vs_Family.png)
+**Figure 31:** **Genus distribution of** ***Burkholderiales*** **is wide spread at Toolik Field Station, Alaska USA.** Barplot of MAGs in *Burkholderiales* Genera at Toolik Field Station, Alaska USA. Bars colored by family group. NA represent novel genera in *Burkholderiales*. All samples from GOLD Study ID Gs0161344.
 
 # Discussion:
 

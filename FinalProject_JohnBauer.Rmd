@@ -621,7 +621,7 @@ ggplot(data=NEON_MAGs_metagenomes_chemistry_Burkholderiaceae, aes(x=`Ecosystem S
   
   ggplot(data=NEON_MAGs_metagenomes_chemistry_Burkholderiaceae, aes(x=`Site ID.x`, fill=Genus))+geom_bar()+labs(title="B", x="Site ID", y="MAGs (n)")+theme_classic()+theme(axis.title=element_text(size = 15),axis.text.y=element_text(color="black"), axis.text.x=element_text(color="black", angle=45, vjust=1, hjust=1), title=element_text(size=20),legend.text = element_text(size=10, face='italic'),legend.title = element_text(size=15))
 ```
-**Figure 18:** **Genera of** ***Burkholderiaceae*** **are found in a variety of ecosystems and NEON locations.** A) Barplot of ***Burkholderiaceae*** genera MAGs found in NEON ecosystem subtypes. B) Barplot of ***Burkholderiaceae*** genera MAGs found at NEON sites. Site labeled NA is for combined assembly MAGS.   Bar colored by genus group. Bars colored as NA represent novel genera in *Burkholderiales*. All samples from GOLD Study ID Gs0161344.
+**Figure 18:** **Genera of** ***Burkholderiaceae*** **are found in a variety of ecosystems and NEON locations.** A) Barplot of **Burkholderiaceae** genera MAGs found in NEON ecosystem subtypes. B) Barplot of ***Burkholderiaceae*** genera MAGs found at NEON sites. Site labeled NA is for combined assembly MAGS.   Bar colored by genus group. Bars colored as NA represent novel genera in *Burkholderiales*. All samples from GOLD Study ID Gs0161344.
 
 
 &nbsp;
@@ -656,11 +656,13 @@ ggtree(tree_bac_TOOL_MAGs, layout="circular", branch.length="none") +
 ### Figure 21:
 ```{r, fig.width = 12, fig.height = 8, fig.align='center',echo=FALSE,message=FALSE,warning=FALSE}
 NEON_MAGs_metagenomes_chemistry_TOOL %>% 
-  ggplot(aes(x=fct_rev(fct_infreq(Phylum)), fill=Order))+geom_bar()+coord_flip()+labs(x="Phylum", y="MAG Count (n)",fill="Order")+theme_classic()+theme(axis.title=element_text(size = 15),axis.text.y=element_text(color="black",face='italic'), axis.text.x=element_text(color="black"),legend.text = element_text(size=10, face='italic'),legend.title = element_text(size=15))
+  ggplot(aes(x=fct_rev(fct_infreq(Phylum)), fill=Class))+geom_bar()+coord_flip()+labs(x="Phylum", y="MAG Count (n)",fill="Class")+theme_classic()+theme(axis.title=element_text(size = 15),axis.text.y=element_text(color="black",face='italic'), axis.text.x=element_text(color="black"),legend.text = element_text(size=10, face='italic'),legend.title = element_text(size=15))
 
 ```
 **Figure 21:** **MAGs found at Toolik Field Station dominated by** ***Actinomycetota*** **and** ***Pseudomondota*** **and** ***Acidobacteriota*** **members.** Stacked barplot of bacterial Phlya found at Toolik Field Station, Alaska USA in GOLD Study ID Gs0161344. Bars are colored by Order groups. 
 
+&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;The majority of MAGs collected at Toolik Field Station belonged to the *Actinomycelota* and *Pseudomonadota* phyla (Fig. 20,21). Inside *Actinomycelota*, MAGs belonging to the order Thermoleophilia dominated (Fig. 21). The phylum* Pseudomonadota* was almost equally divided into *Alpha* and *Gamma* *Proteobacteria* (Fig. 21). The phylum *Acidobacteriota* was also frequently found at Toolik, with the vast majority of its MAGs belonging to the order Terriglobia (Fig. 21).
 &nbsp;
 
 ### Figure 22:
@@ -708,7 +710,9 @@ NEON_MAGs_metagenomes_chemistry_Alaska %>%
 **Figure 26:** **Phyla MAGs distribution differs at each Alaskan NEON Site.** Stacked barplot of Phyla at Alaskan NEON Sites in GOLD Study ID Gs0161344 . Left Panel: Caribou Creek Watershed, Alaska USA. Middle Panel: Healy, Denali National Park, Alaska USA. Right Panel: Toolik Field Station, Alaska USA. Bars are colored by Order group.   
 
 &nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;Given the significant distance between the three Alaskan sites and the rest of the NEON collection sites, the ecological conditions of all Alaskan MAGs were first examined together to see if phylogenetic distribution was more correlated with ecological conditions than geographic position in North America. As expected, the three Alaskan sites had the lowest sample temperatures recorded in this study (Fig. 22A).  Similarly, their soil pH was among the lowest in the study (Fig. 22B). However, when examining their phyla side by side at these conditions it became clear at the phyla level that the three sites had similar temperatures, pH, and phyla distribution (Fig 23,24). The Alaskan sites did vary in vegetation class with Toolik consisting of three scrub types, Healy of just dwarf Scrub, and Caribou Creek of forest and scrub.  Toolik Field station had the most MAGs and phyla represented followed by Healy (Fig. 26), indicating that scrub vegetation classes may host greater bacterial populations in Alaska than forest.
 
+&nbsp;
 ### Figure 27:
 ```{r, fig.align='center'}
 NEON_MAGs_metagenomes_chemistry_TOOL %>%
@@ -736,7 +740,8 @@ ggtree(tree_bac_TOOL_MAGs)  %<+%
 **Figure 28:** **Genome content of bacteria found at Toolik Field Station.** Left Panel: Phylogenetic tree of all MAGs found at Toolik Field Station, Alaska USA with markers for MAG phylum. Middle Panel: Gene Count of all Mags found at Toolik Field Station, Alaska USA. Points colored by MAG phylum. Right Panel: % GC Content of all MAGs found at Toolik Field Station, Alaska USA. Bar colored by MAG phylum. All samples from in GOLD Study ID Gs0161344.
 
 &nbsp;
-
+&nbsp;&nbsp;&nbsp;&nbsp;The genome size of MAGs collected at Toolik Field Station reflected those of the overall GOLD study with the trend of greater representation correlating with greater variation in phyla genome size (Fig. 27,28).  This was especially evident for the phyla *Patescibacteria*, *Armatimonadota*, *Gemmatimonadota* and *Verrucomicrobiota* which had low representation in Toolik MAGs (Fig.28). The genomes at Toolik had a spread of gene counts with *Chloroflexota* and *Pseudomonadota* species at the low and high end of the spectrum, respectively (Fig.28). This variation was not reflected in genome GC content with the average %GC around 60% (Fig.28).
+&nbsp;
 ### Figure 29:
 ```{r, fig.width = 12, fig.height = 8, fig.align='center'}
 NEON_MAGs_metagenomes_chemistry_TOOL %>%
@@ -762,10 +767,16 @@ ggplot( aes(x=`Genus`,y=`Genome Size (Kbp)`,color=Genus))+geom_boxplot(show.lege
 
 ### Figure 31:
 ```{r,fig.height=6, fig.width=6, fig.align='center'}
+
+
 NEON_MAGs_metagenomes_chemistry_TOOL_Burkholderiales  %>%
   ggplot(aes(x=Genus,fill=`Family`))+geom_bar()+labs(x="Genus", y="MAGs (n)")+theme_classic()+John_theme+theme(legend.title = element_text(size=15),legend.text = element_text(size=10, face='italic'))+scale_y_continuous(limits=c(0,5),breaks=rep(0:5))
 ```
 **Figure 31:** **Genus distribution of** ***Burkholderiales*** **is wide spread at Toolik Field Station, Alaska USA.** Barplot of MAGs in *Burkholderiales* Genera at Toolik Field Station, Alaska USA. Bars colored by family group. NA represent novel genera in *Burkholderiales*. All samples from GOLD Study ID Gs0161344.
+&nbsp;
+
+&nbsp;&nbsp;&nbsp;&nbsp;Only two orders of *Gammaproteobacteria* were found at Toolik Field Station. Similar to the overall GOLD study, the order *Steroidobacterales* had the most MAGs with the majority of them belonging to the *BOG-1198* genus (Fig. 29,30). The order *Burkholderiales* had 6 families found at Toolik Field Station (Fig. 31).  The genera *Caballeronia*, *Herbaspirillum*, *Paraburkholderi*, and *Trinicki* were not found at Toolik (Fig. 18B, 31).
+
 
 # Discussion:
 

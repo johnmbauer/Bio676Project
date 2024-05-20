@@ -361,11 +361,15 @@ John_theme <-theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1, color="b
 
 # Abstract:
 
+&nbsp;&nbsp;&nbsp;&nbsp;As global temperatures rise due to industrial pollution; it is important to monitor the ecosystems humanity depends on for industrial and agriculture production to identify beneficial agents like nitrogen fixating bacteria, as well as harmful one like phytopathogens. The soil bacterium MAGs collected and annotated in GOLD Study ID Gs0161344 represent a poll of soil bacterium populations across the United States. This data can be used to track bacterial population changes across ecosystem subtypes and help identify bacteria with climate change resistant properties. The MAGs collected in this study are a treasure trove of genomic data and may help identify climate change resistant, biocontrol agents, and nitrogen fixating bacteria.
+
 # Introduction:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Carbon emissions from industrial activity has led to numerous changes to the global climate that threaten the ecosystems humanity depends on for industrial agriculture. Rising temperatures has caused the melting of glaciers and permafrost releasing bacterial species that have been dormant for millennium (source). Additionally, The higher green house gas atmospheric content has lead to the acidification of both ocean and ground water (source). The changing climate has also lead to species migration. With the recent passing of the 1.5 Celsius average global temperature milestone set by ORG, it is imperative that society adapt to our changing world. 
 
-&nbsp;&nbsp;&nbsp;&nbsp;In the face of climate and antibiotic challenges, plants have developed symbiotic relationships with bacteria. PLANT BACTERIA BIOCONTROL EX. PLANT NITROGEN RELATION. Thus, it has been proposed that humanity's crops could be better insulated to ecological changes by exploiting these relationships. While several beneficial bacterial species have identified, the vast majority of the bacterial kingdom remains sequenced. Additionally, with their ability to rapidly evolve in the face of ecological challenges, new species with more robust tolerances to climate change influences will only grow with time. Thus, soil bacterium represent a vast untapped resource of climate change resistant proteins, biocontrol agents, and nitrogen fixators. Data collection effort by organizations like the National Ecological Observatory Network, provide a valuable genomic resource for phylogenetic analyses to determine the identities potential beneficial bacteria as well as monitoring the population changes caused by a changing climate.
+&nbsp;
+
+&nbsp;&nbsp;&nbsp;&nbsp;In the face of climate and antibiotic challenges, plants have developed symbiotic relationships with bacteria. PLANT BACTERIA BIOCONTROL EX. PLANT NITROGEN RELATION. Thus, it has been proposed that humanity's crops could be better insulated to ecological changes by exploiting these relationships. While several beneficial bacterial species have identified, the vast majority of the bacterial kingdom remains sequenced. Additionally, with their ability to rapidly evolve in the face of ecological challenges, new species with more robust tolerances to climate change influences will only grow with time. Thus, soil bacterium represent a vast untapped resource of climate change resistant proteins, biocontrol agents, and nitrogen fixators. Data collection effort by organizations like the National Ecological Observatory Network, provide a valuable genomic resource for phylogenetic analyses to determine the identities of potential beneficial bacteria as well as monitoring the population changes caused by a changing climate.
 
 &nbsp;
 
@@ -668,7 +672,7 @@ NEON_MAGs_metagenomes_chemistry_TOOL %>%
 ### Figure 22:
 ```{r, fig.align='center', echo=FALSE,message=FALSE,warning=FALSE}
 NEON_MAGs_metagenomes_chemistry %>%
-     ggplot(aes(y=`soilTemp`,x=`Site ID.x`, color=`Site ID.x`), size=1)+geom_point(show.legend = FALSE)+scale_y_continuous(limits=c(0,50),breaks = c(10,20,30,40,50)) +labs(title="A", y="Soil Temperature (Celcius)", x="Site ID")+theme_classic()+theme(title=element_text(size=15),axis.title=element_text(size = 15),axis.text.y=element_text(color="black"), axis.text.x=element_text(color="black", angle=45, vjust=1, hjust=1))+
+     ggplot(aes(y=`soilTemp`,x=`Site ID.x`, color=`Site ID.x`), size=1)+geom_point(show.legend = FALSE)+scale_y_continuous(limits=c(0,50),breaks = c(10,20,30,40,50)) +labs(title="A", y="Soil Temperature (Celsius)", x="Site ID")+theme_classic()+theme(title=element_text(size=15),axis.title=element_text(size = 15),axis.text.y=element_text(color="black"), axis.text.x=element_text(color="black", angle=45, vjust=1, hjust=1))+
      ggplot(data=NEON_MAGs_metagenomes_chemistry,aes(y=`soilInWaterpH`,x=`Site ID.x`, color=`Site ID.x`), size=1)+geom_point(show.legend = FALSE)+scale_y_continuous(limits=c(0,14),breaks=c(1:14)) +labs(title="B", y="Soil pH", x="Site ID")+theme_classic()+theme(title=element_text(size=15),axis.title=element_text(size = 15),axis.text.y=element_text(color="black"), axis.text.x=element_text(color="black", angle=45, vjust=1, hjust=1))
 ```
 **Figure 22:** **Toolik Field Station has some of the lowest sample temperatures but average sample pHs compared to other NEON sites.** A) Scatterplot of sample soil temperatures at each NEON site. B) Scatterplot of sample soil pHs in water at each NEON site. Points colored by Site ID. All samples from GOLD Study ID Gs0161344.
@@ -678,7 +682,7 @@ NEON_MAGs_metagenomes_chemistry %>%
 ### Figure 23:
 ```{r, fig.width=12, fig.height=6, fig.align='center'}
 NEON_MAGs_metagenomes_chemistry_Alaska %>%
-     ggplot(aes(x=`Phylum`,y=`soilTemp`, color=`Phylum`), size=1)+geom_point(show.legend=FALSE)+facet_wrap(vars(Site.x), scales="free_y", ncol=3)+scale_y_continuous(limits=c(0,10)) +labs(y="Soil Temperature (Celcius)", x="Phylum")+theme_classic()+John_theme+theme(strip.text = element_text(size=13))
+     ggplot(aes(x=`Phylum`,y=`soilTemp`, color=`Phylum`), size=1)+geom_point(show.legend=FALSE)+facet_wrap(vars(Site.x), scales="free_y", ncol=3)+scale_y_continuous(limits=c(0,10)) +labs(y="Soil Temperature (Celsius)", x="Phylum")+theme_classic()+John_theme+theme(strip.text = element_text(size=13))
 ```
 **Figure 23:** **Similar soil temperature and phyla found at Alaskan NEON Sites** Scatter plot of sample temperature in Celsius vs phyla at Alaskan NEON sites in GOLD Study ID Gs0161344. Left Panel: Caribou Creek Watershed, Alaska USA. Middle Panel: Healy, Denali National Park, Alaska USA. Right Panel: Toolik Field Station, Alaska USA. Points are colored by Phylum.
 
@@ -735,7 +739,6 @@ ggtree(tree_bac_TOOL_MAGs)  %<+%
   geom_facet(panel = "% GC Content ", data = NEON_MAGs_metagenomes_chemistry_TOOL_noblank, geom = geom_col, 
                 aes(x = GCassembled,fill=Phyla), orientation = 'y', width = .6, show.legend=FALSE) +
   theme_tree2(legend.position=c(.1, .7),strip.text=element_text(size=15),axis.text=element_text(color = 'black'))
-
 ```
 **Figure 28:** **Genome content of bacteria found at Toolik Field Station.** Left Panel: Phylogenetic tree of all MAGs found at Toolik Field Station, Alaska USA with markers for MAG phylum. Middle Panel: Gene Count of all Mags found at Toolik Field Station, Alaska USA. Points colored by MAG phylum. Right Panel: % GC Content of all MAGs found at Toolik Field Station, Alaska USA. Bar colored by MAG phylum. All samples from in GOLD Study ID Gs0161344.
 
@@ -779,18 +782,29 @@ NEON_MAGs_metagenomes_chemistry_TOOL_Burkholderiales  %>%
 
 
 # Discussion:
-## Overall GOLD Study
+## GOLD Study Overall
+
+&nbsp;&nbsp;&nbsp;&nbsp;The MAG data collected and annotated in GOLD Study ID Gs0161344 represents a treasure trove of environmental and genomic information that can help researchers track climate and bacterial population changes across the United States. This study collected MAGs from 24 phyla and discovered over 300 novel species of bacteria. The major contributors of this data set, *Actinomycelota*, *Pseudomonadota*, and *Acidobacteriota*, were found at the majority of sample sites as the highest represented phyla (Fig, 5). This study also had great representation of the ecosystem subtypes and soil temperatures seen in the United States. Furthermore, National Grasslands LBJ site in Texas, appears to be a particular rich site for bacterial species. This dataset will provide a good baseline for tracking population changes due to changing climate changes and help identify beneficial bacterium for agricultural production. There may be a trend to more acidic, hotter soils with increased carbon emissions in the atmosphere.
 
 ## *Gammaproteobacteria*
 &nbsp;&nbsp;&nbsp;&nbsp;As expected for a class with 381 genera, *Gammaprotobacteria* were found in every ecosystem subtype sampled in this study. Members like those in the order *Steroidobacterales* were found at nearly every soil temperature and pH sampled, indicating this class’s diversity allows for members to survive in a variety of environments. 
+
 &nbsp;
+
 &nbsp;&nbsp;&nbsp;&nbsp;Given their wide distribution across environment types, members of the *Steroidobacterales* order warrant further investigation as potential bacterial sources of climate change resistant proteins. Despite their bog naming convention, *Steroidobacteraceae BOG-1198* had the largest representation in this order across multiple ecosystem subtypes, indicating this genus may contain members particularly adept at surviving a variety of environmental challenges. Additionally, the order’s underrepresentation in tropical forest and desert ecosystems is quite curious. These ecosystem subtypes are quite ecologically different from each other, but their unifying higher soil temperatures do not seem to be an issue for *Steroidobacterales* members at other NEON sites. Given that the tropical forest ecosystem is only found at the Puerto Rico NEON site, the absence of *Steroidobacterales* at that location may be related to its geographic isolation as an island. 
+
 &nbsp;
+
 &nbsp;&nbsp;&nbsp;&nbsp;Several notable genera in *Burkholderiales* relevant to bacterial biocontrol were found in this study, *Caballeronia*, *Paraburkholderia*, *Trinickia*. The genera *Caballeronia* and *Paraburkhoderia* have been reported to contain nitrogen fixating bacteria that may be useful for improving crop yields (SOURCE). Agricultural nitrogen sources usually come in the form of chemical fertilizer that can be washed into the local watershed by precipitation. Bacteria like those in the *Caballeronia* and *Paraburkholderia* genera, are being investigated for the possibility of increasing crop nitrogen resources through the augmentation of traditional fertilizing methods with their introduction to crop rhizospheres.  However, these two genera were found in Caribou Creek Alaska and Yellowstone, Wyoming. Temperatures at these locations range from temperate to cold. While this study’s *Caballeronia* and *Paraburkholderia* MAGs may contain species useful for nitrogen fixation, they may also be vulnerable to increases soil temperature caused by climate change. The genera *Trinickia* has been reported to contain both plant growth promoting and pathogenic bacteria species (SOURCE). More investigation into the *Trinickia* population at Wind River, Washington in needed to determine if this study’s MAGs are potentially agriculturally beneficial. 
 
 
 
 ## Toolik Field Station 
+&nbsp;&nbsp;&nbsp;&nbsp;MAGs collected at Toolik Field Station in this study largely did not differ phylogenetically from those collected at the other Alaskan sites.  All three sites had similar soil temperatures and pH but differed in vegetation classes. This difference may have contributed to the higher overall MAG totals at Toolik. Those MAGs were dominated by those from the *Actinomycelota* and *Pseudomonadota* phyla. Notably, Toolik differed from the other Alaskan sites with a large population of *Acidobacteriota* MAGs (Fig. 27). Interesting, the **Acidobacteriota* * MAGs found at Toolik had a fairly tight distribution of total genes and genome size, especially compared to *Actinomycelota* and *Pseudomonadota* (Fig. 27,28). This may indicate that this phylum’s genome is more conserved at Toolik than the other two dominate phyla. More sampling of bacteria from similar ecosystems in outside the United States may help prove if the phylogenetic distribution seen at Alaskan sites can be attributed to ecosystem subtype or geographic latitudinal differences.  
+
+&nbsp;
+
+&nbsp;&nbsp;&nbsp;&nbsp;Disappointingly, no genera known for their biocontrol properties were found at Toolik Field Station. However, as temperatures and climates fluctuate with rising global temperatures it will be interesting to see if the *Caballeronia*, *Paraburkholderia*, and *Trinickia* genera found in Caribou Creek Alaska, Yellowstone, Wyoming, and Wind River, Washington begin to appear in the thawing permafrost at Toolik. Given the genus *Steroidobacteraceae BOG-1198*’s ability to survive in more temperate climates, it would not be surprising if its representation at Toolik increased in future studies.  
 
 # Code
 ## Lab 8
@@ -2340,21 +2354,21 @@ NEON_MAGs_metagenomes_chemistry_TOOL_Burkholderiales  %>%
 <!-- #### Gammaproteobacteria Sample Soil Temperature vs pH in Water Colored by nlcdclass -not saved -->
 <!-- ```{r} -->
 <!-- NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria%>% -->
-<!--      ggplot(aes(y=`soilTemp`,x=`soilInWaterpH`, color=`Ecosystem Subtype`))+geom_point()+ylim(0,50)+scale_x_continuous(limits=c(0,14),breaks=rep(0:14))+labs(title="Gammaproteobacteria Sample Soil Temperature vs pH in Water", y="Soil Temperature (Celcius)", x="Soil pH in Water",color="Ecosystem Subtype")+theme_classic() -->
+<!--      ggplot(aes(y=`soilTemp`,x=`soilInWaterpH`, color=`Ecosystem Subtype`))+geom_point()+ylim(0,50)+scale_x_continuous(limits=c(0,14),breaks=rep(0:14))+labs(title="Gammaproteobacteria Sample Soil Temperature vs pH in Water", y="Soil Temperature (Celsius)", x="Soil pH in Water",color="Ecosystem Subtype")+theme_classic() -->
 
 <!-- ``` -->
 
 <!-- #### Gammaproteobacteria Sample Soil Temperature vs pH in Water Colored by Geolocation -not saved -->
 <!-- ```{r} -->
 <!-- NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria%>% -->
-<!--      ggplot(aes(y=`soilTemp`,x=`soilInWaterpH`, color=`Geographic Location`))+geom_point()+ylim(0,50)+scale_x_continuous(limits=c(0,14),breaks=rep(0:14))+labs(title="Gammaproteobacteria Sample Soil Temperature vs pH in Water", y="Soil Temperature (Celcius)", x="Soil pH in Water")+theme_classic() -->
+<!--      ggplot(aes(y=`soilTemp`,x=`soilInWaterpH`, color=`Geographic Location`))+geom_point()+ylim(0,50)+scale_x_continuous(limits=c(0,14),breaks=rep(0:14))+labs(title="Gammaproteobacteria Sample Soil Temperature vs pH in Water", y="Soil Temperature (Celsius)", x="Soil pH in Water")+theme_classic() -->
 
 <!-- ``` -->
 
 <!-- #### Gammaproteobacteria Sample Soil Temperature vs pH in Water -->
 <!-- ```{r} -->
 <!-- NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria%>% -->
-<!--      ggplot(aes(y=`soilTemp`,x=`soilInWaterpH`, color=Order))+geom_point()+ylim(0,50)+scale_x_continuous(limits=c(0,14),breaks=rep(0:14))+labs(title="Gammaproteobacteria Sample Soil Temperature vs pH in Water", y="Soil Temperature (Celcius)", x="Soil pH in Water")+theme_classic() -->
+<!--      ggplot(aes(y=`soilTemp`,x=`soilInWaterpH`, color=Order))+geom_point()+ylim(0,50)+scale_x_continuous(limits=c(0,14),breaks=rep(0:14))+labs(title="Gammaproteobacteria Sample Soil Temperature vs pH in Water", y="Soil Temperature (Celsius)", x="Soil pH in Water")+theme_classic() -->
 
 <!-- ``` -->
 

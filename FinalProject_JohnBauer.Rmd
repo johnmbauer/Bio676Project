@@ -3047,62 +3047,58 @@ NEON_MAGs_metagenomes_chemistry_TOOL_Burkholderiales  %>%
 <!--        ) -->
 <!-- ``` -->
 
-# Supplemental Figures:
+# Supplemental Figures and tables:
 
-## Supplemental Figure 1: NEON Site vs Vegetation subclass
+## Tables
+
+### Supplemental Table 1: NEON MAGs with Metagenomic and Environmental Data:
+```{r}
+datatable(NEON_MAGs_metagenomes_chemistry)
+```
+
+### Supplemental Table 2: *Gammaproteobacteria* NEON MAGs with Metagenomic and Environmental Data:
+```{r}
+datatable(NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria)
+```
+
+### Supplemental Table 3: Toolik Field Station NEON MAGs with Metagenomic and Environmental Data:
+```{r}
+datatable(NEON_MAGs_metagenomes_chemistry_TOOL)
+```
+
+## Figures
+
+### Supplemental Figure 1: NEON Site vs Vegetation subclass
 ```{r}
 NEON_MAGs_metagenomes_chemistry %>%
   ggplot(aes(y=`Site.x`, x=nlcdClass))+geom_point()+labs(title="NEON Site Vegetation Classes", y="Site", x="Vegetation Class")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
 ```
 
 
-## Supplemental Figure 2: NEON Site vs Ecosystem subclass
+### Supplemental Figure 2: NEON Site vs Ecosystem subclass
 ```{r}
 NEON_MAGs_metagenomes_chemistry %>%
   ggplot(aes(y=`Site.x`, x=`Ecosystem Subtype`))+geom_point()+labs(title="NEON Site Ecosystem Subtypes", y="Site", x="Ecosystem Subtype")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
 ```
 
 
-## Supplemental Figure 3: NEON SITE vs Site ID
+### Supplemental Figure 3: NEON SITE vs Site ID
 ```{r}
 NEON_MAGs_metagenomes_chemistry %>%
   ggplot(aes(x=`Site ID.x`,y=Site.x))+geom_point()+labs("NEON Site IDs", y="Site",x="Site ID")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
 ```
 
 
-## Supplemental Figure 4: Sankey plot of all NEON Combined assembly MAGs
+### Supplemental Figure 4: Sankey plot of all NEON Combined assembly MAGs
 ```{r,fig.height=20, fig.width=8,fig.align='center'}
 knitr::include_url("data/lab14/sankey-NEON_MAG_co_pavian.txt.html")
 ```
 **Supplemental Figure 4:** Sankey plot of all NEON combined assembly MAGs
 
-## Supplemental Figure 5: Sankey plot of all NEON combined assembly *Gammmaproteobacteria* MAGs
+### Supplemental Figure 5: Sankey plot of all NEON combined assembly *Gammmaproteobacteria* MAGs
 ```{r,fig.height=20, fig.width=8,fig.align='center'}
 knitr::include_url("data/lab14/sankey-NEON_MAG_co_Gpro(1).html")
 ```
-**Supplemental Figure 5:** Sankey plot of all NEON combined assembly *Gammmaproteobacteria* MAGs
-
-## Figure 5:hylogenetic tree of all MAGs belonging to the class *Gammaproteobacteria* with Site location
-```{r, , fig.height=12, fig.width=12, fig.align='center'}
-ggtree(tree_Gammaproteobacteria)  %<+%
-  NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria + 
-  geom_tippoint(aes(color=`Order`)) + 
-
-# For unknown reasons the following does not like blank spaces in the names
-  geom_facet(panel = "Gene Count", data = NEON_MAGs_metagenomes_chemistry_Gamma_noblank, geom = geom_point, 
-      mapping=aes(x = GeneCount, color=Orders))+
-  geom_facet(panel = "% GC Content ", data = NEON_MAGs_metagenomes_chemistry_Gamma_noblank, geom = geom_col, 
-                aes(x = GCassembled,fill=Orders), orientation = 'y', width = .6, show.legend=FALSE) +
-  theme_tree2(legend.position=c(.1, .7))
-
-ggtree(tree_Gammaproteobacteria)  %<+%
-  NEON_MAGs_metagenomes_chemistry + 
- xlim(0,20)+
-  geom_point(mapping=aes(color=`Site.x`))
-
-```
-
-**Figure 5:** Phylogenetic tree of all MAGs belonging to the class *Gammaproteobacteria* with Gene count and %GC Content. 
 
 # References:
 

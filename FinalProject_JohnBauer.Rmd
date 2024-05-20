@@ -779,13 +779,18 @@ NEON_MAGs_metagenomes_chemistry_TOOL_Burkholderiales  %>%
 
 
 # Discussion:
+## Overall GOLD Study
+
+## *Gammaproteobacteria*
+&nbsp;&nbsp;&nbsp;&nbsp;As expected for a class with 381 genera, *Gammaprotobacteria* were found in every ecosystem subtype sampled in this study. Members like those in the order *Steroidobacterales* were found at nearly every soil temperature and pH sampled, indicating this class’s diversity allows for members to survive in a variety of environments. 
+&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;Given their wide distribution across environment types, members of the *Steroidobacterales* order warrant further investigation as potential bacterial sources of climate change resistant proteins. Despite their bog naming convention, *Steroidobacteraceae BOG-1198* had the largest representation in this order across multiple ecosystem subtypes, indicating this genus may contain members particularly adept at surviving a variety of environmental challenges. Additionally, the order’s underrepresentation in tropical forest and desert ecosystems is quite curious. These ecosystem subtypes are quite ecologically different from each other, but their unifying higher soil temperatures do not seem to be an issue for *Steroidobacterales* members at other NEON sites. Given that the tropical forest ecosystem is only found at the Puerto Rico NEON site, the absence of *Steroidobacterales* at that location may be related to its geographic isolation as an island. 
+&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;Several notable genera in *Burkholderiales* relevant to bacterial biocontrol were found in this study, *Caballeronia*, *Paraburkholderia*, *Trinickia*. The genera *Caballeronia* and *Paraburkhoderia* have been reported to contain nitrogen fixating bacteria that may be useful for improving crop yields (SOURCE). Agricultural nitrogen sources usually come in the form of chemical fertilizer that can be washed into the local watershed by precipitation. Bacteria like those in the *Caballeronia* and *Paraburkholderia* genera, are being investigated for the possibility of increasing crop nitrogen resources through the augmentation of traditional fertilizing methods with their introduction to crop rhizospheres.  However, these two genera were found in Caribou Creek Alaska and Yellowstone, Wyoming. Temperatures at these locations range from temperate to cold. While this study’s *Caballeronia* and *Paraburkholderia* MAGs may contain species useful for nitrogen fixation, they may also be vulnerable to increases soil temperature caused by climate change. The genera *Trinickia* has been reported to contain both plant growth promoting and pathogenic bacteria species (SOURCE). More investigation into the *Trinickia* population at Wind River, Washington in needed to determine if this study’s MAGs are potentially agriculturally beneficial. 
 
 
-## *Gammaproteobacteria* Samples
-&nbsp;&nbsp;&nbsp;&nbsp;Several notable genera in *Burkholderiales* were found in this study, Caballeronia, paraburkholderia (known nitrogen fixators and endosymbotes), trinickia Novel associated with phytopathogen from journal club
 
-
-## Toolik Field Station Samples
+## Toolik Field Station 
 
 # Code
 ## Lab 8

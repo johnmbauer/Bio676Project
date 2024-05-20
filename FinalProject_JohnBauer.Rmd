@@ -2030,6 +2030,7 @@ ggtree(tree_Gammaproteobacteria, layout="circular") +
 ```
 
 ## Lab 16
+
 ```{r}
 library(tidyverse)
 library(knitr)
@@ -2163,18 +2164,420 @@ match(grep("Pseudomonadota", node_vector_bac_TOOL_MAGS, value = TRUE), node_vect
 ```
 Trees
 
- Gammmaproteobacteria Rectangular Tree
+Gammmaproteobacteria Rectangular Tree
 ```{r, fig.height=12, fig.width=12}
 ggtree(tree_Gammaproteobacteria) +
   geom_tiplab(size=3) +
   xlim(0,20)
 
+```
 
+Gammaproteobacteria Circular Tree
+```{r, fig.height=12, fig.width=12}
+ggtree(tree_Gammaproteobacteria, layout="circular") + 
+  geom_tiplab(aes(angle=angle))+
+    theme_tree() +
+    xlim(0,20)
 
+```
+NEON MAGS Gammaproteobacteria Highlight Circular Tree
+```{r, fig.height=12, fig.width=12}
+ggtree(tree_bac, layout="circular") +
+    geom_hilight(node=3048, fill="steelblue", alpha=.6)
 
 ```
 
+
+NEON MAGS Gammaproteobacteria Highlight with Label Circular Tree
+```{r, fig.height=14, fig.width=12}
+ggtree(tree_bac, layout="circular", branch.length="none") +
+    geom_hilight(node=3047, fill="grey", alpha=.6) +
+    geom_cladelab(node=3047, label="Pseudomonadota", align=TRUE, angle='auto', 
+                  offset.text=0.5 , textcolor='black', barcolor='grey',barsize=1.5, fontsize=5)+
+    geom_hilight(node=3048, fill="steelblue", alpha=.6) +
+    geom_cladelab(node=3048, label="Gammaproteobacteria", align=TRUE, angle='auto', offset=1,  
+                  offset.text=0.5 , textcolor='black', barcolor='steelblue',barsize=1.5, fontsize=5)
+
+```
+NEON MAGS Gammaproteobacteria Label Circular Tree
+```{r, fig.height=12, fig.width=12}
+ggtree(tree_bac, layout="circular", branch.length="none") %>% 
+  collapse(node=3048) + 
+  geom_point2(aes(subset=(node==3048)), shape=23, size=5, fill='steelblue') +  
+  geom_cladelab(node=3048, label="Gammaproteobacteria", align=TRUE,  
+                  offset = 2, textcolor='steelblue')
+
+```
+
+NEON MAGS Gammaproteobacteria Minimized Circular Tree
+```{r, fig.height=12, fig.width=12}
+p <- ggtree(tree_bac, layout="circular", branch.length="none")
+scaleClade(p, 3048, .2) %>% collapse(3048, 'min', fill="steelblue")  +
+  geom_cladelab(node=3048, label="Gammaproteobacteria", align=TRUE,  
+                  offset = 0.2, textcolor='steelblue')
+
+```
+
+Gammaproteobacteria with Order Labels Circular Tree
+```{r, fig.height=12, fig.width=12}
+ggtree(tree_Gammaproteobacteria, layout="circular")  %<+%
+  NEON_MAGs_metagenomes_chemistry + 
+  geom_tiplab(size=2, hjust=-.1) +
+  xlim(0,20) +
+  geom_point(mapping=aes(color=Order))
+
+```
+
+Gammaproteobacteria with Order and Assembly Type Labels Circular Tree
+```{r, fig.height=12, fig.width=12}
+ggtree(tree_Gammaproteobacteria, layout="circular")  %<+%
+  NEON_MAGs_metagenomes_chemistry + 
+  geom_tiplab(size=2, hjust=-.1) +
+  xlim(0,20) +
+  geom_point(mapping=aes(color=Order, shape = `Assembly Type`)) 
+
+```
+
+Gammaproteobacteria with Ecosystem Subtype System Rectangular Tree
+```{r, fig.height=12, fig.width=12}
+ggtree(tree_Gammaproteobacteria)  %<+%
+  NEON_MAGs_metagenomes_chemistry + 
+  geom_tiplab(size=2, hjust=-.1) +
+  xlim(0,20) +
+  geom_point(mapping=aes(color=`Ecosystem Subtype`))
+
+```
+
+Gammaproteobacteria with Site Location Rectangular Tree
+```{r, fig.height=12, fig.width=12}
+ggtree(tree_Gammaproteobacteria)  %<+%
+  NEON_MAGs_metagenomes_chemistry + 
+  geom_tiplab(size=2, hjust=-.1) +
+  xlim(0,20) +
+  geom_point(mapping=aes(color=`Site.y`)) +labs(color="Site")
+
+```
+
+Gammaproteobacteria with Bin Completeness Label Rectangular Tree
+```{r, fig.height=12, fig.width=12}
+ggtree(tree_Gammaproteobacteria)  %<+%
+  NEON_MAGs_metagenomes_chemistry + 
+  geom_tippoint(aes(colour=`Bin Completeness`)) + 
+  scale_colour_gradient(low='blue', high='red') +
+  geom_tiplab(size=2, hjust=-.1) +
+  xlim(0,20)
+
+```
+Gammaproteobacteria with Ecosystem Subtype and Total number of Bases Label Circular Tree
+```{r, fig.height=12, fig.width=12}
+ggtree(tree_Gammaproteobacteria, layout="circular")  %<+%
+  NEON_MAGs_metagenomes_chemistry + 
+  geom_point2(mapping=aes(color=`Ecosystem Subtype`, size=`Total Number of Bases`))
+
+```
+
+Gammaproteobacteria triplot with Bin Completeness and Bin Contamination
+```{r, fig.height=12, fig.width=12}
+# For unknown reasons the following does not like blank spaces in the names
+NEON_MAGs_metagenomes_chemistry_noblank <- NEON_MAGs_metagenomes_chemistry %>% 
+  rename("AssemblyType" = "Assembly Type") %>% 
+  rename("BinCompleteness" = "Bin Completeness") %>% 
+  rename("BinContamination" = "Bin Contamination") %>% 
+  rename("TotalNumberofBases" = "Total Number of Bases") %>% 
+  rename("EcosystemSubtype" = "Ecosystem Subtype") %>%
+  rename("GeneCount" = "Gene Count") %>% 
+  rename("GCassembled" = "GC  * assembled")
+
+ggtree(tree_Gammaproteobacteria)  %<+%
+  NEON_MAGs_metagenomes_chemistry + 
+  geom_tippoint(aes(colour=`Ecosystem Subtype`)) + 
+
+# For unknown reasons the following does not like blank spaces in the names
+  geom_facet(panel = "Bin Completeness", data = NEON_MAGs_metagenomes_chemistry_noblank, geom = geom_point, 
+      mapping=aes(x = BinCompleteness)) +
+  geom_facet(panel = "Bin Contamination", data = NEON_MAGs_metagenomes_chemistry_noblank, geom = geom_col, 
+                aes(x = BinContamination), orientation = 'y', width = .6) +
+  theme_tree2(legend.position=c(.1, .7))
+
+```
+Gammaproteobacteria triplot with Gene and GC Content
+```{r, fig.height=12, fig.width=12}
+ggtree(tree_Gammaproteobacteria)  %<+%
+  NEON_MAGs_metagenomes_chemistry + 
+  geom_tippoint(aes(colour=`Ecosystem Subtype`)) + 
+
+# For unknown reasons the following does not like blank spaces in the names
+  geom_facet(panel = "Gene Count", data = NEON_MAGs_metagenomes_chemistry_noblank, geom = geom_point, 
+      mapping=aes(x = GeneCount))+
+  geom_facet(panel = "% GC Content ", data = NEON_MAGs_metagenomes_chemistry_noblank, geom = geom_col, 
+                aes(x = GCassembled), orientation = 'y', width = .6) +
+  theme_tree2(legend.position=c(.1, .7))
+
+```
+
+Gammaproteobacteria with Ecosystem Subtype and Total Number of Bases in Outside Labels
+```{r,fig.height=12,fig.width=12}
+ggtree(tree_Gammaproteobacteria, layout="circular", branch.length="none") %<+% 
+  NEON_MAGs_metagenomes_chemistry + 
+  geom_point2(mapping=aes(color=`Ecosystem Subtype`, size=`Total Number of Bases`)) + 
+  new_scale_fill() + 
+  geom_fruit(
+      data=NEON_MAGs_metagenomes_chemistry_noblank,
+      geom=geom_tile,
+      mapping=aes(y=label, x=1, fill= AssemblyType),
+      offset=0.08,   # The distance between external layers, default is 0.03 times of x range of tree.
+      pwidth=0.25 # width of the external layer, default is 0.2 times of x range of tree.
+      )
+
+```
+
+NEON with Ecosystem Subtype, Total Number of Bases, and Assembly type Outside Layer Label
+```{r, fig.height=12, fig.width=12}
+ggtree(tree_bac, layout="circular", branch.length="none") %<+% 
+  NEON_MAGs_metagenomes_chemistry + 
+  geom_point2(mapping=aes(color=`Ecosystem Subtype`, size=`Total Number of Bases`)) + 
+  new_scale_fill() + 
+  geom_fruit(
+      data=NEON_MAGs_metagenomes_chemistry_noblank,
+      geom=geom_tile,
+      mapping=aes(y=label, x=1, fill= AssemblyType),
+      offset=0.08,   # The distance between external layers, default is 0.03 times of x range of tree.
+      pwidth=0.25 # width of the external layer, default is 0.2 times of x range of tree.
+      ) + 
+  new_scale_fill() +
+  geom_fruit(
+          data=NEON_MAGs_metagenomes_chemistry_noblank,
+          geom=geom_col,
+          mapping=aes(y=label, x=TotalNumberofBases),  
+          pwidth=0.4,
+          axis.params=list(
+                          axis="x", # add axis text of the layer.
+                          text.angle=-45, # the text size of axis.
+                          hjust=0  # adjust the horizontal position of text of axis.
+                      ),
+          grid.params=list() # add the grid line of the external bar plot.
+      ) + 
+      theme(#legend.position=c(0.96, 0.5), # the position of legend.
+          legend.background=element_rect(fill=NA), # the background of legend.
+          legend.title=element_text(size=7), # the title size of legend.
+          legend.text=element_text(size=6), # the text size of legend.
+          legend.spacing.y = unit(0.02, "cm")  # the distance of legends (y orientation).
+      ) 
+```
+
+Gammaproteobacteria with Ecosystem Subtype, Total Number of Bases, and Assembly type Outside Layer Label
+```{r, fig.height=12, fig.width=12}
+ggtree(tree_Gammaproteobacteria, layout="circular", branch.length="none") %<+% 
+  NEON_MAGs_metagenomes_chemistry + 
+  geom_point2(mapping=aes(color=`Ecosystem Subtype`, size=`Total Number of Bases`)) + 
+  new_scale_fill() + 
+  geom_fruit(
+      data=NEON_MAGs_metagenomes_chemistry_noblank,
+      geom=geom_tile,
+      mapping=aes(y=label, x=1, fill= AssemblyType),
+      offset=0.08,   # The distance between external layers, default is 0.03 times of x range of tree.
+      pwidth=0.25 # width of the external layer, default is 0.2 times of x range of tree.
+      ) + 
+  new_scale_fill() +
+  geom_fruit(
+          data=NEON_MAGs_metagenomes_chemistry_noblank,
+          geom=geom_col,
+          mapping=aes(y=label, x=TotalNumberofBases),  
+          pwidth=0.4,
+          axis.params=list(
+                          axis="x", # add axis text of the layer.
+                          text.angle=-45, # the text size of axis.
+                          hjust=0  # adjust the horizontal position of text of axis.
+                      ),
+          grid.params=list() # add the grid line of the external bar plot.
+      ) + 
+      theme(#legend.position=c(0.96, 0.5), # the position of legend.
+          legend.background=element_rect(fill=NA), # the background of legend.
+          legend.title=element_text(size=7), # the title size of legend.
+          legend.text=element_text(size=6), # the text size of legend.
+          legend.spacing.y = unit(0.02, "cm")  # the distance of legends (y orientation).
+      ) 
+
+```
+
+Toolik Circular Tree
+```{r, fig.height=12, fig.width=12}
+ggtree(tree_bac_TOOL_MAGs, layout="circular")  %<+%
+  NEON_MAGs_metagenomes_chemistry +
+  geom_point(mapping=aes(color=Phylum))
+
+```
+
+
+Toolik Gammaproteobacteria Highlight Circular Tree
+```{r, fig.height=12, fig.width=12}
+ggtree(tree_bac_TOOL_MAGs, layout="circular") +
+    geom_hilight(node=259, fill="steelblue", alpha=.6)
+
+```
+
+Toolik Gammaproteobacteria Highlight with Label Circular Tree
+```{r, fig.height=14, fig.width=12}
+ggtree(tree_bac_TOOL_MAGs, layout="circular", branch.length="none") +
+    geom_hilight(node=258, fill="grey", alpha=.6) +
+    geom_cladelab(node=258, label="Pseudomonadota", align=TRUE, angle='auto', 
+                  offset.text=0.5 , textcolor='black', barcolor='grey',barsize=1.5, fontsize=5)+
+    geom_hilight(node=259, fill="steelblue", alpha=.6) +
+    geom_cladelab(node=259, label="Gammaproteobacteria", align=TRUE, angle='auto', offset=0.75,  
+                  offset.text=0.5 , textcolor='black', barcolor='steelblue',barsize=1.5, fontsize=5)
+
+```
+Toolik Gammaproteobacteria Label Circular Tree
+```{r, fig.height=12, fig.width=12}
+ggtree(tree_bac_TOOL_MAGs, layout="circular", branch.length="none") %>% 
+  collapse(node=259) + 
+  geom_point2(aes(subset=(node==259)), shape=23, size=5, fill='steelblue') +  
+  geom_cladelab(node=259, label="Gammaproteobacteria", align=TRUE,  
+                  offset = 2, textcolor='steelblue')
+
+```
+
+Toolik Gammaproteobacteria Minimized Circular Tree
+```{r, fig.height=12, fig.width=12}
+p <- ggtree(tree_bac_TOOL_MAGs, layout="circular", branch.length="none")
+scaleClade(p, 259, .2) %>% collapse(259, 'min', fill="steelblue")  +
+  geom_cladelab(node=259, label="Gammaproteobacteria", align=TRUE,  
+                  offset = 0.2, textcolor='steelblue')
+
+```
+
+Toolik MAGS with Order Labels Circular Tree
+```{r, fig.height=12, fig.width=12}
+ggtree(tree_bac_TOOL_MAGs, layout="circular")  %<+%
+  NEON_MAGs_metagenomes_chemistry + 
+  geom_tiplab(size=2, hjust=-.1) +
+  geom_point(mapping=aes(color=Order))
+
+```
+
+Toolik with Order and Assembly Type Labels Circular Tree
+```{r, fig.height=12, fig.width=12}
+ggtree(tree_bac_TOOL_MAGs, layout="circular")  %<+%
+  NEON_MAGs_metagenomes_chemistry + 
+  geom_tiplab(size=2, hjust=-.1) +
+  geom_point(mapping=aes(color=Order, shape = `Assembly Type`)) 
+
+```
+
+Toolik with Ecosystem Subtype System Rectangular Tree
+```{r, fig.height=12, fig.width=12}
+ggtree(tree_bac_TOOL_MAGs)  %<+%
+  NEON_MAGs_metagenomes_chemistry + 
+  geom_tiplab(size=2, hjust=-.1) +
+  geom_point(mapping=aes(color=`Ecosystem Subtype`))
+
+```
+
+Toolik with Bin Completeness Label Rectangular Tree
+```{r, fig.height=12, fig.width=12}
+ggtree(tree_bac_TOOL_MAGs)  %<+%
+  NEON_MAGs_metagenomes_chemistry + 
+  geom_tippoint(aes(colour=`Bin Completeness`)) + 
+  scale_colour_gradient(low='blue', high='red') +
+  geom_tiplab(size=2, hjust=-.1) 
+  
+```
+
+Toolik with Ecosystem Subtype and Total number of Bases Label Circular Tree
+```{r, fig.height=12, fig.width=12}
+ggtree(tree_bac_TOOL_MAGs, layout="circular")  %<+%
+  NEON_MAGs_metagenomes_chemistry + 
+  geom_point2(mapping=aes(color=`Ecosystem Subtype`, size=`Total Number of Bases`))
+
+```
+
+Toolik triplot with Bin Completeness and Bin Contamination
+```{r, fig.height=12, fig.width=12}
+ggtree(tree_bac_TOOL_MAGs)  %<+%
+  NEON_MAGs_metagenomes_chemistry + 
+  geom_tippoint(aes(colour=`Ecosystem Subtype`)) + 
+
+# For unknown reasons the following does not like blank spaces in the names
+  geom_facet(panel = "Bin Completeness", data = NEON_MAGs_metagenomes_chemistry_noblank, geom = geom_point, 
+      mapping=aes(x = BinCompleteness)) +
+  geom_facet(panel = "Bin Contamination", data = NEON_MAGs_metagenomes_chemistry_noblank, geom = geom_col, 
+                aes(x = BinContamination), orientation = 'y', width = .6) +
+  theme_tree2(legend.position=c(.1, .7))
+
+```
+
+Toolik triplot with Gene and GC Content
+```{r, fig.height=12, fig.width=12}
+ggtree(tree_bac_TOOL_MAGs)  %<+%
+  NEON_MAGs_metagenomes_chemistry + 
+  geom_tippoint(aes(colour=`Ecosystem Subtype`)) + 
+
+# For unknown reasons the following does not like blank spaces in the names
+  geom_facet(panel = "Gene Count", data = NEON_MAGs_metagenomes_chemistry_noblank, geom = geom_point, 
+      mapping=aes(x = GeneCount))+
+  geom_facet(panel = "% GC Content ", data = NEON_MAGs_metagenomes_chemistry_noblank, geom = geom_col, 
+                aes(x = GCassembled), orientation = 'y', width = .6) +
+  theme_tree2(legend.position=c(.1, .7))
+
+```
+
+Toolik with Ecosystem Subtype and Total Number of Bases in Outside Labels
+```{r,fig.height=12,fig.width=12}
+ggtree(tree_bac_TOOL_MAGs, layout="circular", branch.length="none") %<+% 
+  NEON_MAGs_metagenomes_chemistry + 
+  geom_point2(mapping=aes(color=`Ecosystem Subtype`, size=`Total Number of Bases`)) + 
+  new_scale_fill() + 
+  geom_fruit(
+      data=NEON_MAGs_metagenomes_chemistry_noblank,
+      geom=geom_tile,
+      mapping=aes(y=label, x=1, fill= AssemblyType),
+      offset=0.08,   # The distance between external layers, default is 0.03 times of x range of tree.
+      pwidth=0.25 # width of the external layer, default is 0.2 times of x range of tree.
+      )
+
+```
+
+NEON with Ecosystem Subtype, Total Number of Bases, and Assembly type Outside Layer Label
+```{r, fig.height=12, fig.width=12}
+ggtree(tree_bac_TOOL_MAGs, layout="circular", branch.length="none") %<+% 
+  NEON_MAGs_metagenomes_chemistry + 
+  geom_point2(mapping=aes(color=`Ecosystem Subtype`, size=`Total Number of Bases`)) + 
+  new_scale_fill() + 
+  geom_fruit(
+      data=NEON_MAGs_metagenomes_chemistry_noblank,
+      geom=geom_tile,
+      mapping=aes(y=label, x=1, fill= AssemblyType),
+      offset=0.08,   # The distance between external layers, default is 0.03 times of x range of tree.
+      pwidth=0.25 # width of the external layer, default is 0.2 times of x range of tree.
+      ) + 
+  new_scale_fill() +
+  geom_fruit(
+          data=NEON_MAGs_metagenomes_chemistry_noblank,
+          geom=geom_col,
+          mapping=aes(y=label, x=TotalNumberofBases),  
+          pwidth=0.4,
+          axis.params=list(
+                          axis="x", # add axis text of the layer.
+                          text.angle=-45, # the text size of axis.
+                          hjust=0  # adjust the horizontal position of text of axis.
+                      ),
+          grid.params=list() # add the grid line of the external bar plot.
+      ) + 
+      theme(#legend.position=c(0.96, 0.5), # the position of legend.
+          legend.background=element_rect(fill=NA), # the background of legend.
+          legend.title=element_text(size=7), # the title size of legend.
+          legend.text=element_text(size=6), # the text size of legend.
+          legend.spacing.y = unit(0.02, "cm")  # the distance of legends (y orientation).
+      ) 
+
+```
+
+
+
+
+
 ## Gammaproteobacteria Graphs
+
 Library
 ```{r}
 library(tidyverse)
@@ -2310,7 +2713,480 @@ datatable (NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria_Novel %>%
 
 ```
 
-##Toolik Graphs
+Find node labels
+```{r}
+
+# Make a vector with the internal node labels
+node_vector_bac = c(tree_bac$tip.label,tree_bac$node.label)
+
+# Search for Phylum
+phylumss <-NEON_MAGs_metagenomes_chemistry %>%
+            count(Phylum, sort=TRUE)
+n=1
+while (n!=29) {
+  grep(phylumss[n,1], node_vector_bac, value = TRUE)
+  phylumss[n,3] <-match(grep(phylumss[n,1], node_vector_bac, value = TRUE), node_vector_bac)[1]
+  n=n+1
+} 
+
+grep("Thermoproteota", node_vector_bac, value = TRUE)
+match(grep("Thermoproteota", node_vector_bac, value = TRUE), node_vector_bac)
+
+grep("Actinomycetota", node_vector_bac, value = TRUE)
+match(grep("Actinomycetota", node_vector_bac, value = TRUE), node_vector_bac)
+
+grep("Myxococcota", node_vector_bac, value = TRUE)
+match(grep("Myxococcota", node_vector_bac, value = TRUE), node_vector_bac)
+
+grep("Bacteroidota", node_vector_bac, value = TRUE)
+match(grep("Bacteroidota", node_vector_bac, value = TRUE), node_vector_bac)
+
+grep("Verrucomicrobiota", node_vector_bac, value = TRUE)
+match(grep("Verrucomicrobiota", node_vector_bac, value = TRUE), node_vector_bac)
+
+grep("Chloroflexota", node_vector_bac, value = TRUE)
+match(grep("Chloroflexota", node_vector_bac, value = TRUE), node_vector_bac)
+
+grep("Eremiobacterota", node_vector_bac, value = TRUE)
+match(grep("Eremiobacterota", node_vector_bac, value = TRUE), node_vector_bac)
+
+grep("Patescibacteria", node_vector_bac, value = TRUE)
+match(grep("Patescibacteria", node_vector_bac, value = TRUE), node_vector_bac)
+
+grep("Pseudomonadota", node_vector_bac, value = TRUE)
+match(grep("Pseudomonadota", node_vector_bac, value = TRUE), node_vector_bac)
+
+tree_bac_node_Gammaproteobacteria <- Preorder(tree_bac)
+tree_Gammaproteobacteria <- Subtree(tree_bac_node_Gammaproteobacteria, 3048)
+```
+
+
+Graphs
+
+Gammaproteobacteria distribution by order
+```{r,, fig.height=12, fig.width=12}
+NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria %>%
+  ggplot(aes(x=Family))+geom_bar(aes(fill=Family),position=position_dodge2(width=0.9, preserve="single"),show.legend=FALSE)+coord_flip()+facet_wrap(vars(Order), scales="free_y", ncol=4)+labs(title="Distribution of Gammaproteobacteria MAGs by Order", x="Family", y="n")+theme_classic()
+
+```
+
+
+
+Gene Count vs Genome Size
+```{r, fig.height=12, fig.width=12}
+NEON_MAGs_metagenomes_chemistry_Bacteria <-NEON_MAGs_metagenomes_chemistry %>%
+  filter(Domain=="Bacteria") %>% 
+  mutate(`Genome Size (Kbp)`=as.integer(`Total Number of Bases`/1000)) 
+ 
+datatable(NEON_MAGs_metagenomes_chemistry_Bacteria %>%
+            select(Phylum,Class,Order,Family, Genus,Species,`Gene Count`, `Genome Size (Kbp)`))
+           
+NEON_MAGs_metagenomes_chemistry_Bacteria %>%
+  ggplot(aes(x=`Phylum`,y=`Genome Size (Kbp)`,color=`Phylum`))+geom_boxplot(show.legend = FALSE)+scale_y_continuous(limits=c(0,15000), breaks=c(2500,5000,7500,10000,12500,15000))+theme_classic()+labs(title="Phyla Genome Size Distributions", x="Phyla", y="Genome Size (Kbp)")+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))+
+  ggplot(data=NEON_MAGs_metagenomes_chemistry_Bacteria, aes(x=`Gene Count`, y=`Genome Size (Kbp)`, color=`Phylum`))+geom_point()+labs(title="Gene Count vs Genome Size", x="Gene Count", y="")+scale_y_continuous(limits=c(0,15000), breaks=c(2500,5000,7500,10000,12500,15000))+scale_x_continuous(limits=c(0,15000), breaks=c(2500,5000,7500,10000,12500,15000))+theme_classic()
+  
+
+NEON_MAGs_metagenomes_chemistry_Bacteria <-NEON_MAGs_metagenomes_chemistry %>%
+  filter(Domain=="Bacteria") %>% 
+  mutate(`Genome Size (Kbp)`=as.integer(`Total Number of Bases`/1000)) 
+ 
+datatable(NEON_MAGs_metagenomes_chemistry_Bacteria %>%
+            select(Phylum,Class,Order,Family, Genus,Species,`Gene Count`, `Genome Size (Kbp)`))
+           
+NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria %>%
+  mutate(`Genome Size (Kbp)`=as.integer(`Total Number of Bases`/1000)) %>%
+  ggplot(aes(x=`Order`,y=`Genome Size (Kbp)`,color=`Order`))+geom_boxplot(show.legend = FALSE)+scale_y_continuous(limits=c(0,15000), breaks=c(2500,5000,7500,10000,12500,15000))+theme_classic()+labs(title="Gammaproteobacteria Genome Size Distributions", x="Order", y="Genome Size (Kbp)")+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+
+
+```
+
+
+
+Gammaproteobacteria Sample Soil Temperature vs pH in Water 
+```{r, fig.width=12, fig.height=12}
+NEON_MAGs_metagenomes_chemistry_Xanthomonadales <- NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria %>%
+  filter(str_detect(`Order`,"Xanthomonadales"))
+NEON_MAGs_metagenomes_chemistry_Burkholderiales <- NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria %>%
+  filter(str_detect(`Order`,"Burkholderiales"))
+NEON_MAGs_metagenomes_chemistry_Steroidobacterales <- NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria %>%
+  filter(str_detect(`Order`,"Steroidobacterales"))
+
+NEON_MAGs_metagenomes_chemistry_Topthree <- NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria %>%
+  filter(str_detect(`Order`,"Steroidobacterales") | str_detect(`Order`,"Burkholderiales") | str_detect(`Order`,"Xanthomonadales"))
+
+NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria %>%
+     ggplot(aes(y=`soilTemp`,x=`Family`, color=`Order`), size=1)+geom_point(show.legend=FALSE)+scale_y_continuous(limits=c(0,50)) +labs(title="Soil Temperature", y="Soil Temperature", x="Family")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))+
+  
+  ggplot(data=NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria,aes(y=`soilInWaterpH`,x=`Family`, color=`Order`))+geom_point()+scale_y_continuous(limits=c(0,14),breaks =rep(0:14) )+labs(title="Soil pH in Water", y="pH", x="Family")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))+
+  
+  ggplot(data=NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria,aes(y=`nlcdClass`,x=`Family`, color=`Order`))+geom_point(show.legend=FALSE)+labs(title="Vegetation Class", y="Vegetation Class", x="Family")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))+
+  
+  ggplot(data=NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria,aes(y=`Ecosystem Subtype`,x=`Family`, color=`Order`,))+geom_point()+labs(title="Ecosystem Subtype", y="Ecosystem Subtype", x="Family")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+
+# NEON_MAGs_metagenomes_chemistry_Topthree %>%
+#      ggplot(aes(y=`soilInWaterpH`,x=`Family`, color=`Order`, shape=`Order`))+geom_point()+labs(title="pH of Samples in Top Three Gammaproteobacteria Orders", y="Soil pH in Water", x="Family")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+# 
+# NEON_MAGs_metagenomes_chemistry_Topthree %>%
+#      ggplot(aes(y=`nlcdClass`,x=`Family`, color=`Order`, shape=`Order`))+geom_point()+labs(title="Vegetation Class of Samples in Top Three Gammaproteobacteria Orders", y="Vegetation Class", x="Family")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+# 
+# NEON_MAGs_metagenomes_chemistry_Topthree %>%
+#      ggplot(aes(y=`Ecosystem Subtype`,x=`Family`, color=`Order`, shape=`Order`))+geom_point()+labs(title="Ecosystem Subtype of Samples in Top Three Gammaproteobacteria Orders", y="Ecosystem Subtype", x="Family")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+
+```
+
+
+Gammaproteobacteria Bin Contamination  vs Bin Completeness-commented out
+```{r, fig.width=12, fig.height=12}
+# NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria %>%
+#    -   ggplot(aes(y=`Bin Contamination`,x=`Bin Completeness`, color=`Bin Quality`))+geom_point(shape=18)+labs(title="Gammaproteobacteria Sample Bin Completeness vs Bin Contamination", y="Bin Contamination", x="Bin Completeness")+theme_classic()
+
+```
+
+Gammaproteobacteria Bin Contamination  vs Bin Completeness compared to Total population
+```{r, fig.width=12, fig.height=12}
+NEON_MAGs_metagenomes_chemistry %>%
+     ggplot(aes(y=`Bin Contamination`,x=`Bin Completeness`, color=`Bin Quality`))+geom_point(shape=20)+geom_point(data=NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria, aes(y=`Bin Contamination`,x=`Bin Completeness`), shape=18, size=5)+labs(title="Gammaproteobacteria Sample Bin Completeness vs Bin Contamination", y="Bin Contamination", x="Bin Completeness")+theme_classic()
+
+```
+
+NEON MAGS Ecosystem Subtype vs Geographic Location
+```{r, fig.height=5, fig.width=7.5}
+NEON_MAGs_metagenomes_chemistry %>%
+     ggplot(aes(x=`Ecosystem Subtype`,y=`Geographic Location`))+geom_point()+labs(title="NEON MAGs Ecosystem Subtype vs Geographic Location", y="Geographic Location", x="Ecosystem Subtype" )+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+
+```
+
+Gammaproteobacteria Sample Ecosystem Subtype vs family Colored by order
+```{r}
+NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria %>%
+     ggplot(aes(x=`Ecosystem Subtype`,y=`Family`, color=Order))+geom_point()+labs(title="Gammaproteobacteria Ecosystem Subtype vs Family", y="Family", x="Ecosystem Subtype", color="Order") +theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+
+```
+
+Gammaproteobacteria Sample Soil Temperature vs pH in Water Colored by nlcdclass -not saved
+```{r}
+NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria%>%
+     ggplot(aes(y=`soilTemp`,x=`soilInWaterpH`, color=`Ecosystem Subtype`))+geom_point()+ylim(0,50)+scale_x_continuous(limits=c(0,14),breaks=rep(0:14))+labs(title="Gammaproteobacteria Sample Soil Temperature vs pH in Water", y="Soil Temperature (Celcius)", x="Soil pH in Water",color="Ecosystem Subtype")+theme_classic()
+
+```
+
+Gammaproteobacteria Sample Soil Temperature vs pH in Water Colored by Geolocation -not saved
+```{r}
+NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria%>%
+     ggplot(aes(y=`soilTemp`,x=`soilInWaterpH`, color=`Geographic Location`))+geom_point()+ylim(0,50)+scale_x_continuous(limits=c(0,14),breaks=rep(0:14))+labs(title="Gammaproteobacteria Sample Soil Temperature vs pH in Water", y="Soil Temperature (Celcius)", x="Soil pH in Water")+theme_classic()
+
+```
+
+Gammaproteobacteria Sample Soil Temperature vs pH in Water
+```{r}
+NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria%>%
+     ggplot(aes(y=`soilTemp`,x=`soilInWaterpH`, color=Order))+geom_point()+ylim(0,50)+scale_x_continuous(limits=c(0,14),breaks=rep(0:14))+labs(title="Gammaproteobacteria Sample Soil Temperature vs pH in Water", y="Soil Temperature (Celcius)", x="Soil pH in Water")+theme_classic()
+
+```
+
+Gammaproteobacteria Sample Elevation vs Family 
+```{r, fig.width=12, fig.height=12}
+NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria %>%
+     ggplot(aes(y=as.integer(`Elevation In Meters`),x=`Family`, color=Order))+geom_point()+labs(title="Gammaproteobacteria Sample Elevation vs Family", y="Elevation (m)", x="Family")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+
+```
+
+Gammaproteobacteria Sample Longitude vs Family
+```{r, fig.width=12, fig.height=12}
+NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria %>%
+     ggplot(aes(y=`Longitude`,x=`Family`, color=Order))+geom_point()+labs(title="Gammaproteobacteria Sample Longitude vs Family", y="Longitude", x="Family",x.offset=2)+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+
+```
+
+Gammaproteobacteria Sample Lattitude vs Family
+```{r, fig.width=12, fig.height=12}
+NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria %>%
+     ggplot(aes(y=`Latitude`,x=`Family`, color=Order))+geom_point()+labs(title="Gammaproteobacteria Sample Latitude vs Family", y="Lattitude", x="Family",x.offset=2)+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+
+```
+
+Trees
+
+Gammaproteo Find node
+```{r}
+datatable(NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria %>%
+            count(Phylum, sort=TRUE))
+# Make a vector with the internal node labels
+node_vector_bac_gamma = c(tree_Gammaproteobacteria$tip.label,tree_Gammaproteobacteria$node.label)
+
+
+```
+
+NEON_MAGS with highlights for each phylum
+```{r, fig.height=14, fig.width=12}
+plottttttt <-ggtree(tree_bac_node_Gammaproteobacteria, layout="circular", branch.length="none")
+n=1
+while (n!=29) {
+  if (is.na(phylumss[n,3])) {
+    
+  } else {
+  plottttttt <-plottttttt + geom_cladelab(node=as.integer(phylumss[n,3]), label=as.character(phylumss[n,1]), align=TRUE, angle='auto', offset.text=1 , textcolor='black', ,barsize=1.5, fontsize=5)
+  }
+  n=n+1
+} 
+plottttttt
+
+
+```
+
+
+
+Gammmaproteobacteria Rectangular Tree -Commented out
+```{r, fig.height=12, fig.width=12}
+ggtree(tree_Gammaproteobacteria) + 
+  geom_tiplab(size=3) +
+  xlim(0,20)
+
+
+```
+
+Gammaproteobacteria Circular Tree -commented out
+```{r, fig.height=12, fig.width=12}
+ggtree(tree_Gammaproteobacteria, layout="circular")+geom_point2(aes(subset=(node==159)), shape=23, size=5, fill='steelblue')
+   
+  
+
+grep("3300060645_73", node_vector_bac, value = TRUE)
+match(grep("3300060645_73", node_vector_bac, value = TRUE), node_vector_bac)
+```
+
+NEON MAGS Gammaproteobacteria Highlight Circular Tree
+```{r, fig.height=12, fig.width=12}
+ggtree(tree_bac, layout="circular") +
+    geom_hilight(node=3048, fill="steelblue", alpha=.6)
+
+
+```
+
+NEON MAGS Gammaproteobacteria Highlight with Label Circular Tree
+```{r, fig.height=14, fig.width=12}
+ggtree(tree_bac, layout="circular", branch.length="none") +
+    geom_hilight(node=3047, fill="grey", alpha=.6) +
+    geom_cladelab(node=3047, label="Pseudomonadota", align=TRUE, angle='auto', 
+                  offset.text=0.5 , textcolor='black', barcolor='grey',barsize=1.5, fontsize=5)+
+    geom_hilight(node=3048, fill="steelblue", alpha=.6) +
+    geom_cladelab(node=3048, label="Gammaproteobacteria", align=TRUE, angle='auto', offset=1,  
+                  offset.text=0.5 , textcolor='black', barcolor='steelblue',barsize=1.5, fontsize=5)
+
+
+```
+
+NEON MAGS Gammaproteobacteria Label Circular Tree -commented out
+```{r, fig.height=12, fig.width=12}
+ggtree(tree_bac, layout="circular", branch.length="none") %>%
+  collapse(node=3048) +
+  geom_point2(aes(subset=(node==1444)), shape=23, size=5, fill='steelblue') +
+  geom_cladelab(node=1444, label="Gammaproteobacteria", align=TRUE,
+                  offset = 2, textcolor='steelblue')
+
+```
+
+NEON MAGS Gammaproteobacteria Minimized Circular Tree -commented out
+```{r, fig.height=12, fig.width=12}
+p <- ggtree(tree_bac, layout="circular", branch.length="none")
+scaleClade(p, 3048, .2) %>% collapse(3048, 'min', fill="steelblue")  +
+  geom_cladelab(node=3048, label="Gammaproteobacteria", align=TRUE,
+                  offset = 0.2, textcolor='steelblue')
+
+```
+
+Gammaproteobacteria with Order Labels Circular Tree
+```{r, fig.height=12, fig.width=12}
+ggtree(tree_Gammaproteobacteria, layout="circular")  %<+%
+  NEON_MAGs_metagenomes_chemistry + 
+  geom_tiplab(size=2, hjust=-.1) +
+  xlim(0,20) +
+  geom_point(mapping=aes(color=Order))
+
+```
+
+Gammaproteobacteria with Order and Assembly Type Labels Circular Tree --commented out
+```{r, fig.height=12, fig.width=12}
+# ggtree(tree_Gammaproteobacteria, layout="circular")  %<+%
+#   NEON_MAGs_metagenomes_chemistry + 
+#   geom_tiplab(size=2, hjust=-.1) +
+#   xlim(0,20) +
+#   geom_point(mapping=aes(color=Order, shape = `Assembly Type`)) 
+
+```
+
+Gammaproteobacteria with Ecosystem Subtype System Rectangular Tree
+```{r, fig.height=12, fig.width=12}
+ggtree(tree_Gammaproteobacteria)  %<+%
+  NEON_MAGs_metagenomes_chemistry + 
+  geom_tiplab(size=2, hjust=-.1) +
+  xlim(0,20) +
+  geom_point(mapping=aes(color=`Site.x`,shape=`Ecosystem Subtype`))
+
+
+```
+
+Gammaproteobacteria with Site Location Rectangular Tree --Commented out
+```{r, fig.height=12, fig.width=12}
+ggtree(tree_bac)  %<+%
+  NEON_MAGs_metagenomes_chemistry +
+  geom_tiplab(size=2, hjust=-.1) +
+  
+  geom_point(mapping=aes(color=`Site.y`)) +labs(color="Site")
+
+
+```
+
+Gammaproteobacteria with Bin Completeness Label Rectangular Tree -Commented out
+```{r, fig.height=12, fig.width=12}
+# ggtree(tree_Gammaproteobacteria)  %<+%
+#   NEON_MAGs_metagenomes_chemistry + 
+#   geom_tippoint(aes(colour=`Bin Completeness`)) + 
+#   scale_colour_gradient(low='blue', high='red') +
+#   geom_tiplab(size=2, hjust=-.1) +
+#   xlim(0,20)
+
+```
+
+Gammaproteobacteria with Ecosystem Subtype and Total number of Bases Label Circular Tree
+```{r, fig.height=12, fig.width=12}
+ggtree(tree_Gammaproteobacteria, layout="circular")  %<+%
+  NEON_MAGs_metagenomes_chemistry + 
+  geom_point2(mapping=aes(color=`Ecosystem Subtype`, size=`Total Number of Bases`))
+
+
+```
+
+Gammaproteobacteria triplot with Bin Completeness and Bin Contamination and Bin Quality
+```{r, fig.height=12, fig.width=12}
+# For unknown reasons the following does not like blank spaces in the names
+NEON_MAGs_metagenomes_chemistry_noblank <- NEON_MAGs_metagenomes_chemistry %>% 
+  rename("AssemblyType" = "Assembly Type") %>% 
+  rename("BinCompleteness" = "Bin Completeness") %>% 
+  rename("BinContamination" = "Bin Contamination") %>% 
+  rename("TotalNumberofBases" = "Total Number of Bases") %>% 
+  rename("EcosystemSubtype" = "Ecosystem Subtype") %>%
+  rename("GeneCount" = "Gene Count") %>% 
+  rename("GCassembled" = "GC  * assembled")
+
+ggtree(tree_Gammaproteobacteria)  %<+%
+  NEON_MAGs_metagenomes_chemistry + 
+  geom_tippoint(aes(colour=`Bin Quality`)) + 
+
+# For unknown reasons the following does not like blank spaces in the names
+  geom_facet(panel = "Bin Completeness", data = NEON_MAGs_metagenomes_chemistry_noblank, geom = geom_point, 
+      mapping=aes(x = BinCompleteness)) +
+  geom_facet(panel = "Bin Contamination", data = NEON_MAGs_metagenomes_chemistry_noblank, geom = geom_col, 
+                aes(x = BinContamination), orientation = 'y', width = .6) +
+  theme_tree2(legend.position=c(.1, .7))
+
+```
+
+Gammaproteobacteria triplot with Gene and GC Content
+```{r, fig.height=12, fig.width=12}
+ggtree(tree_Gammaproteobacteria)  %<+%
+  NEON_MAGs_metagenomes_chemistry + 
+  geom_tippoint(aes(colour=`Ecosystem Subtype`)) + 
+
+# For unknown reasons the following does not like blank spaces in the names
+  geom_facet(panel = "Gene Count", data = NEON_MAGs_metagenomes_chemistry_noblank, geom = geom_point, 
+      mapping=aes(x = GeneCount))+
+  geom_facet(panel = "% GC Content ", data = NEON_MAGs_metagenomes_chemistry_noblank, geom = geom_col, 
+                aes(x = GCassembled), orientation = 'y', width = .6) +
+  theme_tree2(legend.position=c(.1, .7))
+
+```
+
+Gammaproteobacteria with Ecosystem Subtype and Total Number of Bases in Outside Labels -Commented out
+```{r,fig.height=12,fig.width=12, message=FALSE}
+# ggtree(tree_Gammaproteobacteria, layout="circular", branch.length="none") %<+% 
+#   NEON_MAGs_metagenomes_chemistry + 
+#   geom_point2(mapping=aes(color=`Ecosystem Subtype`, size=`Total Number of Bases`)) + 
+#   new_scale_fill() + 
+#   geom_fruit(
+#       data=NEON_MAGs_metagenomes_chemistry_noblank,
+#       geom=geom_tile,
+#       mapping=aes(y=label, x=1, fill= AssemblyType),
+#       offset=0.08,   # The distance between external layers, default is 0.03 times of x range of tree.
+#       pwidth=0.25 # width of the external layer, default is 0.2 times of x range of tree.
+#       )
+
+
+```
+
+NEON with Ecosystem Subtype, Total Number of Bases, and Assembly type Outside Layer Label -not saved
+```{r, fig.height=12, fig.width=12, message=FALSE}
+ggtree(tree_bac, layout="circular", branch.length="none") %<+% 
+  NEON_MAGs_metagenomes_chemistry + 
+  geom_point2(mapping=aes(color=`Ecosystem Subtype`, size=`Gene Count`)) + 
+  new_scale_fill() + 
+  geom_fruit(
+      data=NEON_MAGs_metagenomes_chemistry_noblank,
+      geom=geom_tile,
+      mapping=aes(y=label, x=1, fill= AssemblyType),
+      offset=0.08,   # The distance between external layers, default is 0.03 times of x range of tree.
+      pwidth=0.25 # width of the external layer, default is 0.2 times of x range of tree.
+      ) + 
+  new_scale_fill() +
+  geom_fruit(
+          data=NEON_MAGs_metagenomes_chemistry_noblank,
+          geom=geom_col,
+          mapping=aes(y=label, x=TotalNumberofBases),  
+          pwidth=0.4,
+          axis.params=list(
+                          axis="x", # add axis text of the layer.
+                          text.angle=-45, # the text size of axis.
+                          hjust=0  # adjust the horizontal position of text of axis.
+                      ),
+          grid.params=list() # add the grid line of the external bar plot.
+      ) + 
+      theme(#legend.position=c(0.96, 0.5), # the position of legend.
+          legend.background=element_rect(fill=NA), # the background of legend.
+          legend.title=element_text(size=7), # the title size of legend.
+          legend.text=element_text(size=6), # the text size of legend.
+          legend.spacing.y = unit(0.02, "cm")  # the distance of legends (y orientation).
+      ) +labs(x="Total Number of Bases")
+
+```
+
+Gammaproteobacteria with Ecosystem Subtype, Total Number of Bases, and Assembly type Outside Layer Label
+```{r, fig.height=12, fig.width=12, message=FALSE}
+ggtree(tree_Gammaproteobacteria, layout="circular", branch.length="none") %<+% 
+  NEON_MAGs_metagenomes_chemistry + 
+  geom_point2(mapping=aes(color=`Ecosystem Subtype`, size=`Gene Count`)) + 
+  new_scale_fill() + 
+  geom_fruit(
+      data=NEON_MAGs_metagenomes_chemistry_noblank,
+      geom=geom_tile,
+      mapping=aes(y=label, x=1, fill= AssemblyType),
+      offset=0.08,   # The distance between external layers, default is 0.03 times of x range of tree.
+      pwidth=0.25 # width of the external layer, default is 0.2 times of x range of tree.
+      ) + 
+  new_scale_fill() +
+  geom_fruit(
+          data=NEON_MAGs_metagenomes_chemistry_noblank,
+          geom=geom_col,
+          mapping=aes(y=label, x=TotalNumberofBases),  
+          pwidth=0.4,
+          axis.params=list(
+                          axis="x", # add axis text of the layer.
+                          text.angle=-45, # the text size of axis.
+                          hjust=0  # adjust the horizontal position of text of axis.
+                      ),
+          grid.params=list() # add the grid line of the external bar plot.
+      ) + 
+      theme(#legend.position=c(0.96, 0.5), # the position of legend.
+          legend.background=element_rect(fill=NA), # the background of legend.
+          legend.title=element_text(size=7), # the title size of legend.
+          legend.text=element_text(size=6), # the text size of legend.
+          legend.spacing.y = unit(0.02, "cm")  # the distance of legends (y orientation).
+      ) 
+
+```
+
+
+## Toolik Graphs
+
 Library
 ```{r}
 library(tidyverse)
@@ -2430,7 +3306,302 @@ datatable (NEON_MAGs_metagenomes_chemistry_TOOL_Novel %>%
 
 ```
 
+Find node labels
+```{r}
+# Make a vector with the internal node labels
+node_vector_bac = c(tree_bac$tip.label,tree_bac$node.label)
 
+# Search for your Phylum or Class
+grep("Gammaproteobacteria", node_vector_bac, value = TRUE)
+match(grep("Gammaproteobacteria", node_vector_bac, value = TRUE), node_vector_bac)
+
+grep("Alphaproteobacteria", node_vector_bac, value = TRUE)
+match(grep("Alphaproteobacteria", node_vector_bac, value = TRUE), node_vector_bac)
+
+grep("Pseudomonadota", node_vector_bac, value = TRUE)
+match(grep("Pseudomonadota", node_vector_bac, value = TRUE), node_vector_bac)
+
+tree_bac_node_Gammaproteobacteria <- Preorder(tree_bac)
+tree_Gammaproteobacteria <- Subtree(tree_bac_node_Gammaproteobacteria, 3048)
+```
+
+
+Graphs
+
+NEON Site vs Vegetation subclass
+```{r,, fig.width=12, fig.height=12}
+NEON_MAGs_metagenomes_chemistry %>%
+  ggplot(aes(y=`Site.x`, x=nlcdClass))+geom_point()+labs(title="NEON Site Vegetation Classes", y="Site", x="Vegetation Class")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+```
+
+NEON Site vs Ecosystem subclass
+```{r,, fig.width=12, fig.height=12}
+NEON_MAGs_metagenomes_chemistry %>%
+  ggplot(aes(y=`Site.x`, x=`Ecosystem Subtype`))+geom_point()+labs(title="NEON Site Ecosystem Subtypes", y="Site", x="Ecosystem Subtype")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+```
+
+
+Toolik Bin Contamination  vs Bin Completeness
+```{r, fig.width=12, fig.height=12}
+NEON_MAGs_metagenomes_chemistry_TOOL %>%
+     ggplot(aes(y=`Bin Contamination`,x=`Bin Completeness`, color=`Bin Quality`))+geom_point()+labs(title="Toolik Sample Bin Completeness vs Bin Contamination", y="Bin Contamination", x="Bin Completeness")+theme_classic()
+
+```
+
+Toolik Bin Contamination  vs Bin Completeness compared to Total population
+```{r, fig.width=12, fig.height=12}
+NEON_MAGs_metagenomes_chemistry %>%
+     ggplot(aes(y=`Bin Contamination`,x=`Bin Completeness`, color=`Bin Quality`))+geom_point(shape=20)+geom_point(data=NEON_MAGs_metagenomes_chemistry_TOOL, aes(y=`Bin Contamination`,x=`Bin Completeness`), shape=18, size=5)+labs(title="Toolik Sample Bin Completeness vs Bin Contamination", y="Bin Contamination", x="Bin Completeness")+theme_classic()
+
+```
+
+Toolik Sample Soil Temperature vs pH in Water
+```{r, fig.width=12, fig.height=12}
+NEON_MAGs_metagenomes_chemistry_TOOL %>%
+     ggplot(aes(y=`soilTemp`,x=`soilInWaterpH`, color=Genus))+geom_point()+labs(title="Toolik Sample Soil Temperature vs pH in Water", y="Soil Temperature", x="Soil pH in Water")+theme_classic()
+```
+
+Toolik Sample Elevation vs Family 
+```{r, fig.width=12, fig.height=12}
+NEON_MAGs_metagenomes_chemistry_TOOL %>%
+     ggplot(aes(y=as.integer(`Elevation In Meters`),x=`Family`, color=Order))+geom_point()+labs(title="Toolik Sample Elevation vs Family", y="Elevation (m)", x="Family")+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+```
+
+Toolik Sample Longitude vs Family
+```{r, fig.width=12, fig.height=12}
+NEON_MAGs_metagenomes_chemistry_TOOL %>%
+     ggplot(aes(y=`Longitude`,x=`Family`, color=Order))+geom_point()+labs(title="Toolik Sample Longitude vs Family", y="Longitude", x="Family",x.offset=2)+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+```
+
+Toolik Sample Lattitude vs Family
+```{r, fig.width=12, fig.height=12}
+NEON_MAGs_metagenomes_chemistry_TOOL %>%
+     ggplot(aes(y=`Latitude`,x=`Family`, color=Order))+geom_point()+labs(title="Toolik Sample Latitude vs Family", y="Lattitude", x="Family",x.offset=2)+theme_classic()+theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1))
+```
+
+Trees
+
+Toolik Rectangular Tree
+```{r, fig.height=12, fig.width=12}
+ggtree(tree_bac_TOOL_MAGs) +
+  geom_tiplab(size=3) + xlim(0,5)
+
+
+```
+
+Toolik Circular Tree
+```{r, fig.height=12, fig.width=12}
+ggtree(tree_bac_TOOL_MAGs, layout="circular") + 
+  geom_tiplab(aes(angle=angle))+
+    theme_tree() +
+    xlim(0,1.5)
+
+```
+
+Toolik Circular Tree with phylum color
+```{r, fig.height=12, fig.width=12}
+ggtree(tree_bac_TOOL_MAGs, layout="circular")  %<+%
+  NEON_MAGs_metagenomes_chemistry +
+  geom_point(mapping=aes(color=Phylum))
+
+```
+
+Toolik Gammaproteobacteria Highlight Circular Tree
+```{r, fig.height=12, fig.width=12}
+ggtree(tree_bac_TOOL_MAGs, layout="circular") +
+    geom_hilight(node=259, fill="steelblue", alpha=.6)
+
+```
+
+Toolik Gammaproteobacteria Highlight with Label Circular Tree
+```{r, fig.height=14, fig.width=12}
+ggtree(tree_bac_TOOL_MAGs, layout="circular", branch.length="none") +
+    geom_hilight(node=258, fill="grey", alpha=.6) +
+    geom_cladelab(node=258, label="Pseudomonadota", align=TRUE, angle='auto', 
+                  offset.text=0.5 , textcolor='black', barcolor='grey',barsize=1.5, fontsize=5)+
+    geom_hilight(node=259, fill="steelblue", alpha=.6) +
+    geom_cladelab(node=259, label="Gammaproteobacteria", align=TRUE, angle='auto', offset=0.75,  
+                  offset.text=0.5 , textcolor='black', barcolor='steelblue',barsize=1.5, fontsize=5)
+
+```
+
+Toolik Find node
+```{r}
+datatable(NEON_MAGs_metagenomes_chemistry_TOOL %>%
+            count(Phylum, sort=TRUE))
+grep("Phycisphaerae", node_vector_bac_TOOL_MAGS, value = TRUE)
+match(grep("Phycisphaerae", node_vector_bac_TOOL_MAGS, value = TRUE), node_vector_bac_TOOL_MAGS)
+
+grep("Acidobacteriota", node_vector_bac_TOOL_MAGS, value = TRUE)
+match(grep("Acidobacteriota", node_vector_bac_TOOL_MAGS, value = TRUE), node_vector_bac_TOOL_MAGS)
+
+grep("Actinomycetota", node_vector_bac_TOOL_MAGS, value = TRUE)
+match(grep("Actinomycetota", node_vector_bac_TOOL_MAGS, value = TRUE), node_vector_bac_TOOL_MAGS)
+
+grep("Myxococcota", node_vector_bac_TOOL_MAGS, value = TRUE)
+match(grep("Myxococcota", node_vector_bac_TOOL_MAGS, value = TRUE), node_vector_bac_TOOL_MAGS)
+
+grep("Bacteroidota", node_vector_bac_TOOL_MAGS, value = TRUE)
+match(grep("Bacteroidota", node_vector_bac_TOOL_MAGS, value = TRUE), node_vector_bac_TOOL_MAGS)
+
+grep("Verrucomicrobiota", node_vector_bac_TOOL_MAGS, value = TRUE)
+match(grep("Verrucomicrobiota", node_vector_bac_TOOL_MAGS, value = TRUE), node_vector_bac_TOOL_MAGS)
+
+grep("Chloroflexota", node_vector_bac_TOOL_MAGS, value = TRUE)
+match(grep("Chloroflexota", node_vector_bac_TOOL_MAGS, value = TRUE), node_vector_bac_TOOL_MAGS)
+
+
+
+grep("Eremiobacterota", node_vector_bac_TOOL_MAGS, value = TRUE)
+match(grep("Eremiobacterota", node_vector_bac_TOOL_MAGS, value = TRUE), node_vector_bac_TOOL_MAGS)
+
+grep("Patescibacteria", node_vector_bac_TOOL_MAGS, value = TRUE)
+match(grep("Patescibacteria", node_vector_bac_TOOL_MAGS, value = TRUE), node_vector_bac_TOOL_MAGS)
+
+grep("Patescibacteria", node_vector_bac_TOOL_MAGS, value = TRUE)
+match(grep("Patescibacteria", node_vector_bac_TOOL_MAGS, value = TRUE), node_vector_bac_TOOL_MAGS)
+
+```
+
+Toolik with highlights for each phylum
+```{r, fig.height=14, fig.width=12}
+NEON_MAGs_metagenomes_chemistry_TOOL_Named <-NEON_MAGs_metagenomes_chemistry_TOOL %>%
+  filter(!is.na(Species))
+
+ggtree(tree_bac_TOOL_MAGs, layout="circular", branch.length="none")+
+    geom_hilight(node=219, fill="purple", alpha=.6) +
+    geom_cladelab(node=219, label="Acidobacteriota", align=TRUE, angle='auto', 
+                  offset.text=0.5 , textcolor='black', barcolor='purple',barsize=1.5, fontsize=5)+
+    geom_hilight(node=258, fill="grey", alpha=.6) +
+    geom_cladelab(node=258, label="Pseudomonadota", align=TRUE, angle='auto', 
+                  offset.text=0.5 , textcolor='black', barcolor='grey',barsize=1.5, fontsize=5)+
+    geom_hilight(node=157, fill="green", alpha=.6) +
+    geom_cladelab(node=157, label="Actinomycetota", align=TRUE, angle='auto', 
+                  offset.text=0.5 , textcolor='black', barcolor='green',barsize=1.5, fontsize=5)+
+    geom_hilight(node=247, fill="red", alpha=.6) +
+    geom_cladelab(node=247, label="Myxococcota", align=TRUE, angle='auto', 
+                  offset.text=0.5 , textcolor='black', barcolor='red',barsize=1.5, fontsize=5)+
+    geom_hilight(node=204, fill="yellow", alpha=.6) +
+    geom_cladelab(node=204, label="Bacteroidota", align=TRUE, angle='auto', 
+                  offset.text=0.5 , textcolor='black', barcolor='yellow',barsize=1.5, fontsize=5)+
+    geom_hilight(node=151, fill="orange", alpha=.6) +
+    geom_cladelab(node=151, label="Chloroflexota", align=TRUE, angle='auto', 
+                  offset.text=0.5 , textcolor='black', barcolor='orange',barsize=1.5, fontsize=5)+
+    geom_hilight(node=211, fill="brown", alpha=.6) +
+    geom_cladelab(node=211, label="Planctomycetota", align=TRUE, angle='auto', 
+                  offset.text=0.5 , textcolor='black', barcolor='brown',barsize=1.5, fontsize=5)+
+    geom_hilight(node=213, fill="blue", alpha=.6) +
+    geom_cladelab(node=213, label="Verrucomicrobiota", align=TRUE, angle='auto', offset=0.75,  
+                  offset.text=0.5 , textcolor='black', barcolor='blue',barsize=1.5, fontsize=5)
+
+```
+
+Toolik Gammaproteobacteria Label Circular Tree
+```{r, fig.height=12, fig.width=12}
+ggtree(tree_bac_TOOL_MAGs, layout="circular", branch.length="none") %>% 
+  collapse(node=259) + 
+  geom_point2(aes(subset=(node==259)), shape=23, size=5, fill='steelblue') +  
+  geom_cladelab(node=259, label="Gammaproteobacteria", align=TRUE,  
+                  offset = 2, textcolor='steelblue')
+
+```
+
+Toolik Gammaproteobacteria Minimized Circular Tree
+```{r, fig.height=12, fig.width=12}
+p <- ggtree(tree_bac_TOOL_MAGs, layout="circular", branch.length="none")
+scaleClade(p, 259, .2) %>% collapse(259, 'min', fill="steelblue")  +
+  geom_cladelab(node=259, label="Gammaproteobacteria", align=TRUE,  
+                  offset = 0.2, textcolor='steelblue')
+
+```
+
+Toolik MAGS with Order Labels Circular Tree
+```{r, fig.height=12, fig.width=12}
+ggtree(tree_bac_TOOL_MAGs, layout="circular")  %<+%
+  NEON_MAGs_metagenomes_chemistry + 
+  geom_tiplab(size=2, hjust=-.1) +
+  geom_point(mapping=aes(color=Order))
+
+```
+
+Toolik with Order and Assembly Type Labels Circular Tree
+```{r, fig.height=12, fig.width=12}
+ggtree(tree_bac_TOOL_MAGs, layout="circular")  %<+%
+  NEON_MAGs_metagenomes_chemistry + 
+  geom_tiplab(size=2, hjust=-.1) +
+  geom_point(mapping=aes(color=Order, shape = `Assembly Type`)) 
+
+```
+
+Toolik with Ecosystem Subtype System Rectangular Tree
+```{r, fig.height=12, fig.width=12}
+ggtree(tree_bac_TOOL_MAGs)  %<+%
+  NEON_MAGs_metagenomes_chemistry + 
+  geom_tiplab(size=2, hjust=-.1) +
+  geom_point(mapping=aes(color=`Ecosystem Subtype`))
+
+```
+
+Toolik with Bin Completeness Label Rectangular Tree
+```{r, fig.height=12, fig.width=12}
+ggtree(tree_bac_TOOL_MAGs)  %<+%
+  NEON_MAGs_metagenomes_chemistry + 
+  geom_tippoint(aes(colour=`Bin Completeness`)) + 
+  scale_colour_gradient(low='blue', high='red') +
+  geom_tiplab(size=2, hjust=-.1) 
+  
+
+```
+
+Toolik with Ecosystem Subtype and Total number of Bases Label Circular Tree
+```{r, fig.height=12, fig.width=12}
+ggtree(tree_bac_TOOL_MAGs, layout="circular")  %<+%
+  NEON_MAGs_metagenomes_chemistry + 
+  geom_point2(mapping=aes(color=`Ecosystem Subtype`, size=`Total Number of Bases`))
+
+```
+
+Toolik triplot with Water pH and Soil Temp
+```{r, fig.height=12, fig.width=12}
+NEON_MAGs_metagenomes_chemistry_TOOL_noblank <- NEON_MAGs_metagenomes_chemistry_TOOL %>% 
+  rename("Phyla" = "Phylum") %>% 
+  rename("AssemblyType" = "Assembly Type") %>% 
+  rename("WaterpH" ="soilInWaterpH") %>% 
+  rename("Temp" ="soilTemp") %>% 
+  rename("BinCompleteness" = "Bin Completeness") %>% 
+  rename("BinContamination" = "Bin Contamination") %>% 
+  rename("TotalNumberofBases" = "Total Number of Bases") %>% 
+  rename("EcosystemSubtype" = "Ecosystem Subtype") %>%
+  rename("GeneCount" = "Gene Count") %>% 
+  rename("GCassembled" = "GC  * assembled")
+
+ggtree(tree_bac_TOOL_MAGs)  %<+%
+  NEON_MAGs_metagenomes_chemistry + 
+  geom_tippoint(aes(colour=`Phylum`)) + 
+
+# For unknown reasons the following does not like blank spaces in the names
+  geom_facet(panel = "Soil pH", data = NEON_MAGs_metagenomes_chemistry_TOOL_noblank, geom = geom_point, 
+      mapping=aes(x = WaterpH,color=Phyla)) +
+  geom_facet(panel = "Soil Temp", data = NEON_MAGs_metagenomes_chemistry_TOOL_noblank, geom = geom_point, 
+                aes(x = Temp,color=Phyla), orientation = 'y', width = .6,show.legend=FALSE) +
+  theme_tree2(legend.position=c(.1, .7))
+
+```
+
+Toolik triplot with Gene and GC Content
+```{r, fig.height=12, fig.width=12}
+ggtree(tree_bac_TOOL_MAGs)  %<+%
+  NEON_MAGs_metagenomes_chemistry + 
+  geom_tippoint(aes(colour=`Phylum`)) + 
+
+# For unknown reasons the following does not like blank spaces in the names
+  geom_facet(panel = "Gene Count", data = NEON_MAGs_metagenomes_chemistry_TOOL_noblank, geom = geom_point, 
+      mapping=aes(x = GeneCount, color=Phyla))+
+  geom_facet(panel = "% GC Content ", data = NEON_MAGs_metagenomes_chemistry_TOOL_noblank, geom = geom_col, 
+                aes(x = GCassembled,fill=Phyla), orientation = 'y', width = .6, show.legend=FALSE) +
+  theme_tree2(legend.position=c(.1, .7))
+
+```
 
 # References:
 

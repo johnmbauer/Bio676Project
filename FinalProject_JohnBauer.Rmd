@@ -160,10 +160,18 @@ NEON_MAGs_metagenomes_chemistry_TOOL_noblank <- NEON_MAGs_metagenomes_chemistry_
   rename("GeneCount" = "Gene Count") %>% 
   rename("GCassembled" = "GC  * assembled")
 
+NEON_MAGs_bact <- NEON_MAGs %>% 
+  filter(Domain=="Bacteria")
 NEON_MAGs_bact_ind <- NEON_MAGs %>% 
   filter(Domain=="Bacteria") %>% 
   filter(`Assembly Type`=="Individual")
+NEON_MAGs_bact_co <- NEON_MAGs %>% 
+  filter(Domain=="Bacteria") %>% 
+  filter(`Assembly Type`=="Combined")
+
 NEON_MAGs_bact_ind_Novel <- NEON_MAGs_bact_ind %>% 
+  filter(is.na(Class) | is.na(Order) | is.na(Family) | is.na(Genus) )
+NEON_MAGs_bact_co_Novel <- NEON_MAGs_bact_co %>% 
   filter(is.na(Class) | is.na(Order) | is.na(Family) | is.na(Genus) )
 
 NEON_MAGs_metagenomes_chemistry_TOOL_Xanthomonadales <- NEON_MAGs_metagenomes_chemistry_TOOL %>%
@@ -361,37 +369,13 @@ John_theme <-theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1, color="b
 
 &nbsp;
 
+
+&nbsp;&nbsp;&nbsp;&nbsp;This study's genomic data set was collected from soil samples by the National Ecological Observatory Network (NEON) from locations across the United States in GOLD Study ID  Gs0161344. There were 1710 total bacterial MAGs with 22% being individual or combined assemblies of novel species of bacteria. To make analyses more feasible, this report will only comment on two data subsets, MAGs belonging to the class *Gammaproteobacteria*, and MAGs belonging found at Toolik Field Station, Alaska USA. 
+
+&nbsp;
+
 ### Figure 1:
-```{r,fig.height=14, fig.width=12, fig.align='center'}
-plottttttt <-ggtree(tree_bac_node_Gammaproteobacteria, layout="circular", branch.length="none")
-n=1
-while (n!=29) {
-  if (is.na(phylumss[n,3])) {
-    
-  } else {
-  plottttttt <-plottttttt + geom_cladelab(node=as.integer(phylumss[n,3]), label=as.character(phylumss[n,1]),size=10, align=TRUE, angle='auto', offset.text=1, textcolor=phylumss[n,4] ,barsize=1.5, fontsize=5, barcolor=as.character(phylumss[n,4]))+geom_hilight(node=as.integer(phylumss[n,3]), fill=as.character(phylumss[n,4], alpha=.6))
-  }
-  n=n+1
-}
-plottttttt
-```
-**Figure 1:** **Phylogenetic Tree of all bacterial MAGs.** Tree constructed from samples collected in GOLD Study ID Gs0161344 by the National Ecological Observatory Network.
-
-&nbsp;
-### Figure 2:
-```{r,fig.height=20, fig.width=8,fig.align='center'}
-knitr::include_url("data/lab14/sankey-NEON_MAG_ind_pavian.txt.html")
-```
-**Figure 2:** Sankey plot of all NEON Individual assembly MAGs.
-
-&nbsp;
-
-&nbsp;&nbsp;&nbsp;&nbsp;This study's genomic data set was collected from soil samples by the National Ecological Observatory Network (NEON) from locations across the United States in GOLD Study ID  Gs0161344. There were 1754 total MAGs with PERCENT been novel species of bacteria. To make analyses more feasible, this report will only comment on two data subsets, MAGs belonging to the class *Gammaproteobacteria*, and MAGs belonging found at Toolik Field Station, Alaska USA. 
-
-&nbsp;
-
-### Figure 3:
-![**Figure 3:** Uprooted maximum-likelyhood phylogentic tree of gammaproteobactria based on 120 concatenated single copy proteins sequences from 780 reference genomes [@liao_reclassification_2020]. Figure adapted from Figure 2 of Liao et al.](/cloud/project/liaoFig2(1).png)
+![**Figure 1:** Uprooted maximum-likelyhood phylogentic tree of gammaproteobactria based on 120 concatenated single copy proteins sequences from 780 reference genomes [@liao_reclassification_2020]. Figure adapted from Figure 2 of Liao et al.](/cloud/project/liaoFig2(1).png)
 
 &nbsp;
 
@@ -399,10 +383,10 @@ knitr::include_url("data/lab14/sankey-NEON_MAG_ind_pavian.txt.html")
 
 &nbsp;
 
-### Figure 4:
+### Figure 2:
 
 <center>
-![**Figure 4:** Toolik Field Station, Alaska USA [@noauthor_photo_nodate]](/cloud/project/Toolik_Field_Station.png)
+![**Figure 2:** Toolik Field Station, Alaska USA [@noauthor_photo_nodate]](/cloud/project/Toolik_Field_Station.png)
 </center>
 
 &nbsp;
@@ -424,49 +408,67 @@ tidyverse,knitr, ggtree, TDbook #A Companion Package for the Book "Data Integrat
 # Results:
 ## GOLD Study
 
-### Figure 5: 
-```{r, , fig.height=14, fig.width=12, fig.align='center'}
-ggtree(tree_bac, layout="circular", branch.length="none") +
-    geom_hilight(node=as.integer(phylumss[1,3]), fill=as.character(phylumss[1,4], alpha=.6)) +
-    geom_cladelab(node=as.integer(phylumss[1,3]), label=as.character(phylumss[1,1]),size=10, align=TRUE, angle='auto', offset.text=1, textcolor=phylumss[1,4] ,barsize=1.5, fontsize=5, barcolor=as.character(phylumss[1,4]))+
-    geom_hilight(node=3048, fill="steelblue", alpha=.6) +
-    geom_cladelab(node=3048, label="Gammaproteobacteria", align=TRUE, angle='auto', offset=1,  
-                  offset.text=0.5 , textcolor='steelblue', barcolor='steelblue',barsize=1.5, fontsize=5)
+### Figure 3:
+```{r,fig.height=14, fig.width=12, fig.align='center'}
+plottttttt <-ggtree(tree_bac, layout="circular", branch.length="none")
+n=1
+while (n!=29) {
+  if (is.na(phylumss[n,3])) {
+    
+  } else {
+  plottttttt <-plottttttt + geom_cladelab(node=as.integer(phylumss[n,3]), label=as.character(phylumss[n,1]),size=10, align=TRUE, angle='auto', offset.text=1, textcolor=phylumss[n,4] ,barsize=1.5, fontsize=5, barcolor=as.character(phylumss[n,4]))+geom_hilight(node=as.integer(phylumss[n,3]), fill=as.character(phylumss[n,4], alpha=.6))
+  }
+  n=n+1
+}
+plottttttt
 ```
-**Figure 5:** **Phylogenetic tree of all bacterial MAGs.** Tree contails all bacterial samples collected in GOLD Study ID Gs0161344 by the National Ecological Observatory Network with the *Gammaproteobacteria* class of *Pseudomondata* highlighted in blue.
+**Figure 3:** **Phylogenetic Tree of all bacterial MAGs.** Tree constructed from samples collected in GOLD Study ID Gs0161344 by the National Ecological Observatory Network.
+
+&nbsp;
+### Figure 4:
+```{r,fig.height=20, fig.width=8,fig.align='center'}
+knitr::include_url("data/lab14/sankey-NEON_MAG_ind_pavian.txt.html")
+```
+**Figure 4:** Sankey plot of all NEON Individual assembly MAGs.
 
 &nbsp;
 
 
-### Figure 6:
+### Figure 5:
 ```{r, fig.height=12, fig.width=12, fig.align='center'}
 NEON_MAGs_bact_ind %>%
   ggplot(aes(x=fct_rev(fct_infreq(Phylum)), fill=`Site ID`))+geom_bar(position="dodge")+coord_flip()+labs(x="Phylum", y="NEON MAGs (n)")+theme_classic()+theme(axis.text.x=element_text(color="black"),axis.title.x=element_text(size = 15), axis.text.y=element_text(color="black",face = 'italic'),axis.title.y=element_text(size = 15), legend.title=element_text(size=15), legend.text=element_text(size=10))+ scale_y_continuous(limits=c(0,100),breaks = c(0,10,20,30,40,50,60,70,80,90,100))                                                                                                                                 
 ```
-**Figure 6:** **NEON MAG distribution by phylum.** NEON site distribution of MAGs collected in GOLD Study ID Gs0161344 organized by phylum.
+**Figure 5:** **NEON MAG distribution by phylum.** NEON site distribution of MAGs collected in GOLD Study ID Gs0161344 organized by phylum.
 &nbsp;
 
-### Figure 7:
+&nbsp;&nbsp;&nbsp;&nbsp;The three phyla with the lionshare of bacteria found in this study were *Actinomycetota*, *Pseusdomonadota*, and *Acidobacteriota* (Fig. 3,4,5). National Grasslands LBJ, Texas USA (CLBJ) accounted for the greatest portion of bacteria(Fig. 5). A majority of phyla found in this study contained MAGs collected in at least two locations but quite a few of phyla with few MAGs were found in a single location. For example, MAGs belonging to the  *Desulfobacterota*, *Myxococcota_A*, *Eisenbacteria*, *Krumholzibacteriota*, and *Nitrospirota* phyla were only found in Chase Lake Wetlands, North Dakota, USA (Fig. 5).  
+
+
+### Figure 6:
 ```{r,, fig.width = 6, fig.height = 4,fig.align='center'}
 NEON_MAGs_bact_ind_Novel %>% 
   ggplot(aes(x=fct_rev(fct_infreq(`Site ID`)), fill=`Site ID`))+geom_bar(show.legend=FALSE)+coord_flip()+labs(x="Site ID", y="Total Novel Bacteria (n)")+theme_classic()+theme(axis.text.x=element_text(color="black"),axis.title.x=element_text(size = 15), axis.text.y=element_text(color="black"))
 ```
-**Figure 7:** **Novel Bacteria MAG NEON Site Distribution.** Novel Bacteria were determined from MAGs constructed from individual assemblies. Novel indicates the MAGs could not be placed in an existing group at the species, genus or family level.
+**Figure 6:** **Novel Bacteria MAG NEON Site Distribution.** Novel Bacteria were determined from MAGs constructed from individual assemblies. Novel indicates the MAGs could not be placed in an existing group at the species, genus or family level.
 &nbsp;
 
-&nbsp;&nbsp;&nbsp;&nbsp;The vast majority of bacteria found in this study were determined to be novel species with PERCENT being unable to place phylogenetically at the genus level.
 
 &nbsp;
-### Figure 8:
+### Figure 7:
 ```{r,, fig.width = 12, fig.height = 6, fig.align='center'}
 NEON_MAGs_bact_ind %>% 
   filter(is.na(Class) | is.na(Order) | is.na(Family) | is.na(Genus) ) %>%
-  ggplot(aes(x=fct_rev(`Phylum`), fill=`Phylum`))+geom_bar(show.legend=FALSE)+coord_flip()+labs(x="Phylum", y="Novel Genera (n)")+theme_classic()+theme(axis.text.x=element_text(color="black"),axis.title.x=element_text(size = 15), axis.text.y=element_text(color="black",face = 'italic'))+scale_y_continuous(limits = c(0,150), breaks = c(0,10,20,30,40,50,60,70,80,90,100,110,120,130,140,150))
+  ggplot(aes(x=fct_rev(`Phylum`), fill=`Phylum`))+geom_bar(show.legend=FALSE)+coord_flip()+labs(x="Phylum", y="Novel Species MAGs (n)")+theme_classic()+theme(axis.text.x=element_text(color="black"),axis.title.x=element_text(size = 15), axis.text.y=element_text(color="black",face = 'italic'))+scale_y_continuous(limits = c(0,150), breaks = c(0,10,20,30,40,50,60,70,80,90,100,110,120,130,140,150))
 ```
-**Figure 8:** **Novel bacteria predominately found in the phylum** ***Actinomycetota.*** Novel bacteria were determined from MAGs constructed from individual assemblies in GOLD Study ID Gs0161344. Novel indicates the MAGs could not be placed in an existing group at the species, genus or family level.
+**Figure 7:** **Novel bacteria predominately found in the phylum** ***Actinomycetota.*** Novel bacteria were determined from MAGs constructed from individual assemblies in GOLD Study ID Gs0161344. Novel indicates the MAGs could not be placed in an existing group at the species, genus or family level.
 &nbsp;
 
-### Figure 9:
+&nbsp;&nbsp;&nbsp;&nbsp;There were 243 and 129 novel species of bacteria annotated in GOLD Study ID Gs0161344's individual and combined assembly MAGs, respectively. The majority of the novel individual assembly MAGs were found in the phylum *Actinomycetota* (Fig. 7). Novel individual assembly MAGs were spread out over all NEON collection sites with the top three sites for novel individual assemblies being National Grasslands LBJ, Texas USA (CLBJ),
+Great Basin, Onaqui, Utah USA (ONAQ), Konza Prairie Bio Station, Kansas USA (KONZ) (Fig.6)
+
+
+### Figure 8:
 ```{r, fig.width = 12, fig.height = 8, fig.align='center'}
 NEON_MAGs_metagenomes_chemistry_Bacteria <-NEON_MAGs_metagenomes_chemistry %>%
   filter(Domain=="Bacteria") %>% 
@@ -476,19 +478,30 @@ NEON_MAGs_metagenomes_chemistry_Bacteria %>%
   ggplot(aes(x=`Phylum`,y=`Genome Size (Kbp)`,color=`Phylum`))+geom_boxplot(show.legend = FALSE)+scale_y_continuous(limits=c(0,15000), breaks=c(0,2500,5000,7500,10000,12500,15000))+theme_classic()+labs(title="A", x="Phylum", y="Genome Size (Kbp)")+John_theme+theme(title=element_text(size=20))+
   ggplot(data=NEON_MAGs_metagenomes_chemistry_Bacteria, aes(x=`Gene Count`, y=`Genome Size (Kbp)`, color=`Phylum`))+geom_point()+labs(title="B", x="Gene Count (n)", y="")+scale_y_continuous(limits=c(0,15000), breaks=c(0,2500,5000,7500,10000,12500,15000))+scale_x_continuous(limits=c(0,15000), breaks=c(0,2500,5000,7500,10000,12500,15000))+theme_classic()+theme_classic()+theme(axis.text.x=element_text(color="black"),axis.title.x=element_text(size = 15), axis.text.y=element_text(color="black"), legend.title=element_text(size=15),legend.text=element_text(size=10),title=element_text(size=20))
 ```
-**Figure 9:** **Overall linear trend in gene count vs genome size for MAGs found across NEON sites.** A) Boxplot of MAG genome size (kbp) for all bacterial phyla. B) Scatter plot of MAG Gene count vs genome size (kbp) for all bacterial MAGs. MAGs are colored by phylum. All samples found in GOLD Study ID Gs0161344.
+**Figure 8:** **Overall linear trend in gene count vs genome size for MAGs found across NEON sites.** A) Boxplot of MAG genome size (kbp) for all bacterial phyla. B) Scatter plot of MAG Gene count vs genome size (kbp) for all bacterial MAGs. MAGs are colored by phylum. All samples found in GOLD Study ID Gs0161344.
 
 &nbsp;
 
-&nbsp;&nbsp;&nbsp;&nbsp;Terrestrial bacteria are known to have large genomes encoding thousands genes. This is due in larger part to the diverse environment they are exposed to. Their larger genomes allow for the expression of multiple metabolic phenotypes that allow them to adapt to environmental challenges. NEON samples analyzed in this study had a broad spread of genome sizes with the minimum genome and maximum genomes sizes being 753 from the phylum Chloroflexota and 12,584 kbp from the phylum Actinomycetota, respectively (Fig. 9). There was a linear relationship between gene count and genome for all NEON samples, with a rough 1,000 bp per gene ratio (Fig. 9).
+&nbsp;&nbsp;&nbsp;&nbsp;Terrestrial bacteria are known to have large genomes encoding thousands genes. This is due in larger part to the diverse environment they are exposed to. Their larger genomes allow for the expression of multiple metabolic phenotypes that allow them to adapt to environmental challenges. NEON samples analyzed in this study had a broad spread of genome sizes with the minimum genome and maximum genomes sizes being 753 from the phylum Chloroflexota and 12,584 kbp from the phylum Actinomycetota, respectively (Fig. 8). There was a linear relationship between gene count and genome for all NEON samples, with a rough 1,000 bp per gene ratio (Fig. 8B).
 
 &nbsp;
 
 ## *Gammaproteobacteria* Samples 
 
+### Figure 9: 
+```{r, , fig.height=14, fig.width=12, fig.align='center'}
+ggtree(tree_bac, layout="circular", branch.length="none") +
+    geom_hilight(node=as.integer(phylumss[1,3]), fill=as.character(phylumss[1,4], alpha=.6)) +
+    geom_cladelab(node=as.integer(phylumss[1,3]), label=as.character(phylumss[1,1]),size=10, align=TRUE, angle='auto', offset.text=1, textcolor=phylumss[1,4] ,barsize=1.5, fontsize=5, barcolor=as.character(phylumss[1,4]))+
+    geom_hilight(node=3048, fill="steelblue", alpha=.6) +
+    geom_cladelab(node=3048, label="Gammaproteobacteria", align=TRUE, angle='auto', offset=1,  
+                  offset.text=0.5 , textcolor='steelblue', barcolor='steelblue',barsize=1.5, fontsize=5)
+```
+**Figure 9:** **Phylogenetic tree of all bacterial MAGs.** Tree contails all bacterial samples collected in GOLD Study ID Gs0161344 by the National Ecological Observatory Network with the *Gammaproteobacteria* class of *Pseudomondata* highlighted in blue.
+
 ### Figure 10:
 ```{r,fig.height=20, fig.width=8,fig.align='center'}
-knitr::include_url("data/lab14/sankey-NEON_MAG_ind_Gpro.txt.html")
+knitr::include_url("data/lab14/sankey-NEON_MAG_ind_Gpro(2).html")
 ```
 **Figure 10:** **Sankey plot of individual assembly *Gammmaproteobacteria* MAGs** All samples found in GOLD Study ID Gs0161344.
 &nbsp;
@@ -521,13 +534,13 @@ NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria %>%
 **Figure 13:** **Genome Size (kbp) of *Gammaproteobacteria* Members between 2500-5000 Kbp with large variation in *Burkholderiales*.** Boxplots includes MAG reads from all NEON sites filtered to those annotated as belonging to the class *Gammaproteobacteria*.
 &nbsp;
 
-&nbsp;&nbsp;&nbsp;&nbsp;NEON MAGs assigned to the *Gammaproteobacteria* class were found in all ecosystem subtypes (Fig. 10). Unlike the larger NEON data set, the distribution of genome size of *Gammaproteobacteria* members was fairly narrow with members averaging between 2000 and 5000 kbp (Fig. 12). With the exception of *Burkholderiales*,*Steroidobacterales*, and *Xanthomonadales*, this was largely due to the fewer MAGs in each order(Fig.10). The vast majority of *Gammaproteobacteria* annotated in this study were novel species with only two bacteria belonging to the *Xanthomonadales* order assigned as *Stenotrophomonas stenotrophomonas* sp024519465. *Steroidobacterales* had by far the most annontated members, while *Burkholderiales* had the most family member groups (Fig. 11).        
+&nbsp;&nbsp;&nbsp;&nbsp;NEON MAGs assigned to the *Gammaproteobacteria* class were found in all ecosystem subtypes (Fig. 11). Unlike the larger NEON data set, the distribution of genome size of *Gammaproteobacteria* members was fairly narrow with members averaging between 2000 and 5000 kbp (Fig. 13). With the exception of *Burkholderiales*,*Steroidobacterales*, and *Xanthomonadales*, this was largely due to the fewer MAGs in each order(Fig.12). The vast majority of *Gammaproteobacteria* annotated in this study were novel species with only two bacteria belonging to the *Xanthomonadales* order assigned as *Stenotrophomonas stenotrophomonas* sp024519465. *Steroidobacterales* had by far the most annontated members, while *Burkholderiales* had the most family member groups (Fig. 10,12).        
 &nbsp;
 
 ### Figure 14:
 ```{r, fig.height=12, fig.width=12, fig.align='center', echo=FALSE,message=FALSE,warning=FALSE}
 NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria %>%
-     ggplot(aes(y=`soilTemp`,x=`Family`, color=`Order`), size=1)+geom_point(show.legend=FALSE)+scale_y_continuous(limits=c(0,50)) +labs(title="A", y="Soil Temperature", x="")+theme_classic()+John_theme+theme(title=element_text(size=20))+
+     ggplot(aes(y=`soilTemp`,x=`Family`, color=`Order`), size=1)+geom_point(show.legend=FALSE)+scale_y_continuous(limits=c(0,50)) +labs(title="A", y="Soil Temperature (Celsius)", x="")+theme_classic()+John_theme+theme(title=element_text(size=20))+
   
   ggplot(data=NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria,aes(y=`soilInWaterpH`,x=`Family`, color=`Order`))+geom_point()+scale_y_continuous(limits=c(0,14),breaks =rep(0:14) )+labs(title="B", y="pH", x="")+theme_classic()+theme(title=element_text(size=20),legend.text = element_text(size=10,face = 'italic'),legend.title = element_text(size=15))+John_theme+
   
@@ -538,7 +551,7 @@ NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria %>%
 **Figure 14:** **Ecological Conditions of Gammaproteobacteria Samples.** A) Scatterplot of sample soil temperature vs *Gammaproteobacteria* families found in GOLD Study ID Gs0161344. Points are colored by order group. B) Scatterplot of sample soil pH in water vs *Gammaproteobacteria* families found in GOLD Study ID Gs0161344. Points are colored by order group. C) Scatterplot of sample National Land Cover Database Vegetation Type vs *Gammaproteobacteria* families found in GOLD Study ID Gs0161344. Points are colored by order group. D) Scatterplot of sample ecosystem subtype vs *Gammaproteobacteria* families found in GOLD Study ID Gs0161344. Points are colored by order group. 
 &nbsp;
 
-&nbsp;&nbsp;&nbsp;&nbsp;Members of *Gammaproteobacteria* were found in a variety of ecosystem conditions. The soil pH of all *Gammaproteobacteria* samples was largely neutral to mildly acidic with lowest pH around 4 (Fig. 4). Overall, the vegetation class of sedge and grassland herbaceous and contained the least amount of family groups in *Gammproteobacteria* (Fig. 13). This is not too surprising for sedge herbaceous as this vegetation class is only found in one Alaskan NEON site (Sup. Fig. 1). However, grassland herbaceous vegetation is present in 5 out of the 13 sample sites (Sup. Fig 2). Interestingly, despite being the *Gammaproteobacteria* order with the most MAGs and existing in a variety of vegetation classes, soil pH and temperatures, no members of the *Steroidobacterales* order were found in tropical forest or desert ecosystems sampled in this study(Fig. 13). These ecosystem subtypes correspond to NEON sites in Puerto Rico and Arizona, USA, respectively (Sup.Fig 2).    
+&nbsp;&nbsp;&nbsp;&nbsp;Members of *Gammaproteobacteria* were found in a variety of ecosystem conditions. Gammabacteria were found in temperatures spanning 2-28 Celsius (Fig. 14A). The soil pH of all *Gammaproteobacteria* samples was largely neutral to mildly acidic with lowest pH around 4 (Fig. 14B). Overall, the vegetation class of sedge and grassland herbaceous and contained the least amount of family groups in *Gammproteobacteria* (Fig. 14C). This is not too surprising for sedge herbaceous as this vegetation class is only found in one Alaskan NEON site (Sup. Fig. 1). However, grassland herbaceous vegetation is present in 5 out of the 13 sample sites (Sup. Fig 2). Interestingly, despite being the *Gammaproteobacteria* order with the most MAGs and existing in a variety of vegetation classes, soil pH and temperatures, no members of the *Steroidobacterales* order were found in tropical forest or desert ecosystems sampled in this study(Fig. 14). These ecosystem subtypes correspond to NEON sites in Puerto Rico and Arizona, USA, respectively (Sup.Fig 2).    
 
 &nbsp;
 
@@ -576,7 +589,7 @@ NEON_MAGs_metagenomes_chemistry_Bog %>%
 
 &nbsp;
 
-&nbsp;&nbsp;&nbsp;&nbsp;Members in the order *Steriobacterales* were further examined to see if their high population is correlated with genome size or sample location. Only the *Steroidobacteraceae* family was found under the order. This family contain 7 genera with the genus BOG-1198 accounting for 30 of the 50 of *Steriobacterales* MAGs (figs. 10,14). Once again the distribution of genome size appears correlated to the total MAG counts for each genera in the *Steroidobacteraceae* family, with the higher populations corresponding to larger deviation in genome size. Given that BOG-1198 accounted for a majority of *Steriobacterales* MAGs, the genus was further examined. Members of this genus were found in several ecosystem subtypes and sample sites located in the northern United States. The majority Individual Assemblies of *Steroidobacteraceae* BOG-1198 MAGs were found at one of the three Alaskan sample sites (Figure 16).Note that all combined assembly MAGs were given the shrubland ecosystem subtype. A third of all BOG-1198 MAGs were combined assemblies.    
+&nbsp;&nbsp;&nbsp;&nbsp;Members in the order *Steriobacterales* were further examined to see if their high population is correlated with genome size or sample location. Only the *Steroidobacteraceae* family was found under the order. This family contain 7 genera with the genus *BOG-1198* accounting for 30 of the 50 of *Steriobacterales* MAGs (figs. 15A). Once again the distribution of genome size appears correlated to the total MAG counts for each genera in the *Steroidobacteraceae* family, with the higher populations corresponding to larger deviation in genome size (Fig. 15C,D). Given that *BOG-*1198* accounted for a majority of *Steriobacterales* MAGs, the genus was further examined. Members of this genus were found in several ecosystem subtypes and sample sites located in the northern United States (Fig. 16). The majority individual Assemblies of *Steroidobacteraceae BOG-1198* MAGs were found at one of the three Alaskan sample sites (Fig. 16B). Note that all combined assembly MAGs were given the shrubland ecosystem subtype. A third of all *BOG-1198* MAGs were combined assemblies.    
 
 
 &nbsp;
@@ -613,7 +626,7 @@ ggplot(data=NEON_MAGs_metagenomes_chemistry_Burkholderiaceae, aes(x=`Ecosystem S
 
 &nbsp;
 
-&nbsp;&nbsp;&nbsp;&nbsp;Members of the order *Burkholderiales* were also examined further at the genus level to determine if their broader diversity corresponded to the variety of ecosystems they were found in. Indeed, members of this order were found across the United States in several different ecosystem subtypes. Individually assembled members of the *Burkholderiaceae* including the genera *Caballeronia*, *Herbaspirillum*, and *Paraburkholderi*, were found mainly temperate forests with some members also found in tundra and and Boreal forest/Taiga subtypes (Fig. 16, 17). Interestingly, genera genome size distribution appears not to be correlated to the amount genera members. Despite only having 4 MAGs from the Niwot Ridge site in Colorado the *Herbaspirillum* genera contained a broad range of genome sizes. The *Caballeronia* genera, containing 5 MAGs, had a much tighter distribution of genome size (Fig. 16). Also of note is the appearance of the *Trinicki* genera in the Wind River Experimental Forest in Washington (Fig. 16,17). *Trinicki* members have prevously been found to form endosymbotic relations with the phyopathgenic fungi *Rhizopus microsporus* (Source). 
+&nbsp;&nbsp;&nbsp;&nbsp;Members of the order *Burkholderiales* were also examined further at the genus level to determine if their broader diversity corresponded to the variety of ecosystems they were found in. Indeed, members of this order were found across the United States in several different ecosystem subtypes(Fig. 17A,B). Individually assembled members of the *Burkholderiaceae* including the genera *Caballeronia*, *Herbaspirillum*, and *Paraburkholderi*, were found mainly temperate forests with some members also found in tundra and and Boreal forest/Taiga subtypes (Fig. 17, 18A). Interestingly, genera genome size distribution appears not to be correlated to the amount genera members. Despite only having 4 MAGs from the Niwot Ridge site in Colorado the *Herbaspirillum* genera contained a broad range of genome sizes (fig. 17C). The *Caballeronia* genera, containing 5 MAGs, had a much tighter distribution of genome size (Fig. 17C). Also of note is the appearance of the *Trinicki* genera in the Wind River Experimental Forest in Washington (Fig. 17,18). *Trinicki* members have previously been found to form endosymbotic relations with the phyopathgenic fungi *Rhizopus microsporus* (Source). 
 
 &nbsp;
 
@@ -621,7 +634,7 @@ ggplot(data=NEON_MAGs_metagenomes_chemistry_Burkholderiaceae, aes(x=`Ecosystem S
 
 ### Figure 19:
 ```{r,fig.height=20, fig.width=8,fig.align='center'}
-knitr::include_url("data/lab14/sankey-NEON_MAG_Toolik.txt.html")
+knitr::include_url("data/lab14/sankey-NEON_MAG_Toolik.html")
 ```
 **Figure 19:** **Sankey plot of all MAGs from Toolik Field Station, Alaska USA.** Samples collected in GOLD Study ID Gs0161344.
 &nbsp;
@@ -3035,7 +3048,7 @@ knitr::include_url("data/lab14/sankey-NEON_MAG_co_pavian.txt.html")
 
 ## Supplemental Figure 5: Sankey plot of all NEON combined assembly *Gammmaproteobacteria* MAGs
 ```{r,fig.height=20, fig.width=8,fig.align='center'}
-knitr::include_url("data/lab14/sankey-NEON_MAG_co_Gpro.txt.html")
+knitr::include_url("data/lab14/sankey-NEON_MAG_co_Gpro(1).html")
 ```
 **Supplemental Figure 5:** Sankey plot of all NEON combined assembly *Gammmaproteobacteria* MAGs
 

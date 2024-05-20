@@ -368,7 +368,7 @@ John_theme <-theme(axis.text.x=element_text(angle=45, vjust=1, hjust=1, color="b
 
 
 
-### Figure 1:Phylogenetic Tree of all MAG
+### Figure 1:
 ```{r,fig.height=14, fig.width=12, fig.align='center'}
 plottttttt <-ggtree(tree_bac_node_Gammaproteobacteria, layout="circular", branch.length="none")
 n=1
@@ -382,10 +382,10 @@ while (n!=29) {
 }
 plottttttt
 ```
-**Figure 1:** Phylogenetic Tree of all bacterial MAGs collected in GOLD Study ID Gs0161344 by the National Ecological Observatory Network with phylum labels.
+**Figure 1:** **Phylogenetic Tree of all bacterial MAGs.** Tree constructed from samples collected in GOLD Study ID Gs0161344 by the National Ecological Observatory Network.
 
 
-### Figure 2: Sankey plot of all NEON Individual assembly MAGs
+### Figure 2:
 ```{r,fig.height=20, fig.width=8,fig.align='center'}
 knitr::include_url("data/lab14/sankey-NEON_MAG_ind_pavian.txt.html")
 ```
@@ -397,7 +397,7 @@ knitr::include_url("data/lab14/sankey-NEON_MAG_ind_pavian.txt.html")
 
 &nbsp;
 
-### Figure 3:Uprooted maximum-likelyhood phylogentic tree of gammaproteobactria
+### Figure 3:
 ![**Figure 3:** Uprooted maximum-likelyhood phylogentic tree of gammaproteobactria based on 120 concatenated single copy proteins sequences from 780 reference genomes [@liao_reclassification_2020]. Figure adapted from Figure 2 of Liao et al.](/cloud/project/liaoFig2(1).png)
 
 &nbsp;
@@ -406,7 +406,7 @@ knitr::include_url("data/lab14/sankey-NEON_MAG_ind_pavian.txt.html")
 
 &nbsp;
 
-### Figure 4: Toolik Field Station, Alaska USA
+### Figure 4:
 
 <center>
 ![**Figure 4:** Toolik Field Station, Alaska USA [@noauthor_photo_nodate]](/cloud/project/Toolik_Field_Station.png)
@@ -432,7 +432,7 @@ tidyverse,knitr, ggtree, TDbook #A Companion Package for the Book "Data Integrat
 ## GOLD Study NEON Samples 
 
 
-### Figure 5: Phylogenetic tree with the *Gammaproteobacteria* class of Psedomondata highlighted in blue
+### Figure 5: 
 ```{r, , fig.height=14, fig.width=12, fig.align='center'}
 ggtree(tree_bac, layout="circular", branch.length="none") +
     geom_hilight(node=as.integer(phylumss[1,3]), fill=as.character(phylumss[1,4], alpha=.6)) +
@@ -441,7 +441,7 @@ ggtree(tree_bac, layout="circular", branch.length="none") +
     geom_cladelab(node=3048, label="Gammaproteobacteria", align=TRUE, angle='auto', offset=1,  
                   offset.text=0.5 , textcolor='steelblue', barcolor='steelblue',barsize=1.5, fontsize=5)
 ```
-**Figure 5:** Phylogenetic tree of all bacterial MAGs collected in GOLD Study ID Gs0161344 by the National Ecological Observatory Network with the *Gammaproteobacteria* class of *Pseudomondata* highlighted in blue.
+**Figure 5:** **Phylogenetic tree of all bacterial MAGs.** Tree contails all bacterial samples collected in GOLD Study ID Gs0161344 by the National Ecological Observatory Network with the *Gammaproteobacteria* class of *Pseudomondata* highlighted in blue.
 
 
 
@@ -451,14 +451,14 @@ ggtree(tree_bac, layout="circular", branch.length="none") +
 NEON_MAGs_bact_ind %>%
   ggplot(aes(x=fct_rev(fct_infreq(Phylum)), fill=`Site ID`))+geom_bar(position="dodge")+coord_flip()+labs(x="Phylum", y="NEON MAGs (n)")+theme_classic()+theme(axis.text.x=element_text(color="black"),axis.title.x=element_text(size = 15), axis.text.y=element_text(color="black",face = 'italic'),axis.title.y=element_text(size = 15), legend.title=element_text(size=15), legend.text=element_text(size=10))+ scale_y_continuous(limits=c(0,100),breaks = c(0,10,20,30,40,50,60,70,80,90,100))                                                                                                                                 
 ```
-**Figure 6:** NEON MAG Distribution by Phylum. NEON site distribution of MAGs collected in GOLD Study ID Gs0161344 organized by phylum.
+**Figure 6:** **NEON MAG distribution by phylum.** NEON site distribution of MAGs collected in GOLD Study ID Gs0161344 organized by phylum.
 
 ### Figure 7:
 ```{r,, fig.width = 6, fig.height = 4,fig.align='center'}
 NEON_MAGs_bact_ind_Novel %>% 
   ggplot(aes(x=fct_rev(fct_infreq(`Site ID`)), fill=`Site ID`))+geom_bar(show.legend=FALSE)+coord_flip()+labs(x="Site ID", y="Total Novel Bacteria (n)")+theme_classic()+theme(axis.text.x=element_text(color="black"),axis.title.x=element_text(size = 15), axis.text.y=element_text(color="black"))
 ```
-**Figure 7:** Novel Bacteria MAG NEON Site Distribution. Novel Bacteria were determined from MAGs constructed from individual assemblies. Novel indicates the MAGs could not be placed in an existing group at the species, genus or family level.
+**Figure 7:** **Novel Bacteria MAG NEON Site Distribution.** Novel Bacteria were determined from MAGs constructed from individual assemblies. Novel indicates the MAGs could not be placed in an existing group at the species, genus or family level.
 &nbsp;
 
 &nbsp;&nbsp;&nbsp;&nbsp;The vast majority of bacteria found in this study were determined to be novel species with PERCENT being unable to place phylogenetically at the genus level.
@@ -470,8 +470,7 @@ NEON_MAGs_bact_ind %>%
   filter(is.na(Class) | is.na(Order) | is.na(Family) | is.na(Genus) ) %>%
   ggplot(aes(x=fct_rev(`Phylum`), fill=`Phylum`))+geom_bar(show.legend=FALSE)+coord_flip()+labs(x="Phylum", y="Novel Genera (n)")+theme_classic()+theme(axis.text.x=element_text(color="black"),axis.title.x=element_text(size = 15), axis.text.y=element_text(color="black",face = 'italic'))+scale_y_continuous(limits = c(0,150), breaks = c(0,10,20,30,40,50,60,70,80,90,100,110,120,130,140,150))
 ```
-**Figure 8:** Novel Bacteria Distribution by Phyla. Novel bacteria were determined from MAGs constructed from individual assemblies in GOLD Study ID Gs0161344. Novel indicates the MAGs could not be placed in an existing group at the species, genus or family level.
-
+**Figure 8:** **Novel bacteria predominately found in the phylum** ***Actinomycetota.*** Novel bacteria were determined from MAGs constructed from individual assemblies in GOLD Study ID Gs0161344. Novel indicates the MAGs could not be placed in an existing group at the species, genus or family level.
 
 ### Figure 9:
 ```{r, fig.width = 12, fig.height = 8, fig.align='center'}
@@ -483,7 +482,7 @@ NEON_MAGs_metagenomes_chemistry_Bacteria %>%
   ggplot(aes(x=`Phylum`,y=`Genome Size (Kbp)`,color=`Phylum`))+geom_boxplot(show.legend = FALSE)+scale_y_continuous(limits=c(0,15000), breaks=c(0,2500,5000,7500,10000,12500,15000))+theme_classic()+labs(title="A", x="Phylum", y="Genome Size (Kbp)")+John_theme+theme(title=element_text(size=20))+
   ggplot(data=NEON_MAGs_metagenomes_chemistry_Bacteria, aes(x=`Gene Count`, y=`Genome Size (Kbp)`, color=`Phylum`))+geom_point()+labs(title="B", x="Gene Count (n)", y="")+scale_y_continuous(limits=c(0,15000), breaks=c(0,2500,5000,7500,10000,12500,15000))+scale_x_continuous(limits=c(0,15000), breaks=c(0,2500,5000,7500,10000,12500,15000))+theme_classic()+theme_classic()+theme(axis.text.x=element_text(color="black"),axis.title.x=element_text(size = 15), axis.text.y=element_text(color="black"), legend.title=element_text(size=15),legend.text=element_text(size=10),title=element_text(size=20))
 ```
-**Figure 9:** A) Boxplot of MAG genome size (kbp) for all bacterial phyla found in GOLD Study ID Gs0161344. B) Scatter plot of MAG Gene count vs genome size (kbp) for all bacterial MAGs in GOLD Study ID Gs0161344. MAGs are colored by phylum. 
+**Figure 9:** **Overall linear trend in gene count vs genome size for MAGs found across NEON sites.** A) Boxplot of MAG genome size (kbp) for all bacterial phyla. B) Scatter plot of MAG Gene count vs genome size (kbp) for all bacterial MAGs. MAGs are colored by phylum. All samples found in GOLD Study ID Gs0161344.
 
 &nbsp;
 
@@ -497,7 +496,7 @@ NEON_MAGs_metagenomes_chemistry_Bacteria %>%
 ```{r,fig.height=20, fig.width=8,fig.align='center'}
 knitr::include_url("data/lab14/sankey-NEON_MAG_ind_Gpro.txt.html")
 ```
-**Figure 10:** Sankey plot of individual assembly *Gammmaproteobacteria* MAGs in GOLD Study ID Gs0161344.
+**Figure 10:** **Sankey plot of individual assembly *Gammmaproteobacteria* MAGs** All samples found in GOLD Study ID Gs0161344.
 
 ### Figure 11: Phylogenetic Tree of *Gammaproteobacteria* MAGs with total number of bases and ecosystem subtype markers labels.
 ```{r, fig.height=12, fig.width=12,fig.align='center'}
@@ -505,7 +504,7 @@ ggtree(tree_Gammaproteobacteria, layout="circular")  %<+%
   NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria + 
   geom_point2(mapping=aes(color=`Ecosystem Subtype`, size=`Total Number of Bases`))+theme( legend.title=element_text(size=15),legend.text=element_text(size=10))
 ```
-**Figure 11:** Phylogenetic Tree of *Gammaproteobacteria* with Ecosystem Subtype and Number of Bases markers. This tree includes MAG in GOLD Study ID Gs0161344 filtered to those annotated as belonging to the class *Gammaproteobacteria*.
+**Figure 11:** **Phylogenetic Tree of** ***Gammaproteobacteria.*** Marker size is based on total number of bases in MAG. Markers colored by ecosystem subtype.Tree includes MAGs in GOLD Study ID Gs0161344 filtered to those annotated as belonging to the class *Gammaproteobacteria*.
 
 
 ### Figure 12:
@@ -513,7 +512,7 @@ ggtree(tree_Gammaproteobacteria, layout="circular")  %<+%
 NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria %>%
   ggplot(aes(x=Family))+geom_bar(aes(fill=Family),position=position_dodge2(width=0.9, preserve="single"),show.legend=FALSE)+coord_flip()+facet_wrap(vars(Order), scales="free_y", ncol=4)+labs(x="Family", y="MAGs (n)")+theme_classic()+theme(axis.text.x=element_text(color="black"),axis.title.x=element_text(size = 15), axis.text.y=element_text(color="black",face = 'italic'), legend.title=element_text(size=15),legend.text=element_text(size=10),strip.text = element_text(size=15, face = "italic"))+scale_y_continuous(limits=c(0,75), breaks=c(0,15,30,45,60))
 ```
-**Figure 12:** **Distribution of *Gammaproteobacteria* MAGs by Order.** This includes MAG reads from all NEON sites in GOLD Study ID Gs0161344 filtered to those annotated as belonging to the class *Gammaproteobacteria*.
+**Figure 12:** **Distribution of *Gammaproteobacteria* MAGs by order.** Barplot of *Gammaproteobacteria* families organized into panels by order. Barplot includes MAG reads from all NEON sites in GOLD Study ID Gs0161344 filtered to those annotated as belonging to the class *Gammaproteobacteria*.
 
 
 ### Figure 13:
@@ -522,7 +521,7 @@ NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria %>%
   mutate(`Genome Size (Kbp)`=as.integer(`Total Number of Bases`/1000)) %>%
   ggplot(aes(x=`Order`,y=`Genome Size (Kbp)`,color=`Order`))+geom_boxplot(show.legend = FALSE)+scale_y_continuous(limits=c(0,15000), breaks=c(2500,5000,7500,10000,12500,15000))+theme_classic()+labs(x="Order", y="Genome Size (Kbp)")+John_theme
 ```
-**Figure 13:** **Distribution of Genome Size (kbp) for *Gammaproteobacteria* Members.** Boxplots includes MAG reads from all NEON sites filtered to those annotated as belonging to the class *Gammaproteobacteria*
+**Figure 13:** **Genome Size (kbp) of *Gammaproteobacteria* Members between 2500-5000 Kbp with large variation in *Burkholderiales*.** Boxplots includes MAG reads from all NEON sites filtered to those annotated as belonging to the class *Gammaproteobacteria*.
 &nbsp;
 
 &nbsp;&nbsp;&nbsp;&nbsp;NEON MAGs assigned to the *Gammaproteobacteria* class were found in all ecosystem subtypes (Fig. 10). Unlike the larger NEON data set, the distribution of genome size of *Gammaproteobacteria* members was fairly narrow with members averaging between 2000 and 5000 kbp (Fig. 12). With the exception of *Burkholderiales*,*Steroidobacterales*, and *Xanthomonadales*, this was largely due to the fewer MAGs in each order(Fig.10). The vast majority of *Gammaproteobacteria* annotated in this study were novel species with only two bacteria belonging to the *Xanthomonadales* order assigned as *Stenotrophomonas stenotrophomonas* sp024519465. *Steroidobacterales* had by far the most annontated members, while *Burkholderiales* had the most family member groups (Fig. 11).        
@@ -546,7 +545,7 @@ NEON_MAGs_metagenomes_chemistry_Gammaproteobacteria %>%
 
 &nbsp;
 
-### Figure 15:*Steroidobacterale Steroidobacteraceae*
+### Figure 15:
 ```{r,fig.height=10, fig.width=6, fig.align='center'}
 NEON_MAGs_metagenomes_chemistry_Steroidobacterales <-NEON_MAGs_metagenomes_chemistry_Steroidobacterales  %>%
   mutate(`Genome Size (Kbp)`=as.integer(`Total Number of Bases`/1000))
@@ -556,15 +555,15 @@ NEON_MAGs_metagenomes_chemistry_Steroidobacterales  %>%
 #siteID  
   ggplot(data=NEON_MAGs_metagenomes_chemistry_Steroidobacterales,aes(x=Genus, `Site ID.x`,color=Genus))+geom_point(show.legend=FALSE)+labs(title="B", x="", y="Site ID")+theme_classic()+John_theme+theme(title=element_text(size=20))+
 #genomesize  
-  ggplot(data=NEON_MAGs_metagenomes_chemistry_Steroidobacterales, aes(x=`Genus`,y=`Genome Size (Kbp)`,color=Genus))+geom_boxplot(show.legend = FALSE)+scale_y_continuous(limits=c(0,15000), breaks=c(2500,5000,7500,10000,12500,15000))+theme_classic()+labs(title="C", x="Genus", y="Genome Size (Kbp)")+John_theme+theme(title=element_text(size=20))+
+  ggplot(data=NEON_MAGs_metagenomes_chemistry_Steroidobacterales, aes(x=`Genus`,y=`Genome Size (Kbp)`,color=Genus))+geom_boxplot(show.legend = FALSE)+scale_y_continuous(limits=c(0,15000), breaks=c(2500,5000,7500,10000,12500,15000))+theme_classic()+labs(title="C", x="Genus", y="Genome Size (kbp)")+John_theme+theme(title=element_text(size=20))+
 #genus count
   ggplot(data=NEON_MAGs_metagenomes_chemistry_Steroidobacterales,aes(x=Genus,fill=Genus))+geom_bar(show.legend=FALSE)+labs(title="D", x="Genus", y="MAGs (n)")+theme_classic()+scale_y_continuous(limits=c(0,50), breaks=c(0,10,20,30,40,50))+John_theme+theme(title=element_text(size=20))
   
 ```
-**Figure 15:** A) Dotplot of ecosystem subtype each genus of *Steroidobacteraceae* was found in. B) Dotplot of the NEON sites each genus of *Steroidobacteraceae* was found in. C) Boxplot of MAG genome sizes in Kbp for each genus of *Steroidobacteraceae*. D) Total MAG counts of each genus of *Steroidobacteraceae*. All samples belong to the GOLD Study ID Gs0161344.
+**Figure 15:** ***Steroidobacteraceae*** **members are found in a variet of ecosystems but are overwhelmimg represented by the genus** ***Bog-1198***. A) Dotplot of ecosystem subtype each genus of *Steroidobacteraceae* was found in. B) Dotplot of the NEON sites each genus of *Steroidobacteraceae* was found in. C) Boxplot of MAG genome sizes (kbp) for *Steroidobacteraceae* genera. D) Barplot of *Steroidobacteraceae* genera MAGs. All samples belong to the GOLD Study ID Gs0161344.
 
 
-### Figure 16: *Steroidobacteraceae BOG-1198*
+### Figure 16:
 ```{r,fig.height=8, fig.width=8, fig.align='center'}
 NEON_MAGs_metagenomes_chemistry_Bog <-NEON_MAGs_metagenomes_chemistry_Steroidobacterales  %>%
   filter(str_detect(Genus,"Bog-1198"))
@@ -576,16 +575,16 @@ NEON_MAGs_metagenomes_chemistry_Bog %>%
   ggplot(data=NEON_MAGs_metagenomes_chemistry_Bog, aes(x=`Site ID.x`))+geom_bar(show.legend=FALSE,fill='black')+labs(title="B", x="Site ID", y=" MAGs (n)")+theme_classic()+theme(axis.text.x=element_text(color="black"),axis.title.x=element_text(size = 15),
                    axis.text.y=element_text(color="black"),axis.title.y=element_text(size = 15), title=element_text(size=20))+scale_y_continuous(limits=c(0,10), breaks=c(0,1,2,3,4,5,6,7,8,9,10))
 ```
-**Figure 16:** ***Steroidobacteraceae BOG-1198*** **Ecosystem subtype and site distribution.** A) Barchart of *BOG-1198 MAGs* found in each ecosystem subtype. B) Barchart of *BOG-1198* MAGs found at each Site. All samples belong to the GOLD Study ID Gs0161344.   
+**Figure 16:** ***Steroidobacteraceae BOG-1198*** **is found predominately in the northern USA** A) Barchart of *BOG-1198 MAGs* found in NEON ecosystem subtypes. B) Barchart of *BOG-1198* MAGs found at NEON sites. All samples belong to the GOLD Study ID Gs0161344.   
 
 &nbsp;
 
-&nbsp;&nbsp;&nbsp;&nbsp;Members in the order *Steriobacterales* were further examined to see if their high population is correlated with genome size or sample location. Only the *Steroidobacteraceae* family was found under the order. This family contain 7 genera with the genus BOG-1198 accounting for 30 of the 50 of *Steriobacterales* MAGs (figs. 10,14). Once again the distribution of genome size appears correlated to the total MAG counts for each genera in the *Steroidobacteraceae* family, with the higher populations corresponding to larger deviation in genome size. Given that BOG-1198 accounted for a majority of *Steriobacterales* MAGs, the genus was further examined. Members of this genus were found in several ecosystem subtypes and sample sites located in the northern United States. The majority Individual Assemblies of *Steroidobacteraceae* BOG-1198 MAGs were found at one of the three Alaskan sample sites (Figure 16).Note that all combined assembly MAGs were given the shrubland ecosystem subtype. A third of all BOG-1198 MAGs were coassembled.    
+&nbsp;&nbsp;&nbsp;&nbsp;Members in the order *Steriobacterales* were further examined to see if their high population is correlated with genome size or sample location. Only the *Steroidobacteraceae* family was found under the order. This family contain 7 genera with the genus BOG-1198 accounting for 30 of the 50 of *Steriobacterales* MAGs (figs. 10,14). Once again the distribution of genome size appears correlated to the total MAG counts for each genera in the *Steroidobacteraceae* family, with the higher populations corresponding to larger deviation in genome size. Given that BOG-1198 accounted for a majority of *Steriobacterales* MAGs, the genus was further examined. Members of this genus were found in several ecosystem subtypes and sample sites located in the northern United States. The majority Individual Assemblies of *Steroidobacteraceae* BOG-1198 MAGs were found at one of the three Alaskan sample sites (Figure 16).Note that all combined assembly MAGs were given the shrubland ecosystem subtype. A third of all BOG-1198 MAGs were combined assemblies.    
 
 
 &nbsp;
 
-### Figure 17: *Burkholderiales*
+### Figure 17:
 ```{r,fig.height=10, fig.width=10, fig.align='center'}
 NEON_MAGs_metagenomes_chemistry_Burkholderiales <-NEON_MAGs_metagenomes_chemistry_Burkholderiales  %>%
   mutate(`Genome Size (Kbp)`=as.integer(`Total Number of Bases`/1000))
@@ -599,10 +598,10 @@ NEON_MAGs_metagenomes_chemistry_Burkholderiales  %>%
   ggplot(data=NEON_MAGs_metagenomes_chemistry_Burkholderiales,aes(x=Genus,fill=`Family`))+geom_bar()+labs(title="D", x="Genus", y="MAGs (n)")+theme_classic()+John_theme+theme(title=element_text(size=20),legend.text = element_text(size=10, face='italic'),legend.title = element_text(size=15))
   
 ```
-**Figure 17:** ***Burkholderiales***
+**Figure 17:** ***Burkholderiales*** **members are found in a variety of ecosystems and have a broad distribution of genome size.** A) Scatter plot of sample ecosystem subtype vs *Burkholderiales* genera. P B) Scatter plot of NEON site ID vs *Burkholderiales* genera. C) Box plot of *Burkholderiales* genera genome sizes (kbp) D) Bar plot of *Burkholderiales* genera MAGs. All plots colored by family group. All samples from GOLD Study ID Gs0161344.
 
 
-### Figure 18: *Burkholderiales Burkholderiaceae*
+### Figure 18:
 ```{r, fig.width=10, fig.align='center'}
 NEON_MAGs_metagenomes_chemistry_Burkholderiaceae <- NEON_MAGs_metagenomes_chemistry_Burkholderiales  %>%
    filter(str_detect(Family,"Burkholderiaceae" ))
@@ -612,7 +611,7 @@ ggplot(data=NEON_MAGs_metagenomes_chemistry_Burkholderiaceae, aes(x=`Ecosystem S
   
   ggplot(data=NEON_MAGs_metagenomes_chemistry_Burkholderiaceae, aes(x=`Site ID.x`, fill=Genus))+geom_bar()+labs(title="B", x="Site ID", y="MAGs (n)")+theme_classic()+theme(axis.title=element_text(size = 15),axis.text.y=element_text(color="black"), axis.text.x=element_text(color="black", angle=45, vjust=1, hjust=1), title=element_text(size=20),legend.text = element_text(size=10, face='italic'),legend.title = element_text(size=15))
 ```
-**Figure 18:** ***Burkholderiales Burkholderiaceae***
+**Figure 18:** **Genera of** ***Burkholderiaceae*** **are found in a variety of ecosystems and NEON locations.** A) Barplot of ***Burkholderiaceae*** genera MAGs found in NEON ecosystem subtypes. B) Barplot of ***Burkholderiaceae*** genera MAGs found at NEON sites. Site labeled NA is for combined assembly MAGS.   Bar colored by genus group. Bars colored as NA represent novel genera in *Burkholderiales*. All samples from GOLD Study ID Gs0161344.
 
 
 &nbsp;
@@ -627,7 +626,7 @@ ggplot(data=NEON_MAGs_metagenomes_chemistry_Burkholderiaceae, aes(x=`Ecosystem S
 ```{r,fig.height=20, fig.width=8,fig.align='center'}
 knitr::include_url("data/lab14/sankey-NEON_MAG_Toolik.txt.html")
 ```
-**Figure 19:** **Sankey plot of All Mags from Toolik Field Station, Alaska USA.** Samples collected in GOLD Study ID Gs0161344.
+**Figure 19:** **Sankey plot of all MAGs from Toolik Field Station, Alaska USA.** Samples collected in GOLD Study ID Gs0161344.
 
 
 ### Figure 20:
@@ -694,7 +693,7 @@ NEON_MAGs_metagenomes_chemistry_TOOL %>%
 ```
 **Figure 26:** **Genome Size Distributions at Toolik Field Station are inline with those of the wider Gold Study.** Boxplot of Phyla genome sizes (kbp) found at Toolik Field Station, Alaska USA in GOLD Study ID Gs0161344. 
 
-### Figure 27: 
+### Figure 27:
 ```{r, fig.height=12, fig.width=12, fig.align='center'}
 ggtree(tree_bac_TOOL_MAGs)  %<+%
   NEON_MAGs_metagenomes_chemistry + 
@@ -727,14 +726,14 @@ ggplot( aes(x=`Genus`,y=`Genome Size (Kbp)`,color=Genus))+geom_boxplot(show.lege
   ggplot(data=NEON_MAGs_metagenomes_chemistry_TOOL_Steroidobacterales,aes(x=Genus,fill=Genus))+geom_bar(show.legend=FALSE)+labs(title="B", x="Genus", y="MAGs (n)")+theme_classic()+John_theme+theme(title = element_text(size=15))
   
 ```
-**Figure 29:** **Distribution of** ***Steroidobacterales*** **Genera at Toolik Field Station, Alaska USA.** A) Boxplot of sample genome size (kbp) in the *Steroidobacterales* family at Toolik Field Station, Alaska USA. B) Barplot of MAGs for each genus in the *Steroidobacterales* family found at Toolik Field Station, Alaska USA. All samples from GOLD Study ID Gs0161344
+**Figure 29:** **Distribution of** ***Steroidobacterales*** **genera at Toolik Field Station, Alaska USA.** A) Boxplot of sample genome size (kbp) in the *Steroidobacterales* family at Toolik Field Station, Alaska USA. B) Barplot of MAGs for each genus in the *Steroidobacterales* family found at Toolik Field Station, Alaska USA. All samples from GOLD Study ID Gs0161344
 
 ### Figure 30:
 ```{r,fig.height=6, fig.width=6, fig.align='center'}
 NEON_MAGs_metagenomes_chemistry_TOOL_Burkholderiales  %>%
   ggplot(aes(x=Genus,fill=`Family`))+geom_bar()+labs(x="Genus", y="MAGs (n)")+theme_classic()+John_theme+theme(legend.title = element_text(size=15),legend.text = element_text(size=10, face='italic'))+scale_y_continuous(limits=c(0,5),breaks=rep(0:5))
 ```
-**Figure 30:** **Genus distribution of** ***Burkholderiales*** **is wide spread at Toolik Field Station, Alaska USA.** Barplot of MAGs in *Burkholderiales* Genera at Toolik Field Station, Alaska USA. NA represent novel genera in *Burkholderiales*. All samples from GOLD Study ID Gs0161344.
+**Figure 30:** **Genus distribution of** ***Burkholderiales*** **is wide spread at Toolik Field Station, Alaska USA.** Barplot of MAGs in *Burkholderiales* Genera at Toolik Field Station, Alaska USA. Bars colored by family group. NA represent novel genera in *Burkholderiales*. All samples from GOLD Study ID Gs0161344.
 
 
 
